@@ -50,6 +50,7 @@ for (var key in pkg.gulp.sprites) {
 		cssVarMap: function (s) {
 			s.name = 'sprite_' + key + '_' + s.name;
 		},
+		algorithm: sprite.algorithm || 'top-down',
 	};
 
 	var params = {

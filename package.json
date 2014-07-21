@@ -15,7 +15,8 @@
 			"icons": {
 				"css_dir": "./styles/src/sprites/",
 				"img_dir": "./images/sprites/icons/",
-				"img_path_prefix": "/images/sprites/icons/"
+				"img_path_prefix": "/images/sprites/icons/",
+				"algorithm": "binary-tree"
 			}
 		}
 	}

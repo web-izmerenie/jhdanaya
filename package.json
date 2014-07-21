@@ -1,0 +1,22 @@
+{
+	"dependencies": {
+		"gulp": "*",
+		"gulp-clean": "*",
+		"gulp.spritesmith": "*",
+		"gulp-task-listing": "*"
+	},
+	"scripts": {
+		"postinstall": "bash ./deploy.sh"
+	},
+
+	"gulp": {
+		"clean": [ "./styles/src/sprites/" ],
+		"sprites": {
+			"icons": {
+				"css_dir": "./styles/src/sprites/",
+				"img_dir": "./images/sprites/icons/",
+				"img_path_prefix": "/images/sprites/icons/"
+			}
+		}
+	}
+}

@@ -1,0 +1,10 @@
+*.swp
+*.log
+
+gulp
+node_modules
+
+styles/build
+scripts/build
+images/sprites/*/build
+styles/src/sprites

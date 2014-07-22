@@ -13,15 +13,16 @@ html.main_page body main {
 		min-height: @mainPageCardHeightMin;
 		margin-top: -@headerHeight;
 		margin-bottom: @headerHeight;
+		.background-image(linear-gradient(to bottom, #fff 0%, @bgColor 100%));
 
 		div.logo {
 			padding-top: 32px;
 			padding-left: @mainPageLogoLeft;
+			z-index: 1;
 
 			img.logo {
 				display: block;
 				.size(@mainPageLogoWidthMin, auto);
-				z-index: 0;
 			}
 
 			.istablish {
@@ -33,7 +34,6 @@ html.main_page body main {
 				text-align: center;
 				letter-spacing: 2px;
 				margin-top: 16px;
-				z-index: 0;
 			}
 		}
 
@@ -42,7 +42,7 @@ html.main_page body main {
 			.size(@mainPagePictureWidthMin, auto);
 			.absolute(@mainPagePictureTopMin, auto, auto, 50%);
 			margin-left: -(@mainPagePictureWidthMin / 2) + @mainPagePictureLeftOffsetMax;
-			z-index: -1;
+			z-index: 0;
 		}
 	} // section.card_1 }}}1
 } // html.main_page body main

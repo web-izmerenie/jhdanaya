@@ -2,7 +2,6 @@
  * Project mixins
  *
  * @author Viacheslav Lotsmanov
- * @author Fedor Pudeyan
  */
 
 // links {{{1
@@ -24,6 +23,7 @@
 	display: inline;
 	color: @color;
 	text-decoration: none;
+	cursor: pointer;
 
 	&:hover { color: @hoverColor; }
 
@@ -39,7 +39,6 @@
 .interactiveLink() {
 	.simpleLink();
 	border-bottom-style: dotted;
-	cursor: pointer;
 }
 
 // links }}}1

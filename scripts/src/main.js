@@ -7,6 +7,8 @@
 define(['basics/get_val'], function (getVal) {
 
 	var aliasMap = {
+		'modernizr': 'libs/modernizr.custom.01922',
+
 		// basics
 		'get_local_text': 'basics/get_local_text',
 		'get_val': 'basics/get_val',
@@ -26,11 +28,18 @@ define(['basics/get_val'], function (getVal) {
 	}); // require.config()
 
 	if (getVal('clientSide')) {
-		if (window.localStorage) {
-			// clear less cache
-			window.localStorage.clear();
-		}
-		require(['less']);
+		// less on client side
+		require(['modernizr'], function (Modernizr) {
+			if (Modernizr.localstorage) {
+				var ls = window.localStorage;
+				if (!ls.revision || ls.revision.toString() !== getVal('revision').toString()) {
+					// clear less cache
+					ls.clear();
+					ls.revision = getVal('revision');
+				}
+				require(['less']);
+			} else require(['less']);
+		});
 	}
 
 	require(['jquery'], function ($) {

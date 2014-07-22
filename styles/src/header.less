@@ -1,0 +1,52 @@
+/**
+ * Header styles
+ *
+ * @author Viacheslav Lotsmanov
+ */
+
+@headerBgColor: #c5b8b4;
+@headerMenuLinkColor: #7f7471;
+@headerMenuHoverLinkColor: #463a37;
+@headerMenuActiveLinkColor: white;
+
+html body header {
+	.relative;
+	.size(auto, @headerHeight);
+	background: @headerBgColor;
+	.fontMetrics(0, 0);
+
+	a.logo, img.logo {
+		display: block;
+		.size(153px, 100px);
+		.absolute(16px, auto, auto, 17px);
+	}
+
+	a.logo {
+		.linkNoLine;
+		img.logo { .absolute; visibility: hidden; }
+		&:before { .sprite(@sprite_icons_header_logo); }
+		&:after { .sprite(@sprite_icons_header_logo_active); }
+		.animatedIcon(absolute);
+	}
+
+	nav.menu {
+		.absolute(auto, @mainMargin, 23px - 6px);
+
+		a, span {
+			.linkNoLine;
+			display: inline-block;
+			.sansSerifFont('Roboto', 16px, 24px);
+			font-weight: 300;
+			text-transform: uppercase;
+			color: @headerMenuLinkColor;
+			margin-left: 30px;
+
+			&:hover { color: @headerMenuHoverLinkColor; }
+			&:first-child { margin-left: 0; }
+		}
+
+		span, span:hover { cursor: default; color: @headerMenuActiveLinkColor; }
+		a.active { color: @headerMenuActiveLinkColor; }
+		a.active:hover { color: @headerMenuHoverLinkColor; }
+	} // nav.menu
+} // html body header

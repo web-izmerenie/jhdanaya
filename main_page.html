@@ -21,13 +21,13 @@
 			require.config({
 				baseUrl: './scripts/src/',
 				//urlArgs: 'v=1',
-				urlArgs: 'v=' + (new Date()).getTime(),
+				urlArgs: 'v=' + (new Date()).getTime(), // temporary development mode
 			});
 			require(['basics/get_val'], function (getVal) {
 
 				getVal.set('clientSide', true);
 				getVal.set('lang', 'ru');
-				getVal.set('revision', '1');
+				getVal.set('revision', (new Date()).getTime()); // temporary development mode
 				getVal.set('tplPath', './');
 
 				require(['main']);
@@ -40,7 +40,16 @@
 <body>
 	<div class="top_side">
 		<header>
-			//
+			<a class="logo" href="./main_page.html">
+				<img class="logo" alt="Даная — Истинные Драгоценности" src="./images/header_logo.png" />
+			</a>
+			<nav class="menu">
+				<span>Бренды</span>
+				<!--<a href="#" class="active">Изделия</a>-->
+				<a href="#">О компании</a>
+				<!--<a href="#">События</a>-->
+				<a href="#">Магазины</a>
+			</nav>
 		</header>
 		<main>
 			Задачи, возникающие в ядерной физике, — это <a href="#">типичный пример</a>

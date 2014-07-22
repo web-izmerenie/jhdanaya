@@ -5,6 +5,7 @@
  */
 
 html.main_page body main {
+	.fontMetrics(0, 0);
 	margin: 0 auto;
 	min-width: @minWidth;
 
@@ -12,25 +13,28 @@ html.main_page body main {
 		min-height: @mainPageCardHeightMin;
 		margin-top: -@headerHeight;
 		margin-bottom: @headerHeight;
-		.fontMetrics(0, 0);
 
-		img.logo {
-			display: block;
-			.size(@mainPageLogoWidthMin, auto);
-			margin: 32px auto auto @mainPageLogoLeft;
-			z-index: 0;
-		}
+		div.logo {
+			padding-top: 32px;
+			padding-left: @mainPageLogoLeft;
 
-		.istablish {
-			display: block;
-			.size(@mainPageLogoWidthMin, auto);
-			.sansSerifFont('Roboto', 11px);
-			color: #a69a96;
-			text-transform: uppercase;
-			text-align: center;
-			letter-spacing: 2px;
-			margin: 16px auto auto @mainPageLogoLeft;
-			z-index: 0;
+			img.logo {
+				display: block;
+				.size(@mainPageLogoWidthMin, auto);
+				z-index: 0;
+			}
+
+			.istablish {
+				display: block;
+				.size(@mainPageLogoWidthMin, auto);
+				.sansSerifFont('Roboto', 11px);
+				color: #a69a96;
+				text-transform: uppercase;
+				text-align: center;
+				letter-spacing: 2px;
+				margin-top: 16px;
+				z-index: 0;
+			}
 		}
 
 		img.picture {

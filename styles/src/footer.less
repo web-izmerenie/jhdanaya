@@ -5,5 +5,32 @@
  */
 
 html body footer {
-	//
-}
+	.size(100%, @footerHeight);
+	min-width: @minWidth;
+	.fontMetrics(0, 0);
+	.relative;
+
+	.developer {
+		display: block;
+		.absolute(auto, @mainMargin, 11px - 6px);
+		.sansSerifFont('Roboto', 12px, 20px);
+		color: #baaca8;
+		text-transform: uppercase;
+		cursor: default;
+
+		a {
+			.linkNoLine;
+			.fontMetrics(0, 0);
+			&, &:before { .sprite(@sprite_icons_wi_logo); }
+			&:after { .sprite(@sprite_icons_wi_logo_active); }
+			background: none;
+			display: inline-block;
+			white-space: nowrap;
+			text-indent: 10000px;
+			overflow: hidden;
+			.animatedIcon;
+			margin-left: 1px;
+			top: 2px;
+		}
+	} // .developer
+} // html body footer

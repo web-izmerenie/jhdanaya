@@ -47,5 +47,8 @@ html, body {
 html body {
 	overflow-y: scroll;
 	color: @contentColor;
-	font: @contentFont;
+	.fontMetrics(0, 0);
+	background: @bgColor;
+
+	main { font: @contentFont; }
 } // html body

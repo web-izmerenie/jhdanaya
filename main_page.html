@@ -24,14 +24,11 @@
 				urlArgs: 'v=' + (new Date()).getTime(), // temporary development mode
 			});
 			require(['basics/get_val'], function (getVal) {
-
 				getVal.set('clientSide', true);
 				getVal.set('lang', 'ru');
 				getVal.set('revision', (new Date()).getTime()); // temporary development mode
 				getVal.set('tplPath', './');
-
 				require(['main']);
-
 			});
 		//]]>
 	</script>

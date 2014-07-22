@@ -1,0 +1,26 @@
+/**
+ * Animated icon mixin
+ *
+ * @author Viacheslav Lotsmanov
+ */
+
+.animatedIcon(@position: relative) {
+	position: @position;
+
+	&:before, &:after {
+		.pseudoBlock;
+		.absolute(0, auto, auto, 0);
+		.opacity(1);
+		.transition(opacity @animationSpeed linear);
+	}
+
+	&:after {
+		.pseudoBlock;
+		.opacity(0);
+	}
+
+	&:hover {
+		&:before { .opacity(0); }
+		&:after { .opacity(1); }
+	}
+}

@@ -1,0 +1,15 @@
+/**
+ * Pseudo-blocks mixins
+ *
+ * @author Viacheslav Lotsmanov
+ * @author Fedor Pudeyan
+ */
+
+.pseudo(@content: '', @display: inline) {
+	content: @content;
+	display: @display;
+}
+
+.pseudoBlock(@content: '') {
+	.pseudo(@content, block);
+}

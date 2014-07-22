@@ -64,6 +64,7 @@ for (var key in pkg.gulp.sprites) {
 	);
 	gulp.task(
 		'sprite-' + key,
+		['clean-sprite-' + key],
 		spriteTaskBuild.bind(null, key, spriteParams, params)
 	);
 }

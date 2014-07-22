@@ -1,0 +1,38 @@
+/**
+ * Position mixins
+ *
+ * @author Viacheslav Lotsmanov
+ * @author Fedor Pudeyan
+ */
+
+.relative(@top: auto, @right: auto, @bottom: auto, @left: auto) {
+	position: relative;
+	top: @top;
+	right: @right;
+	bottom: @bottom;
+	left: @left;
+}
+
+.absolute(@top: auto, @right: auto, @bottom: auto, @left: auto) {
+	position: absolute;
+	top: @top;
+	right: @right;
+	bottom: @bottom;
+	left: @left;
+}
+
+.absoluteStretch(@amount: 0) {
+	.absolute(@amount, @amount, @amount, @amount);
+}
+
+.fixed(@top: auto, @right: auto, @bottom: auto, @left: auto) {
+	position: fixed;
+	top: @top;
+	right: @right;
+	bottom: @bottom;
+	left: @left;
+}
+
+.fixedStretch(@amount: 0) {
+	.fixed(@amount, @amount, @amount, @amount);
+}

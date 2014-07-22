@@ -1,0 +1,53 @@
+/**
+ * Variables module
+ *
+ * @author Viacheslav Lotsmanov
+ */
+
+// paths
+@tplPath: '../../';
+@imgPrefix: '@{tplPath}images/';
+@fontsPrefix: '@{tplPath}fonts/';
+
+// revision for images and fonts
+@revision: 1;
+
+// sizes {{{1
+
+@minWidth: 980px;
+@maxWidth: 1600px;
+
+@headerHeight: 129px;
+@footerHeight: 74px;
+
+@mainMargin: 25px;
+@mainMargin2: 44px;
+
+// sizes }}}1
+
+// fonts {{{1
+
+@contentFontSize: 15px;
+@contentFontLine: 24px;
+@contentFontFamily: Arial, 'Liberation Sans', Helvetica, sans-serif;
+@contentFont: ~'@{contentFontSize}/@{contentFontLine}' @contentFontFamily;
+
+// fonts }}}1
+
+// colors {{{1
+
+@contentColor: #332724;
+
+@linkColor: lighten(#332724, 25%);
+@linkColorUnderline: lighten(@linkColor, 25%);
+@activeLinkColor: lighten(@linkColor, 25%);
+@activeLinkColorUnderline: lighten(@activeLinkColor, 25%);
+
+// colors }}}1
+
+// animations {{{1
+
+@animationSpeed: 0.2s;
+@animationCurve: ease-in-out;
+
+// animations }}}1

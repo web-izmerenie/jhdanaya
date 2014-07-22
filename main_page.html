@@ -1,0 +1,57 @@
+<!doctype html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="ru" lang="ru" class="main_page">
+<head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=980" />
+	<title>Даная — Истинные Драгоценности</title>
+
+	<!--[if lt IE 10]>
+		<meta http-equiv="refresh" content="0; url=/ie_old/ru.html" />
+		<style>* { display: none !important; }</style>
+		<script>throw new Error('IE less than 10');</script>
+	<![endif]-->
+
+	<link href="./favicon.ico?v=1" rel="shortcut icon" type="image/x-icon" />
+	<!--<link rel="stylesheet" type="text/css" href="./styles/build/build.css?v=1" />
+	<script src="./scripts/build/build.js?v=1"></script>-->
+	<link rel="stylesheet/less" type="text/css" href="./styles/src/main.less?v=1" />
+	<script src="./scripts/src/libs/require.js?v=1"></script>
+	<script>
+		//<![CDATA[
+			require.config({
+				baseUrl: './scripts/src/',
+				//urlArgs: 'v=1',
+				urlArgs: 'v=' + (new Date()).getTime(),
+			});
+			require(['basics/get_val'], function (getVal) {
+
+				getVal.set('clientSide', true);
+				getVal.set('lang', 'ru');
+				getVal.set('revision', '1');
+				getVal.set('tplPath', './');
+
+				require(['main']);
+
+			});
+		//]]>
+	</script>
+</head>
+
+<body>
+	<div class="top_side">
+		<header>
+			//
+		</header>
+		<main>
+			Задачи, возникающие в ядерной физике, — это <a href="#">типичный пример</a>
+			задач <a>нескольких</a> тел. Ядра состоят из нуклонов (протонов и нейтронов),
+			и в типичных ядрах содержатся десятки и сотни нуклонов. Это число слишком
+			велико для точно решаемых задач, но всё же слишком мало́ для того, чтобы можно
+			было пользоваться методами статистической физики. Это и привело к большому
+			разнообразию различных моделей атомных ядер.
+		</main>
+	</div>
+	<footer>
+	</footer>
+</body>
+</html>

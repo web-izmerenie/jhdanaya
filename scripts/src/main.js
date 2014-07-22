@@ -44,6 +44,9 @@ define(['basics/get_val'], function (getVal) {
 
 	require(['jquery'], function ($) {
 		$(function domReady() {
+			var $html = $('html');
+
+			if ($html.hasClass('main_page')) require(['pages/main']);
 		}); // domReady()
 	});
 

@@ -4,16 +4,12 @@
  * @author Viacheslav Lotsmanov
  */
 
-@headerBgColor: #c5b8b4;
-@headerMenuLinkColor: #7f7471;
-@headerMenuHoverLinkColor: #463a37;
-@headerMenuActiveLinkColor: white;
-
 html body header {
-	.relative;
-	.size(auto, @headerHeight);
+	.absolute(0, auto, auto, 0);
+	.size(100%, @headerHeight);
 	background: @headerBgColor;
 	.fontMetrics(0, 0);
+	min-width: @minWidth;
 
 	a.logo, img.logo {
 		display: block;
@@ -50,3 +46,7 @@ html body header {
 		a.active:hover { color: @headerMenuHoverLinkColor; }
 	} // nav.menu
 } // html body header
+
+html.main_page body header {
+	.relative(@mainPageCardHeightMin);
+} // html.main_page body header

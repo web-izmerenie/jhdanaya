@@ -10,6 +10,8 @@ define(function () {
 
 	exports.values = {
 
+		minWidth: 980, // px
+		maxWidth: 1600, // px
 		animationSpeed: 200, // ms
 
 	};

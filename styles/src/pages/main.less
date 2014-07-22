@@ -45,6 +45,35 @@ html.main_page body main {
 			margin-left: -(@mainPagePictureWidthMin / 2) + @mainPagePictureLeftOffsetMax;
 			z-index: 0;
 		}
+
+		.next_card {
+			.linkNoLine;
+			display: block;
+			.size(@mainPageNextCardSizeMin);
+			.absolute(auto, auto, @mainPageNextCardBottomMin, 50%);
+			margin-left: -(@mainPageNextCardSizeMin / 2);
+			background: @mainPageNextCardBgColor;
+			.border-radius(@mainPageNextCardSizeMin / 2);
+			.transit(~'background-color');
+			z-index: 2;
+			&:hover { background: @mainPageNextCardHoverBgColor; }
+
+			& > span {
+				&, &:before { .sprite(@sprite_icons_arrow_down); }
+				&:after { .sprite(@sprite_icons_arrow_down_active); }
+				background: none;
+				display: block;
+				.animatedIcon;
+				.absolute(50%, auto, auto, 50%);
+				margin-left: -(@sprite_icons_arrow_down-width / 2);
+				margin-top: -(@sprite_icons_arrow_down-height / 2) + 2px;
+			}
+
+			&:hover {
+				&>span:before { .opacity(0); }
+				&>span:after { .opacity(1); }
+			}
+		}
 	} // section.card_1 }}}1
 
 	section.brands { // {{{1
@@ -76,7 +105,7 @@ html.main_page body main {
 						background: @mainPageBrandHoverBgColor;
 					}
 				}
-			}
+			} // &>li
 		} // ul.brands_list
 	} // section.brands }}}1
 } // html.main_page body main

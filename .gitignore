@@ -8,3 +8,5 @@ styles/build
 scripts/build
 images/sprites/*/build
 styles/src/sprites
+
+http-markup-server*

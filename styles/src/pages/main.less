@@ -9,7 +9,7 @@ html.main_page body main {
 	margin: 0 auto;
 	min-width: @minWidth;
 
-	section.card_1 { // {{{1
+	section.top_card { // {{{1
 		min-height: @mainPageCardHeightMin;
 		margin-top: -@headerHeight;
 		margin-bottom: @headerHeight;
@@ -45,4 +45,37 @@ html.main_page body main {
 			z-index: 0;
 		}
 	} // section.card_1 }}}1
+
+	section.brands { // {{{1
+		ul.brands_list {
+			&, &>li {
+				.resetList;
+				display: block;
+			}
+
+			&>li {
+				border-bottom: 1px solid @mainPageBrandBorderColor;
+				&:first-child { padding-top: 15px; }
+
+				&, &>a {
+					.sansSerifFont('Roboto-Thin', @mainPageBrandFontSizeMin, @mainPageBrandLineHeightMin);
+					color: @mainPageBrandColor;
+					text-transform: uppercase;
+					text-align: center;
+				}
+
+				&>a {
+					.linkNoLine;
+					display: block;
+					color: @mainPageBrandColor;
+					.transit(~'background-color, color');
+
+					&:hover {
+						color: @mainPageBrandHoverColor;
+						background: @mainPageBrandHoverBgColor;
+					}
+				}
+			}
+		} // ul.brands_list
+	} // section.brands }}}1
 } // html.main_page body main

@@ -14,56 +14,75 @@
 
 // sizes {{{1
 
-@minWidth: 980px;
-@maxWidth: 1600px;
+	@minWidth: 980px;
+	@maxWidth: 1600px;
 
-@headerHeight: 129px;
-@footerHeight: 74px;
+	@headerHeight: 129px;
+	@footerHeight: 74px;
 
-@mainMargin: 25px;
-@mainMargin2: 45px;
+	@mainMargin: 25px;
+	@mainMargin2: 45px;
 
-// main page
-@mainPageCardHeightMin: 650px;
-@mainPageLogoWidthMin: 174px;
-@mainPageLogoLeft: 16px;
-@mainPagePictureWidthMin: 539px;
-@mainPagePictureTopMin: 56px;
-@mainPagePictureLeftOffsetMax: 134px;
+	// pages {{{2
+
+		// main page
+		@mainPageCardHeightMin: 650px;
+		@mainPageLogoWidthMin: 174px;
+		@mainPageLogoLeft: 16px;
+		@mainPagePictureWidthMin: 539px;
+		@mainPagePictureTopMin: 56px;
+		@mainPagePictureLeftOffsetMax: 134px;
+		@mainPageBrandFontSizeMin: 98px;
+		@mainPageBrandLineHeightMin: 126px;
+
+	// pages }}}2
 
 // sizes }}}1
 
 // fonts {{{1
 
-@contentFontSize: 15px;
-@contentFontLine: 24px;
-@contentFontFamily: Arial, 'Liberation Sans', Helvetica, sans-serif;
-@contentFont: ~'@{contentFontSize}/@{contentFontLine}' @contentFontFamily;
+	@contentFontSize: 15px;
+	@contentFontLine: 24px;
+	@contentFontFamily: Arial, 'Liberation Sans', Helvetica, sans-serif;
+	@contentFont: ~'@{contentFontSize}/@{contentFontLine}' @contentFontFamily;
 
 // fonts }}}1
 
 // colors {{{1
 
-@bgColor: #ede6e4;
-@contentColor: #332724;
+	@bgColor: #ede6e4;
+	@contentColor: #332724;
 
-// link
-@linkColor: lighten(#332724, 25%);
-@linkColorUnderline: lighten(@linkColor, 25%);
-@activeLinkColor: lighten(@linkColor, 25%);
-@activeLinkColorUnderline: lighten(@activeLinkColor, 25%);
+	// link
+	@linkColor: lighten(#332724, 25%);
+	@linkColorUnderline: lighten(@linkColor, 25%);
+	@activeLinkColor: lighten(@linkColor, 25%);
+	@activeLinkColorUnderline: lighten(@activeLinkColor, 25%);
 
-// header
-@headerBgColor: #c5b8b4;
-@headerMenuLinkColor: #7f7471;
-@headerMenuHoverLinkColor: #463a37;
-@headerMenuActiveLinkColor: white;
+	// header
+	@headerBgColor: #c5b8b4;
+	@headerMenuLinkColor: #7f7471;
+	@headerMenuHoverLinkColor: #463a37;
+	@headerMenuActiveLinkColor: white;
+
+	// footer
+	@footerColor: #baaca8;
+
+	// pages {{{2
+
+		// main page
+		@mainPageBrandColor: #39312e;
+		@mainPageBrandHoverColor: white;
+		@mainPageBrandBorderColor: #dcd3c9;
+		@mainPageBrandHoverBgColor: #c5b8b4;
+
+	// pages }}}2
 
 // colors }}}1
 
 // animations {{{1
 
-@animationSpeed: 0.2s;
-@animationCurve: ease-in-out;
+	@animationSpeed: 0.2s;
+	@animationCurve: ease-in-out;
 
 // animations }}}1

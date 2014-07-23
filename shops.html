@@ -14,19 +14,21 @@
 	<link href="./favicon.ico?v=1" rel="shortcut icon" type="image/x-icon" />
 	<!--<link rel="stylesheet" type="text/css" href="./styles/build/build.css?v=1" />
 	<script src="./scripts/build/build.js?v=1"></script>-->
-	<link rel="stylesheet/less" type="text/css" href="./styles/src/main.less?v=1" />
+	<!--<link rel="stylesheet/less" type="text/css" href="./styles/src/main.less?v=1" />-->
+	<link rel="stylesheet" type="text/css" href="./styles/build/build.css?v=1" />
 	<script src="./scripts/src/libs/require.js?v=1"></script>
 	<script>
 		//<![CDATA[
 			require.config({
 				baseUrl: './scripts/src/',
-				//urlArgs: 'v=1',
-				urlArgs: 'v=' + (new Date()).getTime(), // temporary development mode
+				urlArgs: 'v=1',
+				//urlArgs: 'v=' + (new Date()).getTime(), // temporary development mode
 			});
 			require(['basics/get_val'], function (getVal) {
 				getVal.set('clientSide', true);
 				getVal.set('lang', 'ru');
-				getVal.set('revision', (new Date()).getTime()); // temporary development mode
+				//getVal.set('revision', (new Date()).getTime()); // temporary development mode
+				getVal.set('revision', '1');
 				getVal.set('tplPath', './');
 				require(['main']);
 			});

@@ -49,3 +49,20 @@ html body header {
 html.main_page body header {
 	.relative(@mainPageCardHeightMin);
 } // html.main_page body header
+
+html.fixed_header body header {
+	height: @smallHeaderHeight;
+	.fixed(0, auto, auto, 0);
+	top: 0 !important;
+
+	a.logo, img.logo {
+		display: block;
+		.size(38px, 37px);
+		.absolute(11px, auto, auto, 27px);
+	}
+
+	a.logo {
+		&:before { .sprite(@sprite_icons_header_small_logo); }
+		&:after { .sprite(@sprite_icons_header_small_logo_active); }
+	}
+}

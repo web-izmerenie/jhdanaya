@@ -13,6 +13,8 @@ define(function () {
 		minWidth: 980, // px
 		maxWidth: 1600, // px
 		animationSpeed: 200, // ms
+		fixedHeaderHTMLClass: 'fixed_header',
+		headerSmallLogoURL: 'header_small_logo.png',
 
 	};
 

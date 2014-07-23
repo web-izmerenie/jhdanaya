@@ -1,0 +1,56 @@
+/**
+ * "shops" page styles
+ *
+ * @author Viacheslav Lotsmanov
+ */
+
+html body main.shops {
+	max-width: @maxWidth - ((@mainMargin2 - @mainMargin) * 2);
+	.fontMetrics(0, 0);
+
+	& > ul.shops_list {
+		.resetList;
+
+		& > li {
+			.resetList;
+			display: block;
+
+			.top_line {
+				display: block;
+				padding-bottom: 15px;
+
+				address, .phone {
+					display: block;
+					max-width: 78.24%;
+					.sansSerifFont('Roboto', 18px, 24px);
+					text-transform: uppercase;
+				}
+
+				.phone a { .linkNoLine; }
+				.phone a, .phone a:hover { color: @contentColor; }
+
+				.brand {
+					display: block;
+					float: right;
+					max-width: 20.70%;
+				}
+			} // .top_line
+
+			.photos {
+				&:after { .pseudoBlock; clear: both; }
+				.left_col { float: left; width: 78.24%; .relative; }
+				.right_col { float: right; width: 20.70%; .relative; }
+
+				.left_col img, .right_col img { display: block; .size(100%, auto); }
+				.right_col {
+					&>* + * {
+						margin-top: 10px;
+						&:first-child { margin-top: 0; }
+					}
+				}
+			} // .photos
+
+			& + li { padding-top: 64px - 18px; }
+		} // & > li
+	} // & > ul.shops_list
+} // html body main.shops

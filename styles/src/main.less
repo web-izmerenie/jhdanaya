@@ -33,6 +33,7 @@
 
 // pages
 @import "pages/main";
+@import "pages/shops";
 
 // imports }}}1
 
@@ -109,6 +110,8 @@ html body {
 			&, &:hover { color: @contentColor; }
 		}
 	} // nav.nav_block }}}1
+
+	h1 + main { padding-top: 55px - 27px; }
 
 	main { // {{{1
 		min-width: @minWidth;

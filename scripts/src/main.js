@@ -18,6 +18,7 @@ define(['basics/get_val'], function (getVal) {
 
 	if (getVal('clientSide')) {
 		paths.jquery = 'libs/jquery-2.1.1';
+		paths['jquery.easing'] = 'libs/jquery.easing-1.3';
 		paths.less = 'fat/less-1.7.3';
 	}
 

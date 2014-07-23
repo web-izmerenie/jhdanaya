@@ -58,13 +58,11 @@ html.main_page body main {
 				.opacity(0);
 				.transition(
 					opacity 1s @animationCurve,
-					left (@mainPageSliderInterval + 3s) @animationCurve
+					left (@mainPageSliderInterval + 6s) linear
 				);
 
-				&.current {
-					.opacity(1);
-					left: (@offsetVal/ 2);
-				}
+				&.current { left: (@offsetVal/ 2); }
+				&.visible { .opacity(1); }
 			}
 		} // .slider }}}2
 

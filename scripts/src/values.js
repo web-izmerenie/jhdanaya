@@ -16,8 +16,9 @@ define(function () {
 		animationCurve: 'easeInOutQuad', // easing
 		fixedHeaderHTMLClass: 'fixed_header',
 		headerSmallLogoURL: 'header_small_logo.png',
-		footerHeight: 74,
-		waiterTimeout: 200,
+		footerHeight: 74, // px
+		waiterTimeout: 200, // ms
+		mainPageSliderInterval: 4, // sec
 
 	};
 

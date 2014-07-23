@@ -19,7 +19,7 @@ html.main_page body main {
 		.background-image(linear-gradient(to bottom, #fff 0%, @bgColor 100%));
 		.relative;
 
-		div.logo {
+		div.logo { // {{{2
 			padding-top: 32px;
 			padding-left: @mainPageLogoLeft;
 			z-index: 1;
@@ -39,17 +39,27 @@ html.main_page body main {
 				letter-spacing: 2px;
 				margin-top: 16px;
 			}
-		}
+		} // div.logo }}}2
 
-		img.picture {
+		.slider { // {{{2
 			display: block;
 			.size(@mainPagePictureWidthMin, auto);
 			.absolute(@mainPagePictureTopMin, auto, auto, 50%);
 			margin-left: -(@mainPagePictureWidthMin / 2) + @mainPagePictureLeftOffsetMax;
 			z-index: 0;
-		}
 
-		.next_card {
+			img {
+				display: block;
+				.absolute(0, auto, auto, 0);
+				.size(100%, auto);
+				.opacity(0);
+				.transition(opacity @animationSpeed*4 @animationCurve);
+
+				&.current { .opacity(1); }
+			}
+		} // .slider }}}2
+
+		.next_card { // {{{2
 			.linkNoLine;
 			display: block;
 			.size(@mainPageNextCardSizeMin);
@@ -76,7 +86,7 @@ html.main_page body main {
 				&>span:before { .opacity(0); }
 				&>span:after { .opacity(1); }
 			}
-		}
+		} // .next_card }}}2
 	} // section.card_1 }}}1
 
 	section.brands { // {{{1

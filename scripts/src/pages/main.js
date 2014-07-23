@@ -19,8 +19,11 @@ stylesReady(function () {
 	var minW = getVal('minWidth');
 	var maxW = getVal('maxWidth');
 
-	$topCard.each(function () {
+	$topCard.each(function () { // {{{1
+
 		var $card = $(this);
+		var $slider = $card.find('.slider');
+
 		var bindSuffix = '.top_card_resize';
 
 		var resizeHandler = $.proxy(setTimeout, null, function () {
@@ -36,7 +39,34 @@ stylesReady(function () {
 
 		$w.on('resize' + bindSuffix, resizeHandler);
 		resizeHandler();
-	});
+
+		$slider.each(function () { // {{{2
+			var $slider = $(this);
+			var $pics = $slider.find('img');
+
+			if ($pics.size() < 2) {
+				$pics.eq(0).addClass('current');
+				return;
+			}
+
+			if ($pics.filter('.current').size() < 1) {
+				$pics.eq(0).addClass('current');
+			}
+
+			var loop = $.proxy(setTimeout, null, function () {
+				var $next = $pics.filter('.current').next();
+				if ($next.size() < 1) $next = $pics.eq(0);
+
+				$pics.removeClass('current');
+				$next.addClass('current');
+
+				setTimeout(loop, getVal('animationSpeed') * 4);
+			}, getVal('mainPageSliderInterval') * 1000);
+
+			loop();
+		}); // $slider }}}2
+
+	}); // $topCard }}}1
 
 	$main.find('.next_card').on('click', function () {
 		$scroll.animate({ scrollTop: $topCard.height() + 'px' }, {

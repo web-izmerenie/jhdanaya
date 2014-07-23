@@ -50,5 +50,73 @@ html body {
 	.fontMetrics(0, 0);
 	background: @bgColor;
 
-	main { font: @contentFont; }
+	h1 { // {{{1
+		display: block;
+		.sansSerifFont('Roboto-Thin', 52px);
+		text-transform: uppercase;
+		max-width: @maxWidth - ((@mainMargin2 - @mainMargin) * 2);
+		margin-left: auto;
+		margin-right: auto;
+		.box-sizing(border-box);
+		padding: 0 @mainMargin;
+		padding-top: 80px - 45px;
+	} // h1 }}}1
+
+	nav.nav_block { // {{{1
+		min-width: @minWidth;
+		max-width: @maxWidth - ((@mainMargin2 - @mainMargin) * 2);
+		margin-left: auto;
+		margin-right: auto;
+		.box-sizing(border-box);
+		padding-left: @mainMargin;
+		padding-right: @mainMargin;
+		@pX: 11px; // padding X-axis
+		padding-top: 36px - 9px;
+
+		&>a, &>span {
+			.linkNoLine;
+			display: inline-block;
+			padding-left: @pX;
+			padding-right: @pX;
+			.sansSerifFont('Roboto-Light', 14px, 24px);
+			text-transform: uppercase;
+			white-space: nowrap;
+			padding-top: 9px;
+			padding-bottom: 8px;
+			margin-right: @pX;
+
+			&:first-child { margin-left: -@pX; }
+			&:last-child { margin-right: 0; }
+		}
+
+		& > a > span {
+			display: inline;
+			border-bottom: 1px solid @linkColorUnderline;
+			.transit(~'border-bottom-color');
+		}
+
+		& > a:hover > span {
+			border-bottom-color: @activeLinkColorUnderline;
+		}
+
+		&>span {
+			cursor: default;
+			@bgC: #dcd1cd;
+			background: @bgC;
+			border-bottom-color: @bgC;
+
+			&, &:hover { color: @contentColor; }
+		}
+	} // nav.nav_block }}}1
+
+	main { // {{{1
+		min-width: @minWidth;
+		max-width: @minWidth;
+		.box-sizing(border-box);
+		padding-left: @mainMargin;
+		padding-right: @mainMargin;
+		margin-left: auto;
+		margin-right: auto;
+		font: @contentFont;
+	} // main }}}1
 } // html body

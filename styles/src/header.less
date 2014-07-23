@@ -45,11 +45,9 @@ html body header {
 		a.active { color: @headerMenuActiveLinkColor; }
 		a.active:hover { color: @headerMenuHoverLinkColor; }
 	} // nav.menu
-} // html body header
 
-html.main_page body header {
-	.relative(@mainPageCardHeightMin);
-} // html.main_page body header
+	& + * { margin-top: @headerHeight; }
+} // html body header
 
 html.fixed_header body header {
 	height: @smallHeaderHeight;
@@ -67,4 +65,4 @@ html.fixed_header body header {
 		&:before { .sprite(@sprite_icons_header_small_logo); }
 		&:after { .sprite(@sprite_icons_header_small_logo_active); }
 	}
-}
+} // html.fixed_header body header

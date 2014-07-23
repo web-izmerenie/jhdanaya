@@ -117,6 +117,11 @@ html.main_page body header {
 	.relative(@mainPageCardHeightMin);
 } // html.main_page body header
 
+html.main_page.fixed_header body header,
+html.fixed_header.main_page body header {
+	.fixed(0);
+}
+
 html.main_page.fixed_header body main,
 html.fixed_header.main_page body main {
 	section.top_card { margin-top: 0; }

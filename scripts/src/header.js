@@ -33,14 +33,22 @@ stylesReady(function () {
 		if (mainPage) hVal += $topCard.height();
 
 		if ($d.scrollTop() >= hVal) {
-			if ($html.hasClass( fClass )) return;
-			$html.addClass( fClass );
-			$img.prop('src', smallImgSrc);
+			if (!$html.hasClass( fClass )) {
+				$html.addClass( fClass );
+				$img.prop('src', smallImgSrc);
+			}
 		} else {
-			if (!$html.hasClass( fClass )) return;
-			$html.removeClass( fClass );
-			$img.prop('src', imgSrc);
-			$header.stop().css('height', '');
+			if ($html.hasClass( fClass )) {
+				$html.removeClass( fClass );
+				$img.prop('src', imgSrc);
+				$header.stop().css('height', '');
+			}
+		}
+
+		if ($html.hasClass( fClass )) {
+			$header.css('left', (-$d.scrollLeft()) + 'px');
+		} else {
+			$header.css('left', '');
 		}
 	}, 1);
 

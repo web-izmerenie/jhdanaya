@@ -22,6 +22,8 @@ stylesReady(function () {
 	$topCard.each(function () { // {{{1
 
 		var $card = $(this);
+		var $slider = $card.find('.slider');
+
 		var bindSuffix = '.top_card_resize';
 
 		var resizeHandler = $.proxy(setTimeout, null, function () {
@@ -38,7 +40,7 @@ stylesReady(function () {
 		$w.on('resize' + bindSuffix, resizeHandler);
 		resizeHandler();
 
-		$card.find('.slider').each(function () { // {{{2
+		$slider.each(function () { // {{{2
 			var $slider = $(this);
 			var $pics = $slider.find('img');
 

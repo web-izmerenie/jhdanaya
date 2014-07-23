@@ -18,7 +18,7 @@ define(function () {
 		headerSmallLogoURL: 'header_small_logo.png',
 		footerHeight: 74, // px
 		waiterTimeout: 200, // ms
-		mainPageSliderInterval: 5, // sec
+		mainPageSliderInterval: 3, // sec
 
 	};
 

@@ -4,8 +4,8 @@
  * @author Viacheslav Lotsmanov
  */
 
-define(['get_val', 'jquery'], function (getVal, $) {
-$(function domReady() {
+define(['get_val', 'jquery', 'styles_ready'], function (getVal, $, stylesReady) {
+stylesReady(function () {
 
 	var $header = $('header');
 
@@ -19,7 +19,8 @@ $(function domReady() {
 	var bindSuffix = '.header';
 	var fClass = getVal('fixedHeaderHTMLClass');
 	var headerH = $header.height();
-	var	imgSrc = $img.prop('src');
+	var smallHeaderH = parseInt($header.css('min-height'), 10);
+	var imgSrc = $img.prop('src');
 	var smallImgSrc = imgSrc.replace(/[^\/]+\.png/g, getVal('headerSmallLogoURL'));
 
 	var mainPage = $html.hasClass('main_page');
@@ -28,22 +29,25 @@ $(function domReady() {
 	if (mainPage) $topCard = $('main .top_card');
 
 	var handler = $.proxy(setTimeout, null, function () {
-		var hVal = headerH;
+		var hVal = headerH - smallHeaderH;
 		if (mainPage) hVal += $topCard.height();
 
 		if ($d.scrollTop() >= hVal) {
+			if ($html.hasClass( fClass )) return;
 			$html.addClass( fClass );
 			$img.prop('src', smallImgSrc);
 		} else {
+			if (!$html.hasClass( fClass )) return;
 			$html.removeClass( fClass );
 			$img.prop('src', imgSrc);
+			$header.stop().css('height', '');
 		}
 	}, 1);
 
 	$w
 		.on('scroll' + bindSuffix, handler)
 		.on('resize' + bindSuffix, handler);
+	handler();
 
-}); // domReady()
+}); // stylesReady()
 }); // define()
-

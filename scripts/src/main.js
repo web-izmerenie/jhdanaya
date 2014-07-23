@@ -43,7 +43,7 @@ define(['basics/get_val'], function (getVal) {
 		});
 	}
 
-	require(['jquery'], function ($) {
+	require(['jquery', 'jquery.easing'], function ($) {
 		$(function domReady() {
 			var $html = $('html');
 

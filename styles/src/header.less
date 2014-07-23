@@ -10,6 +10,7 @@ html body header {
 	background: @headerBgColor;
 	.fontMetrics(0, 0);
 	min-width: @minWidth;
+	min-height: @smallHeaderHeight; // for javascript
 
 	a.logo, img.logo {
 		display: block;
@@ -54,6 +55,7 @@ html.fixed_header body header {
 	height: @smallHeaderHeight;
 	.fixed(0, auto, auto, 0);
 	top: 0 !important;
+	overflow: hidden;
 
 	a.logo, img.logo {
 		display: block;

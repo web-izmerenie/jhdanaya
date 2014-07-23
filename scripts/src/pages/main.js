@@ -4,8 +4,8 @@
  * @author Viacheslav Lotsmanov
  */
 
-define(['jquery', 'get_val'], function ($, getVal) {
-$(function domReady() {
+define(['jquery', 'get_val', 'styles_ready'], function ($, getVal, stylesReady) {
+stylesReady(function () {
 
 	if (!$('html').hasClass('main_page')) return;
 
@@ -39,14 +39,12 @@ $(function domReady() {
 	});
 
 	$main.find('.next_card').on('click', function () {
-		require(['jquery.easing'], function ($) {
-			$scroll.animate({ scrollTop: $topCard.height() + 'px' }, {
-				duration: getVal('animationSpeed')*4,
-				easing: 'easeInOutQuad'
-			});
+		$scroll.animate({ scrollTop: $topCard.height() + 'px' }, {
+			duration: getVal('animationSpeed')*4,
+			easing: getVal('animationCurve'),
 		});
 		return false;
 	});
 
-}); // domReady()
+}); // stylesReady()
 }); // define()

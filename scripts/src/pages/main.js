@@ -45,20 +45,22 @@ stylesReady(function () {
 			var $pics = $slider.find('img');
 
 			if ($pics.size() < 2) {
-				$pics.eq(0).addClass('current');
+				$pics.eq(0).addClass('current').addClass('visible');
 				return;
 			}
 
 			if ($pics.filter('.current').size() < 1) {
-				$pics.eq(0).addClass('current');
+				$pics.eq(0).addClass('current').addClass('visible');
 			}
 
 			var loop = $.proxy(setTimeout, null, function () {
-				var $next = $pics.filter('.current').next();
+				var $cur = $pics.filter('.current');
+				var $next = $cur.next();
 				if ($next.size() < 1) $next = $pics.eq(0);
 
-				$pics.removeClass('current');
-				$next.addClass('current');
+				$next.addClass('current visible');
+				$cur.removeClass('visible');
+				setTimeout(function () { $cur.removeClass('current'); }, 1000);
 
 				setTimeout(loop, getVal('animationSpeed') * 4);
 			}, getVal('mainPageSliderInterval') * 1000);

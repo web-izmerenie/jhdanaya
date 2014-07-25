@@ -14,7 +14,7 @@ require(['get_val', 'relative_number'], function (getVal, relativeNumber) {
 	// values
 	var minW = getVal('minWidth');
 	var rMaxW = getVal('relativeMaxWidth');
-	var card1Ratio = [980, 600]; // actually in psd is 980:644, but by 2560 is calculate to 551.25, that is middle point
+	var card1Ratio = [980, 550]; // actually in psd is 980:644, but by 2560 is calculate to 551.25, that is middle point
 	var picWidthMin = 539;
 	var picWidthMax = 837;
 	var picTopMin = 56;

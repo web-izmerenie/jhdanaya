@@ -44,7 +44,7 @@ html body main.shops {
 				.left_col img, .right_col img { display: block; .size(100%, auto); }
 				.right_col {
 					&>* + * {
-						margin-top: 10px;
+						margin-top: @shopsPageRightIntervalMin;
 						&:first-child { margin-top: 0; }
 					}
 				}

@@ -49,6 +49,8 @@ define(['basics/get_val'], function (getVal) {
 			var $html = $('html');
 
 			if ($html.hasClass('main_page')) require(['pages/main']);
+			if ($('main.shops').size() > 0) require(['pages/shops']);
+
 			if ($('header').size() > 0) require(['header']);
 		}); // domReady()
 	});

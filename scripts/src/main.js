@@ -13,6 +13,7 @@ define(['basics/get_val'], function (getVal) {
 		'get_local_text': 'basics/get_local_text',
 		'get_val': 'basics/get_val',
 		'relative_number': 'basics/relative_number',
+		'dynamic_api': 'basics/dynamic_api',
 	};
 
 	var paths = {};

@@ -20,6 +20,7 @@ define(function () {
 		footerHeight: 74, // px
 		waiterTimeout: 200, // ms
 		mainPageSliderInterval: 3, // sec
+		dynamicApiLoadInterval: 200, // ms
 
 	};
 

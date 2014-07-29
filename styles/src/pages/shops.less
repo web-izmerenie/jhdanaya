@@ -42,9 +42,17 @@ html body main.shops {
 				.right_col { float: right; width: 20.70%; .relative; }
 
 				.left_col img, .right_col img { display: block; .size(100%, auto); }
+
+				.right_col .imap {
+					display: block;
+					.size(100%, auto);
+					min-height: 131px;
+					.bg('spinner_1.png', center center no-repeat @plugColor);
+				}
+
 				.right_col {
 					&>* + * {
-						margin-top: 10px;
+						margin-top: @shopsPageRightIntervalMin;
 						&:first-child { margin-top: 0; }
 					}
 				}

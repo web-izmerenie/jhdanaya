@@ -10,12 +10,12 @@
 	},
 
 	"gulp": {
-		"clean": [ "./styles/src/sprites/" ],
+		"clean": [ "./bitrix/templates/main/styles/src/sprites/" ],
 		"sprites": {
 			"icons": {
-				"css_dir": "./styles/src/sprites/",
-				"img_dir": "./images/sprites/icons/",
-				"img_path_prefix": "../../images/sprites/icons/",
+				"css_dir": "./bitrix/templates/main/styles/src/sprites/",
+				"img_dir": "./bitrix/templates/main/images/sprites/icons/",
+				"img_path_prefix": "/bitrix/templates/main/images/sprites/icons/",
 				"algorithm": "binary-tree"
 			}
 		}

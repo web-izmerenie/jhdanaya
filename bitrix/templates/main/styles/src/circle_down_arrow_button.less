@@ -1,0 +1,36 @@
+/**
+ * Circle down arrow button mixin
+ *
+ * @author Viacheslav Lotsmanov
+ */
+
+.circleDownArrowButton() {
+	.linkNoLine;
+	display: inline-block;
+	.size(@circleDownArrowButtonSize);
+	background: @circleDownArrowButtonBgColor;
+	.border-radius(@circleDownArrowButtonSize / 2);
+	.transit(~'background-color');
+	.fontMetrics(0, 0);
+	.relative;
+
+	& > span {
+		&, &:before { .sprite(@sprite_icons_arrow_down); }
+		&:after { .sprite(@sprite_icons_arrow_down_active); }
+		background: none;
+		display: block;
+		.animatedIcon;
+		.absolute(50%, auto, auto, 50%);
+		margin-left: -(@sprite_icons_arrow_down-width / 2);
+		margin-top: -(@sprite_icons_arrow_down-height / 2) + 2px;
+		overflow: hidden;
+		white-space: nowrap;
+		text-indent: 50000px;
+	}
+
+	&:hover {
+		background: @circleDownArrowButtonHoverBgColor;
+		&>span:before { .opacity(0); }
+		&>span:after { .opacity(1); }
+	}
+}

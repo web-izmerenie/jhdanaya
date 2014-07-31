@@ -1,10 +1,11 @@
 <?
 	IncludeTemplateLangFile(__FILE__);
 
+	$revision = 3;
 	$debug = true;
 
-	$revision = 3;
-	if($USER->IsAdmin()||$debug) $revision = 'dev' . mktime();
+	if($USER->IsAdmin()) $debug = true;
+	if($debug) $revision = 'dev' . mktime();
 
 	$html_classes = array();
 	$main_classes = array();
@@ -42,6 +43,7 @@
 	<![endif]-->
 
 	<link href="/favicon.ico?v=<?=$revision?>" rel="shortcut icon" type="image/x-icon" />
+	<?if($debug){?><script>var less = { env: 'development' };</script><?}?>
 	<link rel="stylesheet/less" type="text/css" href="<?=$tplPath?>/styles/src/main.less?v=<?=$revision?>" />
 	<?/*<link rel="stylesheet" href="<?=$tplPath?>/styles/build/build.css?v=<?=$revision?>" />*/?>
 	<script src="<?=$tplPath?>/scripts/src/libs/require.js?v=<?=$revision?>"></script>

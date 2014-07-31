@@ -67,32 +67,11 @@ html.main_page body main {
 		} // .slider }}}2
 
 		.next_card { // {{{2
-			.linkNoLine;
+			.circleDownArrowButton();
 			display: block;
-			.size(@mainPageNextCardSizeMin);
 			.absolute(auto, auto, @mainPageNextCardBottomMin, 50%);
-			margin-left: -(@mainPageNextCardSizeMin / 2);
-			background: @mainPageNextCardBgColor;
-			.border-radius(@mainPageNextCardSizeMin / 2);
-			.transit(~'background-color');
+			margin-left: -(@circleDownArrowButtonSize / 2);
 			z-index: 2;
-			&:hover { background: @mainPageNextCardHoverBgColor; }
-
-			& > span {
-				&, &:before { .sprite(@sprite_icons_arrow_down); }
-				&:after { .sprite(@sprite_icons_arrow_down_active); }
-				background: none;
-				display: block;
-				.animatedIcon;
-				.absolute(50%, auto, auto, 50%);
-				margin-left: -(@sprite_icons_arrow_down-width / 2);
-				margin-top: -(@sprite_icons_arrow_down-height / 2) + 2px;
-			}
-
-			&:hover {
-				&>span:before { .opacity(0); }
-				&>span:after { .opacity(1); }
-			}
 		} // .next_card }}}2
 	} // section.card_1 }}}1
 

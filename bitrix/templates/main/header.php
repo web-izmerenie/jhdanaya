@@ -82,10 +82,10 @@
 	false
 );?>
 		</nav>
-	</header><?
-    if(!defined("HTML_MAIN_PAGE")){?>
+	</header>
+	<?if(!defined("HTML_MAIN_PAGE")){?>
         <h1><?$APPLICATION->ShowTitle()?></h1>
-        <nav class="nav_block"><?$APPLICATION->IncludeComponent("bitrix:menu", "menu.sub", Array(
+        <?$APPLICATION->IncludeComponent("bitrix:menu", "menu.sub", Array(
 	"ROOT_MENU_TYPE" => "left",	// Тип меню для первого уровня
 	"MENU_CACHE_TYPE" => "A",	// Тип кеширования
 	"MENU_CACHE_TIME" => "3600",	// Время кеширования (сек.)
@@ -101,10 +101,9 @@
 	),
 	false
 );?>
-        </nav><?
-    }?>
-	<main class="<?=$main_classes?>"><?
-        if(defined("HTML_MAIN_PAGE")){?>
+	<?}?>
+	<main class="<?=$main_classes?>">
+		<?if(defined("HTML_MAIN_PAGE")){?>
             <section class="top_card">
                 <div class="logo">
                     <img class="logo" alt="<?=GetMessage("MAIN_SLOGAN")?>" src="<?=$tplPath?>/images/main_page/logo.png" />
@@ -196,5 +195,5 @@
                     <li><a style="cursor:default">ID Broggian</a></li>
                     <li><a style="cursor:default">Nanis</a></li>
                 </ul>
-            </section><?
-        }?>
+            </section>
+		<?}?>

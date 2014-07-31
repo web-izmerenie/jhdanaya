@@ -9,10 +9,12 @@ html.collection_page body {
 		.resetCSS;
 		.fontMetrics(0, 0);
 		margin-top: @headerHeight + 42px;
-		max-width: @maxWidth - ((@mainMargin2) * 2);
+		min-width: @minWidth;
+		max-width: @maxWidth - ((@mainMargin2 - @mainMargin) * 2);
 		padding: 0 @mainMargin;
 		margin-left: auto;
 		margin-right: auto;
+		.box-sizing(border-box);
 		.relative;
 
 		h1 {

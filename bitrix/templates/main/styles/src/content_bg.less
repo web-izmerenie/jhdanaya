@@ -19,5 +19,16 @@ html.content_bg body {
 
 	nav.nav_block {
 		padding-bottom: 26px - 15px;
+
+		&>a>span {
+			color: @contentColor;
+			border-bottom-color: @linkColorUnderline;
+			.transit(~'color, border-bottom-color');
+		}
+
+		&>a:hover>span {
+			color: @activeLinkColor;
+			border-bottom-color: @activeLinkColorUnderline;
+		}
 	}
 }

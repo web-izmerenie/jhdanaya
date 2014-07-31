@@ -35,4 +35,4 @@ $APPLICATION->SetTitle("О компании");
 	 Добро пожаловать в&nbsp;мир истинных драгоценностей<br>
 	 ювелирного дома «Даная»!
 </p>
-<br><?require($_SERVER["DOCUMENT_ROOT"]."/bitrix/footer.php");?>
+<?require($_SERVER["DOCUMENT_ROOT"]."/bitrix/footer.php");?>

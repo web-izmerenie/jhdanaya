@@ -1,22 +1,30 @@
 <?
-    IncludeTemplateLangFile(__FILE__);
+	IncludeTemplateLangFile(__FILE__);
 
-    $revision = 2;
-    if($USER->IsAdmin()) $revision = 'dev' . mktime();
+	$debug = true;
 
-    $html_classes = array();
-    $main_classes = array();
+	$revision = 3;
+	if($USER->IsAdmin()||$debug) $revision = 'dev' . mktime();
 
-    if(defined("MAIN_ABOUT"))
-        $main_classes[] = "about";
-    if(defined("MAIN_SHOPS"))
-        $main_classes[] = "shops";
+	$html_classes = array();
+	$main_classes = array();
 
-    if(defined("HTML_MAIN_PAGE"))
-        $html_classes[] = "main_page";
+	// <html> classes
+	if(defined("HTML_MAIN_PAGE"))
+		$html_classes[] = "main_page";
+	if(defined("COLLECTION_PAGE")) {
+		$html_classes[] = "collection_page";
+		$html_classes[] = "content_bg";
+	}
 
-    $html_classes = implode(" ", $html_classes);
-    $main_classes = implode(" ", $main_classes);
+	// <main> classes
+	if(defined("MAIN_ABOUT"))
+		$main_classes[] = "about";
+	if(defined("MAIN_SHOPS"))
+		$main_classes[] = "shops";
+
+	$html_classes = implode(" ", $html_classes);
+	$main_classes = implode(" ", $main_classes);
 
 	$tplPath = '/bitrix/templates/main';
 
@@ -35,10 +43,10 @@
 
 	<link href="/favicon.ico?v=<?=$revision?>" rel="shortcut icon" type="image/x-icon" />
 	<link rel="stylesheet/less" type="text/css" href="<?=$tplPath?>/styles/src/main.less?v=<?=$revision?>" />
-    <?/*<link rel="stylesheet" href="<?=$tplPath?>/styles/build/build.css?v=<?=$revision?>" />*/?>
+	<?/*<link rel="stylesheet" href="<?=$tplPath?>/styles/build/build.css?v=<?=$revision?>" />*/?>
 	<script src="<?=$tplPath?>/scripts/src/libs/require.js?v=<?=$revision?>"></script>
-    <?$APPLICATION->ShowCSS()?>
-    <?$APPLICATION->ShowHeadStrings()?>
+	<?$APPLICATION->ShowCSS()?>
+	<?$APPLICATION->ShowHeadStrings()?>
 	<script>
 		//<![CDATA[
 			require.config({
@@ -58,13 +66,13 @@
 
 <body><?$APPLICATION->ShowPanel()?>
 	<header><?
-        if($APPLICATION->GetCurPage(0) != SITE_DIR){?>
-            <a class="logo" href="<?=SITE_DIR?>" title="<?=GetMessage("GOTO_MAINPAGE")?>"><?
-        }?>
+		if($APPLICATION->GetCurPage(0) != SITE_DIR){?>
+			<a class="logo" href="<?=SITE_DIR?>" title="<?=GetMessage("GOTO_MAINPAGE")?>"><?
+		}?>
 			<img class="logo" alt="<?=GetMessage("MAIN_SLOGAN")?>" src="<?=$tplPath?>/images/header_logo.png" /><?
-        if($APPLICATION->GetCurPage(0) != SITE_DIR){?>
-            </a><?
-        }?>
+		if($APPLICATION->GetCurPage(0) != SITE_DIR){?>
+			</a><?
+		}?>
 		<nav class="menu"><?$APPLICATION->IncludeComponent("bitrix:menu", "menu.main", Array(
 	"ROOT_MENU_TYPE" => "top",	// Тип меню для первого уровня
 	"MENU_CACHE_TYPE" => "A",	// Тип кеширования
@@ -84,8 +92,18 @@
 		</nav>
 	</header>
 	<?if(!defined("HTML_MAIN_PAGE")){?>
-        <h1><?$APPLICATION->ShowTitle()?></h1>
-        <?$APPLICATION->IncludeComponent("bitrix:menu", "menu.sub", Array(
+		<?if(defined('COLLECTION_PAGE')){?>
+			<div class="collection_page_headline">
+				<h1><img alt="Pasqualebruni" src="/upload/markup_tmp/collection_logo.png" /></h1>
+				<a href="#" class="about_brand">
+					<img alt="" src="/upload/markup_tmp/collection_about_brand.png" />
+					<span>О бренде</span>
+				</a>
+			</div>
+		<?}else{?>
+			<h1><?$APPLICATION->ShowTitle()?></h1>
+		<?}?>
+		<?$APPLICATION->IncludeComponent("bitrix:menu", "menu.sub", Array(
 	"ROOT_MENU_TYPE" => "left",	// Тип меню для первого уровня
 	"MENU_CACHE_TYPE" => "A",	// Тип кеширования
 	"MENU_CACHE_TIME" => "3600",	// Время кеширования (сек.)
@@ -104,12 +122,12 @@
 	<?}?>
 	<main class="<?=$main_classes?>">
 		<?if(defined("HTML_MAIN_PAGE")){?>
-            <section class="top_card">
-                <div class="logo">
-                    <img class="logo" alt="<?=GetMessage("MAIN_SLOGAN")?>" src="<?=$tplPath?>/images/main_page/logo.png" />
-                    <div class="istablish"><?=GetMessage("BASED_AT")?></div>
-                </div>
-                <div class="slider"><?$APPLICATION->IncludeComponent("bitrix:news.list", "news.list.slider", array(
+			<section class="top_card">
+				<div class="logo">
+					<img class="logo" alt="<?=GetMessage("MAIN_SLOGAN")?>" src="<?=$tplPath?>/images/main_page/logo.png" />
+					<div class="istablish"><?=GetMessage("BASED_AT")?></div>
+				</div>
+				<div class="slider"><?$APPLICATION->IncludeComponent("bitrix:news.list", "news.list.slider", array(
 	"IBLOCK_TYPE" => "service",
 	"IBLOCK_ID" => "2",
 	"NEWS_COUNT" => "1000",
@@ -184,16 +202,16 @@
 	),
 	false
 );?>
-                </div>
-                <a class="next_card"><span></span></a>
-            </section>
-            <section class="brands">
-                <ul class="brands_list">
-                    <li><a style="cursor:default">Pasquale Bruni</a></li>
-                    <li><a style="cursor:default">Giovanni Ferraris</a></li>
-                    <li><a style="cursor:default">Gucci</a></li>
-                    <li><a style="cursor:default">ID Broggian</a></li>
-                    <li><a style="cursor:default">Nanis</a></li>
-                </ul>
-            </section>
+				</div>
+				<a class="next_card"><span></span></a>
+			</section>
+			<section class="brands">
+				<ul class="brands_list">
+					<li><a style="cursor:default">Pasquale Bruni</a></li>
+					<li><a style="cursor:default">Giovanni Ferraris</a></li>
+					<li><a style="cursor:default">Gucci</a></li>
+					<li><a style="cursor:default">ID Broggian</a></li>
+					<li><a style="cursor:default">Nanis</a></li>
+				</ul>
+			</section>
 		<?}?>

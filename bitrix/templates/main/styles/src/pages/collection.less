@@ -1,0 +1,58 @@
+/**
+ * "collection" page styles
+ *
+ * @author Viacheslav Lotsmanov
+ */
+
+html.collection_page body {
+	.collection_page_headline { // {{{1
+		.resetCSS;
+		.fontMetrics(0, 0);
+		margin-top: @headerHeight + 42px;
+		max-width: @maxWidth - ((@mainMargin2) * 2);
+		padding: 0 @mainMargin;
+		margin-left: auto;
+		margin-right: auto;
+		.relative;
+
+		h1 {
+			.resetCSS;
+			max-width: none;
+		}
+
+		a.about_brand {
+			@s: 57px;
+
+			.linkNoLine;
+			display: block;
+			.absolute((-78px + 69px), @mainMargin);
+			.size(auto, @s);
+			white-space: nowrap;
+			vertical-align: middle;
+
+			& > img {
+				display: inline-block;
+				.size(@s);
+				.border-radius(@s / 2);
+				vertical-align: middle;
+			}
+
+			& > span {
+				display: inline-block;
+				text-transform: uppercase;
+				white-space: nowrap;
+				.sansSerifFont('Roboto-Light', 24px);
+				vertical-align: middle;
+				margin-left: 10px;
+				color: @contentColor;
+				border-bottom: 1px solid @linkColorUnderline;
+				.transit(~'color, border-bottom-color');
+			}
+
+			&:hover > span {
+				color: @activeLinkColor;
+				border-bottom-color: @activeLinkColorUnderline;
+			}
+		}
+	} // .collection_page_headline }}}1
+} // html.collection_page body

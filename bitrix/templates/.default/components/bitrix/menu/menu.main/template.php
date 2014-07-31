@@ -8,8 +8,10 @@ foreach($arResult as $arItem):
 		continue;
 ?>
 	<?if($arItem["SELECTED"]):?>
-		<?if($arItem["LINK"] != $APPLICATION->GetCurPage(0)):?>
+		<?if($arItem["LINK"] != $APPLICATION->GetCurPage(0) && $arItem["LINK"] != '/'):?>
 			<a href="<?=$arItem["LINK"]?>" class="active"><?=$arItem["TEXT"]?></a>
+		<?elseif($arItem["LINK"] == '/'):?>
+			<a href="<?=$arItem["LINK"]?>"><?=$arItem["TEXT"]?></a>
 		<?else:?>
 			<span><?=$arItem["TEXT"]?></span>
 		<?endif;?>

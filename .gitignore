@@ -20,6 +20,8 @@ bitrix/templates/main/scripts/build
 bitrix/templates/main/images/sprites/*/build
 bitrix/templates/main/styles/src/sprites
 
+.source_of_symbolic_links
+
 robots.txt
 
 index.html

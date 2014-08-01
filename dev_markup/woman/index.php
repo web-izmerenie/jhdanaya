@@ -97,6 +97,6 @@ $APPLICATION->SetTitle("Женщинам");
 	2. data-next-page - это следующая страница, которая будет подгружена, будет передано под ключом "page"
 	3. data-count - этот параметр передаётся под ключом "count", сколько новостей подгрузится при клике (можно просто стереть)
 -->
-<a class="load_more" title="Загрузить еще" data-next-page="2" data-count="2"><span>Загрузить еще</span></a>
+<a class="load_more" title="Загрузить еще" data-next-page="2" data-count="2" data-iblock="rings"><span>Загрузить еще</span></a>
 
 <?require($_SERVER["DOCUMENT_ROOT"]."/bitrix/footer.php");?>

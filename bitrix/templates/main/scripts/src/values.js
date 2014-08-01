@@ -26,7 +26,7 @@ define(function () {
 		circleDownArrowButtonSizeMin: 64,
 		circleDownArrowButtonSizeMax: 96,
 
-		dynamicItemsLoadURL: '/dev_markup/kollektsia/ajax.php',
+		dynamicItemsLoadURL: '/dev_markup/ajax.php',
 
 	};
 

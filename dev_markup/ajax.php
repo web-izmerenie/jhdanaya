@@ -2,12 +2,8 @@
 
 header('Content-Type: application/json; charset=utf-8');
 
-echo json_encode(array(
-	//"status" => "success",
-	// или:
-	"status" => "end_of_list",
-
-	"items" => array(
+$items = array(
+	"brand" => array(
 		array(
 			"id" => "bx_id_10",
 			"preview" => array(
@@ -54,4 +50,41 @@ HTML
 			),
 		),
 	),
+	"rings" => array(
+		array(
+			"id" => "bx_id_15",
+			"preview" => array(
+				"description" => "some alt text",
+				"src" => "/upload/markup_tmp/rings/01.png",
+				//"width" => 123, // [optional]
+				//"height" => 123, // [optional]
+			),
+			//"info" => [optional]
+		),
+		array(
+			"id" => "bx_id_16",
+			"preview" => array(
+				"description" => "some another alt text",
+				"src" => "/upload/markup_tmp/rings/02.png",
+				"width" => 500, // [optional]
+				"height" => 500, // [optional]
+			),
+			"info" => array(
+				"text" => <<<HTML
+				Белое золото<br/>
+				Желтое золото<br/>
+				Вес: 3,02 г.<br/>
+				Размер: 15,5 мм.
+HTML
+			),
+		),
+	),
+);
+
+echo json_encode(array(
+	//"status" => "success",
+	// или:
+	"status" => "end_of_list",
+
+	"items" => $items[$_GET['iblock']]
 ));

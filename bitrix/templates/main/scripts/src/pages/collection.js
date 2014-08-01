@@ -121,7 +121,7 @@ function (getVal, getLocalText, relativeNumber) {
 
 			$info.find('.closer').click(closeHandler);
 			$info.find('.zoom').click(function () {
-				alert('Поведение кнопки не определено дизайном.');
+				alert('Поведение кнопки не определено.');
 				return false;
 			});
 
@@ -144,10 +144,12 @@ function (getVal, getLocalText, relativeNumber) {
 				}, getVal('animationSpeed'), getVal('animationCurve'));
 				return false;
 			}); // open popup }}}2
-		}
-
-		if ($ul.hasClass('rings')) {
+		} else if ($ul.hasClass('rings')) {
 			$info.append('<a class="zoom"><span></span></a>');
+			$info.find('.zoom').click(function () {
+				alert('Поведение кнопки не определено.');
+				return false;
+			});
 		}
 
 		initList();
@@ -299,7 +301,8 @@ function (getVal, getLocalText, relativeNumber) {
 			}
 
 			var getData = {
-				page: parseInt($more.attr("data-next-page"), 10)
+				page: parseInt($more.attr("data-next-page"), 10),
+				iblock: $more.attr('data-iblock'),
 			};
 
 			if ($more.attr('data-count'))
@@ -398,30 +401,38 @@ function (getVal, getLocalText, relativeNumber) {
 								if (item.info) {
 									$info = $('<div class="info" />');
 
-									if (
-										$.type(item.info.text) !== 'string' ||
-										!$.isPlainObject(item.info.picture) ||
-										$.type(item.info.picture.src) !== 'string'
-									) {
-										alert(getLocalText('ERR', 'AJAX_PARSE'));
-										return stopping();
+									if ($list.hasClass('brand')) {
+										if (
+											$.type(item.info.text) !== 'string' ||
+											!$.isPlainObject(item.info.picture) ||
+											$.type(item.info.picture.src) !== 'string'
+										) {
+											alert(getLocalText('ERR', 'AJAX_PARSE'));
+											return stopping();
+										}
+
+										var $text = $('<div class="text" />');
+										$text.html(item.info.text);
+										$info.append( $text );
+
+										imgTag = '<img class="picture" alt="';
+										if (item.info.picture.description)
+											imgTag += item.info.picture.description;
+										imgTag += '" src="'+ item.info.picture.src +'"';
+										if (item.info.picture.width)
+											imgTag += ' width="'+ item.info.picture.width +'"';
+										if (item.info.picture.height)
+											imgTag += ' height="'+ item.info.picture.height +'"';
+										imgTag += ' />';
+
+										$info.append(imgTag);
+									} else if ($list.hasClass('rings')) {
+										if ($.type(item.info.text) === 'string') {
+											var $text = $('<div class="text" />');
+											$text.html(item.info.text);
+											$info.append( $text );
+										}
 									}
-
-									var $text = $('<div class="text" />');
-									$text.html(item.info.text);
-									$info.append( $text );
-
-									imgTag = '<img class="picture" alt="';
-									if (item.info.picture.description)
-										imgTag += item.info.picture.description;
-									imgTag += '" src="'+ item.info.picture.src +'"';
-									if (item.info.picture.width)
-										imgTag += ' width="'+ item.info.picture.width +'"';
-									if (item.info.picture.height)
-										imgTag += ' height="'+ item.info.picture.height +'"';
-									imgTag += ' />';
-
-									$info.append(imgTag);
 
 									$newLi.append( $info );
 								}

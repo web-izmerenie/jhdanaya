@@ -20,12 +20,22 @@ function (getVal, getLocalText, relativeNumber) {
 	var $main = $('main');
 	var $footer = $('footer');
 	var $list = $main.find('ul.collection_list');
-	var $liArr = $list.find('>li');
-	var $previews = $liArr.find('.preview');
+	var $liArr;
+	var $previews;
+	var $infos;
+	var $zooms;
 	var $more = $main.find('.load_more');
 	var $d = $(document);
 	var $w = $(window);
 	var $page = $('html,body');
+
+	function initList() {
+		$liArr = $list.find('>li');
+		$previews = $liArr.find('.preview');
+		$infos = $liArr.find('.info');
+		$zooms = $liArr.find('.zoom');
+	}
+	initList();
 
 	function liInitHandler() { // {{{1
 		var $ul = $list;
@@ -92,73 +102,83 @@ function (getVal, getLocalText, relativeNumber) {
 		}
 		// loadBlur }}}2
 
-		$info
-			.css('opacity', 0)
-			.prepend('<a class="closer"></a>')
-			.prepend('<a class="zoom"></a>');
+		if ($ul.hasClass('brand')) {
+			$info
+				.css('opacity', 0)
+				.prepend('<a class="closer"></a>')
+				.prepend('<a class="zoom"></a>');
 
-		function closeHandler() { // {{{2
-			$info.animate({
-				'opacity': 0,
-			}, getVal('animationSpeed'), getVal('animationCurve'), function () {
-				$(this).css('display', 'none');
-				$ul.removeClass('popup');
-				$li.removeClass('popup');
-			});
-			return false;
-		} // closeHandler() }}}2
-
-		$info.find('.closer').click(closeHandler);
-		$info.find('.zoom').click(function () {
-			alert('Поведение кнопки не определено дизайном.');
-			return false;
-		});
-
-		$a.click(function () { // {{{2
-			if ($ul.hasClass('popup')) {
-				$ul.find('>li.popup .info .closer').trigger('click');
+			function closeHandler() { // {{{2
+				$info.animate({
+					'opacity': 0,
+				}, getVal('animationSpeed'), getVal('animationCurve'), function () {
+					$(this).css('display', 'none');
+					$ul.removeClass('popup');
+					$li.removeClass('popup');
+				});
 				return false;
-			}
+			} // closeHandler() }}}2
 
-			$ul.addClass('popup');
-			$li.addClass('popup');
-			$info.css('display', 'block');
-			$info.css('top', (
-				$d.scrollTop() +
-				($w.height() / 2) -
-				($info.innerHeight() / 2)
-			) + 'px');
-			$info.stop().animate({
-				'opacity': 1,
-			}, getVal('animationSpeed'), getVal('animationCurve'));
-			return false;
-		}); // open popup }}}2
+			$info.find('.closer').click(closeHandler);
+			$info.find('.zoom').click(function () {
+				alert('Поведение кнопки не определено дизайном.');
+				return false;
+			});
+
+			$a.click(function () { // {{{2
+				if ($ul.hasClass('popup')) {
+					$ul.find('>li.popup .info .closer').trigger('click');
+					return false;
+				}
+
+				$ul.addClass('popup');
+				$li.addClass('popup');
+				$info.css('display', 'block');
+				$info.css('top', (
+					$d.scrollTop() +
+					($w.height() / 2) -
+					($info.innerHeight() / 2)
+				) + 'px');
+				$info.stop().animate({
+					'opacity': 1,
+				}, getVal('animationSpeed'), getVal('animationCurve'));
+				return false;
+			}); // open popup }}}2
+		}
+
+		if ($ul.hasClass('rings')) {
+			$info.append('<a class="zoom"><span></span></a>');
+		}
+
+		initList();
 	} // liInitHandler() }}}1
 
 	$liArr.each(liInitHandler);
 
-	$d.on('click' + bindSuffix, function (event) { // {{{1
-		var $infoOpened = $list.find('>li.popup .info');
-		if ($infoOpened.size() <= 0) return true;
+	if ($list.hasClass('brand')) {
+		$d.on('click' + bindSuffix, function (event) { // {{{1
+			var $infoOpened = $list.find('>li.popup .info');
+			if ($infoOpened.size() <= 0) return true;
 
-		var x = $infoOpened.offset().left;
-		var y = $infoOpened.offset().top;
-		var w = $infoOpened.innerWidth();
-		var h = $infoOpened.innerHeight();
+			var x = $infoOpened.offset().left;
+			var y = $infoOpened.offset().top;
+			var w = $infoOpened.innerWidth();
+			var h = $infoOpened.innerHeight();
 
-		// hell IE
-		if (event.pageX < 0 || event.pageY < 0) return true;
+			// hell IE
+			if (event.pageX < 0 || event.pageY < 0) return true;
 
-		if (
-			!(event.pageX >= x && event.pageX <= x+w) ||
-			!(event.pageY >= y && event.pageY <= y+h)
-		) {
-			$infoOpened.find('.closer').trigger('click');
-			return false;
-		}
+			if (
+				!(event.pageX >= x && event.pageX <= x+w) ||
+				!(event.pageY >= y && event.pageY <= y+h)
+			) {
+				$infoOpened.find('.closer').trigger('click');
+				return false;
+			}
 
-		return true;
-	}); // $d.click }}}1
+			return true;
+		}); // $d.click }}}1
+	}
 
 	// relative size {{{1
 
@@ -171,6 +191,18 @@ function (getVal, getLocalText, relativeNumber) {
 		var rMaxW = getVal('maxWidth');
 		var topMin = 75;
 		var topMax = 130;
+
+		if ($list.hasClass('rings')) {
+			itemSizeMin = 170;
+			itemSizeMax = 272;
+			topMin = 50;
+			topMax = 80;
+
+			var ringItemSizeMin = 277;
+			var ringItemSizeMax = 450;
+			var zoomHeightMin = 49;
+			var zoomHeightMax = 79;
+		}
 
 		var $relMore = $main.find('ul.collection_list + .load_more');
 
@@ -198,10 +230,19 @@ function (getVal, getLocalText, relativeNumber) {
 			});
 
 			size = rn(itemSizeMin, itemSizeMax);
-			$liArr.css({
-				'height': size + 'px',
-				'margin-top': top + 'px',
-			});
+
+			$liArr.css('margin-top', top + 'px');
+
+			if ($list.hasClass('rings')) {
+				var iSize = rn(ringItemSizeMin, ringItemSizeMax);
+				$liArr.css('height', iSize + 'px');
+				$infos.css('width', iSize + 'px');
+				$infos.css('margin-left', (($liArr.eq(0).width() - iSize) / 2) + 'px');
+				$zooms.css('height', rn(zoomHeightMin, zoomHeightMax) + 'px');
+			} else if ($list.hasClass('brand')) {
+				$liArr.css('height', size + 'px');
+			}
+
 			$previews.css({
 				'width': size + 'px',
 				'height': size + 'px',
@@ -217,10 +258,20 @@ function (getVal, getLocalText, relativeNumber) {
 				'border-radius': '',
 			});
 			$liArr.css({
+				'width': '',
 				'height': '',
 				'margin-top': '',
 			});
 			$previews.css({
+				'width': '',
+				'height': '',
+			});
+			$infos.css({
+				'width': '',
+				'height': '',
+				'margin-left': '',
+			});
+			$zooms.css({
 				'width': '',
 				'height': '',
 			});
@@ -379,8 +430,7 @@ function (getVal, getLocalText, relativeNumber) {
 								$newLi.css('opacity', 0);
 								$newLi.each(liInitHandler);
 								$liArr.last().after( $newLi );
-								$liArr = $list.find('>li');
-								$previews = $liArr.find('.preview');
+								initList();
 								setRelSizes();
 
 								setTimeout(function () {

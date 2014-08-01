@@ -90,7 +90,7 @@ html.collection_page body {
 					margin: 0 auto;
 
 					img {
-						display: block;
+						display: inline-block;
 						.size(100%, auto);
 						.absolute(0, auto, auto, 0);
 						z-index: 1;
@@ -110,66 +110,123 @@ html.collection_page body {
 				}
 
 				span.preview { cursor: default; }
-
-				.info { // {{{2
-					@w: 720px;
-
-					display: block;
-					.size(@w, auto);
-					.box-sizing(border-box);
-					background: white;
-					border: 1px solid @popupBorderColor;
-					z-index: 10;
-					vertical-align: bottom;
-					text-align: left;
-					padding-top: @mainMargin;
-					padding-bottom: @mainMargin;
-					.absolute(auto, auto, auto, 50%);
-					margin-left: -(@w/2);
-
-					.text {
-						display: inline-block;
-						.size(320px - (@mainMargin * 2), auto);
-						margin-left: @mainMargin;
-						vertical-align: bottom;
-						font: @contentFont;
-						.fontMetrics(14px, 20px);
-					}
-
-					img.picture {
-						display: inline-block;
-						vertical-align: bottom;
-						.size(342px);
-					}
-
-					.closer {
-						.linkNoLine;
-						&, &:before { .sprite(@sprite_icons_closer); }
-						&:after { .sprite(@sprite_icons_closer_active); }
-						background: none !important;
-						display: block;
-						.animatedIcon;
-						.absolute(20px, 20px);
-					}
-
-					.zoom {
-						.linkNoLine;
-						&, &:before { .sprite(@sprite_icons_lens); }
-						&:after { .sprite(@sprite_icons_lens_active); }
-						background: none !important;
-						display: block;
-						.animatedIcon;
-						.absolute(auto, 20px, 20px);
-					}
-
-					display: none;
-					.transit(~'opacity');
-				} // .info }}}2
 			} // &>li
 
-			&.popup>li .preview img {
+			&.brand.popup>li .preview img {
 				&.blur { .opacity(1); }
 			}
+
+			&.brand>li .info { // {{{2
+				@w: 720px;
+
+				display: block;
+				.size(@w, auto);
+				.box-sizing(border-box);
+				background: white;
+				border: 1px solid @popupBorderColor;
+				z-index: 10;
+				vertical-align: bottom;
+				text-align: left;
+				padding-top: @mainMargin;
+				padding-bottom: @mainMargin;
+				.absolute(auto, auto, auto, 50%);
+				margin-left: -(@w/2);
+
+				.text {
+					display: inline-block;
+					.size(320px - (@mainMargin * 2), auto);
+					margin-left: @mainMargin;
+					vertical-align: bottom;
+					font: @contentFont;
+					.fontMetrics(14px, 20px);
+				}
+
+				img.picture {
+					display: inline-block;
+					vertical-align: bottom;
+					.size(342px);
+				}
+
+				.closer {
+					.linkNoLine;
+					&, &:before { .sprite(@sprite_icons_closer); }
+					&:after { .sprite(@sprite_icons_closer_active); }
+					background: none !important;
+					display: block;
+					.animatedIcon;
+					.absolute(20px, 20px);
+				}
+
+				.zoom {
+					.linkNoLine;
+					&, &:before { .sprite(@sprite_icons_lens); }
+					&:after { .sprite(@sprite_icons_lens_active); }
+					background: none !important;
+					display: block;
+					.animatedIcon;
+					.absolute(auto, 20px, 20px);
+				}
+
+				display: none;
+				.transit(~'opacity');
+			} // &.brand>li .info }}}2
+
+			&.rings { // {{{2
+				.relative;
+
+				&>li {
+					@min: 170px;
+					height: @min;
+					.relative;
+
+					.preview {
+						display: block;
+						.size(@min);
+						.relative(50%);
+						.transform(translateY(-50%));
+
+						img {
+							display: block;
+							.relative(50%);
+							.transform(translateY(-50%));
+						}
+					}
+
+					.info {
+						display: block;
+						background: rgba(237, 230, 228, 0.9);
+						.absolute(0, auto, auto, 0);
+						.size(100%);
+						z-index: 2;
+
+						.text {
+							font: @contentFont;
+							.fontMetrics(13px, 20px);
+							.absolute(13px, auto, auto, 16px);
+							text-align: left;
+						}
+
+						.zoom {
+							.linkNoLine;
+							display: block;
+							.absolute(auto, auto, 0, 0);
+							.size(100%, 49px);
+							background: #c5b8b4;
+
+							&>span {
+								.sprite(@sprite_icons_lens2);
+								display: block;
+								.absolute(50%, auto, auto, 50%);
+								margin-left: -(@sprite_icons_lens2-width / 2);
+								margin-top: -(@sprite_icons_lens2-height / 2);
+								overflow: hidden;
+								white-space: nowrap;
+								text-indent: 50000px;
+							}
+						} // .zoom
+					} // .info
+				} // &>li
+			} // &.rings }}}2
 		} // ul.collection_list }}}1
 
 		a.load_more {

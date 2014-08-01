@@ -43,6 +43,10 @@ $APPLICATION->SetTitle("Изделия");
 	</li>
 </ul>
 
-
+<ul class="produce_submenu">
+	<li><a>Женщинам</a></li>
+	<li><a>Мужчинам</a></li>
+	<li><a>Детям</a></li>
+</ul>
 
 <?require($_SERVER["DOCUMENT_ROOT"]."/bitrix/footer.php");?>

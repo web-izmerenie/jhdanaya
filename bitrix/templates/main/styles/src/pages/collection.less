@@ -321,5 +321,43 @@ html.collection_page body {
 		ul.collection_list + a.load_more {
 			margin-top: @topMin;
 		}
+
+		ul.produce_submenu {
+			.resetCSS;
+			display: block;
+			min-width: @minWidth;
+			max-width: 1296px;
+			margin: 0 auto;
+			border-top: 1px solid #dcd3c9;
+
+			&>li {
+				.resetCSS; &:before, &:after { display: none; }
+				display: block;
+				border-bottom: 1px solid #dcd3c9;
+				color: @contentColor;
+				.sansSerifFont('Roboto-Thin', 50px);
+				text-align: center;
+				@p: 103px - 52px;
+
+				&>a {
+					.linkNoLine;
+					display: block;
+					color: @contentColor;
+					padding-top: @p / 2;
+					padding-bottom: @p / 2;
+					text-transform: uppercase;
+					.transit(~'color, background-color');
+
+					&:hover {
+						color: white;
+						background: #c5b8b4;
+					}
+				}
+			} // &>li
+		} // ul.produce_submenu
+
+		ul.collection_list.produce + ul.produce_submenu {
+			margin-top: 72px - 15px;
+		}
 	} // main
 } // html.collection_page body

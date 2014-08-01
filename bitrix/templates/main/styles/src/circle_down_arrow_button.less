@@ -8,11 +8,12 @@
 	.linkNoLine;
 	display: inline-block;
 	.size(@circleDownArrowButtonSize);
-	background: @circleDownArrowButtonBgColor;
 	.border-radius(@circleDownArrowButtonSize / 2);
-	.transit(~'background-color');
+	.transition(background-color @animationSpeed @animationCurve,
+		background-position @animationSpeed*2 @animationCurve);
 	.fontMetrics(0, 0);
 	.relative;
+	.bg('spinner_2.png', center -100px no-repeat @circleDownArrowButtonBgColor);
 
 	& > span {
 		&, &:before { .sprite(@sprite_icons_arrow_down); }
@@ -29,13 +30,24 @@
 	}
 
 	&:hover {
-		background: @circleDownArrowButtonHoverBgColor;
+		background-color: @circleDownArrowButtonHoverBgColor;
 		&>span:before { .opacity(0); }
 		&>span:after { .opacity(1); }
 	}
-}
+
+	&.loading {
+		background-position: center center;
+		&, &:hover {
+			background-color: @circleDownArrowButtonBgColor;
+			&>span:before { .opacity(0); }
+			&>span:after { .opacity(0); }
+		}
+	}
+} // .circleDownArrowButton()
 
 .circleDownArrowButtonLight() {
 	.circleDownArrowButton();
-	background-color: #f6f1ef;
+	&, &.loading, &.loading:hover {
+		background-color: #f6f1ef;
+	}
 }

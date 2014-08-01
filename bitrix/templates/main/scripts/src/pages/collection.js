@@ -38,54 +38,58 @@ function (getVal, getLocalText, relativeNumber) {
 		var imgSrc = $img.attr('src');
 
 		// loadGray {{{2
-		function loadGray() {
-			require(['grayscale_img', 'load_img'],
-			function (grayscaleImg, loadImg) {
-				grayscaleImg(imgSrc, function (err, dataURL) {
-					if (err) {
-						if (err instanceof loadImg.exceptions.Timeout) {
-							setTimeout(loadGray, 1); // try again
-						} else window.console.error(err);
-						return;
-					}
+		if ($ul.hasClass('products')) {
+			function loadGray() {
+				require(['grayscale_img', 'load_img'],
+				function (grayscaleImg, loadImg) {
+					grayscaleImg(imgSrc, function (err, dataURL) {
+						if (err) {
+							if (err instanceof loadImg.exceptions.Timeout) {
+								setTimeout(loadGray, 1); // try again
+							} else window.console.error(err);
+							return;
+						}
 
-					var $newImg = $('<img>', {
-						'alt': '',
-						'src': dataURL,
-						'class': 'grayscale',
+						var $newImg = $('<img>', {
+							'alt': '',
+							'src': dataURL,
+							'class': 'grayscale',
+						});
+						$preview.append( $newImg );
 					});
-					$preview.append( $newImg );
 				});
-			});
+			}
+			setTimeout(loadGray, 1);
 		}
-		setTimeout(loadGray, 1);
 		// loadGray }}}2
 
 		// loadBlur {{{2
-		function loadBlur() {
-			require(['blur_img', 'load_img'],
-			function (blurImg, loadImg) {
-				blurImg({
-					src: imgSrc,
-					radius: 10,
-				}, function (err, dataURL) {
-					if (err) {
-						if (err instanceof loadImg.exceptions.Timeout) {
-							setTimeout(loadBlur, 1); // try again
-						} else window.console.error(err);
-						return;
-					}
+		if ($ul.hasClass('brand')) {
+			function loadBlur() {
+				require(['blur_img', 'load_img'],
+				function (blurImg, loadImg) {
+					blurImg({
+						src: imgSrc,
+						radius: 10,
+					}, function (err, dataURL) {
+						if (err) {
+							if (err instanceof loadImg.exceptions.Timeout) {
+								setTimeout(loadBlur, 1); // try again
+							} else window.console.error(err);
+							return;
+						}
 
-					var $newImg = $('<img>', {
-						'alt': '',
-						'src': dataURL,
-						'class': 'blur',
+						var $newImg = $('<img>', {
+							'alt': '',
+							'src': dataURL,
+							'class': 'blur',
+						});
+						$preview.append( $newImg );
 					});
-					$preview.append( $newImg );
 				});
-			});
+			}
+			setTimeout(loadBlur, 1);
 		}
-		setTimeout(loadBlur, 1);
 		// loadBlur }}}2
 
 		$info

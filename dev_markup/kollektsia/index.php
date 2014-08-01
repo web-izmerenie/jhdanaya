@@ -1,10 +1,11 @@
 <?
 define('COLLECTION_PAGE', 'Y');
+define('COLLECTION_BRAND_PAGE', 'Y');
 require($_SERVER["DOCUMENT_ROOT"]."/bitrix/header.php");
 $APPLICATION->SetTitle("Коллекция");
 ?>
 
-<ul class="collection_list">
+<ul class="collection_list brand">
 	<li id="bx_id_1">
 		<a class="preview">
 			<img alt="" src="/upload/markup_tmp/collection/01.png" />

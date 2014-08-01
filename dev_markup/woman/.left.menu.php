@@ -1,0 +1,53 @@
+<?
+$aMenuLinks = Array(
+	Array(
+		"Обручальные кольца", 
+		"/dev_markup/woman/", 
+		Array(), 
+		Array(), 
+		"" 
+	),
+	Array(
+		"Кольца", 
+		"#", 
+		Array(), 
+		Array(), 
+		"" 
+	),
+	Array(
+		"Серьги", 
+		"#", 
+		Array(), 
+		Array(), 
+		"" 
+	),
+	Array(
+		"Подвески", 
+		"#", 
+		Array(), 
+		Array(), 
+		"" 
+	),
+	Array(
+		"Браслеты", 
+		"#", 
+		Array(), 
+		Array(), 
+		"" 
+	),
+	Array(
+		"Часы", 
+		"#", 
+		Array(), 
+		Array(), 
+		"" 
+	),
+	Array(
+		"Все", 
+		"#", 
+		Array(), 
+		Array(), 
+		"" 
+	)
+);
+?>

@@ -94,7 +94,7 @@
 		</nav>
 	</header>
 	<?if(!defined("HTML_MAIN_PAGE")){?>
-		<?if(defined('COLLECTION_PAGE')){?>
+		<?if(defined('COLLECTION_BRAND_PAGE')){?>
 			<div class="collection_page_headline">
 				<h1><img alt="Pasqualebruni" src="/upload/markup_tmp/collection_logo.png" /></h1>
 				<a href="#" class="about_brand">

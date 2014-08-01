@@ -24,7 +24,7 @@ require(['get_val', 'relative_number'], function (getVal, relativeNumber) {
 	var $d = $(document);
 	var $w = $(window);
 
-	$list.each(function () {
+	$list.each(function () { // {{{1
 		var $ul = $(this);
 		var $liArr = $ul.find('>li');
 
@@ -32,6 +32,61 @@ require(['get_val', 'relative_number'], function (getVal, relativeNumber) {
 			var $li = $(this);
 			var $info = $li.find('.info');
 			var $a = $li.find('a.preview');
+			var $preview = $li.find('.preview');
+			var $img = $preview.find('img');
+
+			var imgSrc = $img.attr('src');
+
+			// loadGray {{{2
+			function loadGray() {
+				require(['grayscale_img', 'load_img'],
+				function (grayscaleImg, loadImg) {
+					grayscaleImg(imgSrc, function (err, dataURL) {
+						if (err) {
+							if (err instanceof loadImg.exceptions.Timeout) {
+								setTimeout(loadGray, 1); // try again
+							} else window.console.error(err);
+							return;
+						}
+
+						var $newImg = $('<img>', {
+							'alt': '',
+							'src': dataURL,
+							'class': 'grayscale',
+						});
+						$preview.append( $newImg );
+					});
+				});
+			}
+			setTimeout(loadGray, 1);
+			// loadGray }}}2
+
+			// loadBlur {{{2
+			function loadBlur() {
+				require(['blur_img', 'load_img'],
+				function (blurImg, loadImg) {
+					blurImg({
+						src: imgSrc,
+						radius: 10,
+					}, function (err, dataURL) {
+						if (err) {
+							if (err instanceof loadImg.exceptions.Timeout) {
+								setTimeout(loadBlur, 1); // try again
+							} else window.console.error(err);
+							return;
+						}
+
+						var $newImg = $('<img>', {
+							'alt': '',
+							'src': dataURL,
+							'class': 'blur',
+						});
+						$preview.append( $newImg );
+					});
+				});
+			}
+			setTimeout(loadBlur, 1);
+			// loadBlur }}}2
 
 			$info
 				.css('opacity', 0)
@@ -39,7 +94,7 @@ require(['get_val', 'relative_number'], function (getVal, relativeNumber) {
 				.prepend('<a class="zoom"></a>');
 
 			function closeHandler() {
-				$info.stop().animate({
+				$info.animate({
 					'opacity': 0,
 				}, getVal('animationSpeed'), function () {
 					$(this).css('display', 'none');
@@ -50,9 +105,16 @@ require(['get_val', 'relative_number'], function (getVal, relativeNumber) {
 			}
 
 			$info.find('.closer').click(closeHandler);
+			$info.find('.zoom').click(function () {
+				alert('Поведение кнопки не определено дизайном.');
+				return false;
+			});
 
-			$a.click(function () {
-				if ($ul.hasClass('popup')) return false;
+			$a.click(function () { // {{{2
+				if ($ul.hasClass('popup')) {
+					$ul.find('>li.popup .info .closer').trigger('click');
+					return false;
+				}
 
 				$ul.addClass('popup');
 				$li.addClass('popup');
@@ -66,11 +128,11 @@ require(['get_val', 'relative_number'], function (getVal, relativeNumber) {
 					'opacity': 1,
 				}, getVal('animationSpeed'));
 				return false;
-			});
-		});
-	});
+			}); // open popup }}}2
+		}); // $liArr
+	}); // $list }}}1
 
-	$d.on('click' + bindSuffix, function (event) {
+	$d.on('click' + bindSuffix, function (event) { // {{{1
 		var $infoOpened = $list.find('>li.popup .info');
 		if ($infoOpened.size() <= 0) return true;
 
@@ -91,7 +153,7 @@ require(['get_val', 'relative_number'], function (getVal, relativeNumber) {
 		}
 
 		return true;
-	});
+	}); // $d.click }}}1
 
 }); // require() for page passed
 

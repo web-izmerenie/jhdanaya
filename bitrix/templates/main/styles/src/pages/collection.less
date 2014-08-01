@@ -91,6 +91,19 @@ html.collection_page body {
 						display: block;
 						.size(100%, auto);
 						.absolute(0, auto, auto, 0);
+						z-index: 1;
+						.opacity(1);
+						.transit(~'opacity');
+					}
+
+					img.grayscale {
+						z-index: 2;
+						.opacity(0);
+					}
+
+					img.blur {
+						z-index: 3;
+						.opacity(0);
 					}
 				}
 
@@ -151,6 +164,10 @@ html.collection_page body {
 					.transit(~'opacity');
 				} // .info }}}2
 			} // &>li
+
+			&.popup>li .preview img {
+				&.blur { .opacity(1); }
+			}
 		} // ul.collection_list }}}1
 
 		a.load_more {

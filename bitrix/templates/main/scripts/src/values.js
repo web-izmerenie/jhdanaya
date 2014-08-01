@@ -21,6 +21,7 @@ define(function () {
 		waiterTimeout: 200, // ms
 		mainPageSliderInterval: 3, // sec
 		dynamicApiLoadInterval: 200, // ms
+		loadImgTimeout: 30000, // ms
 
 	};
 

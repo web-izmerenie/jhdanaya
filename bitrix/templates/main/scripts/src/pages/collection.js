@@ -46,32 +46,6 @@ function (getVal, getLocalText, relativeNumber) {
 
 		var imgSrc = $img.attr('src');
 
-		// loadGray {{{2
-		if ($ul.hasClass('products')) {
-			function loadGray() {
-				require(['grayscale_img', 'load_img'],
-				function (grayscaleImg, loadImg) {
-					grayscaleImg(imgSrc, function (err, dataURL) {
-						if (err) {
-							if (err instanceof loadImg.exceptions.Timeout) {
-								setTimeout(loadGray, 1); // try again
-							} else window.console.error(err);
-							return;
-						}
-
-						var $newImg = $('<img>', {
-							'alt': '',
-							'src': dataURL,
-							'class': 'grayscale',
-						});
-						$preview.append( $newImg );
-					});
-				});
-			}
-			setTimeout(loadGray, 1);
-		}
-		// loadGray }}}2
-
 		// loadBlur {{{2
 		if ($ul.hasClass('brand')) {
 			function loadBlur() {

@@ -33,8 +33,8 @@ require(['get_val', 'relative_number'], function (getVal, relativeNumber) {
 	var logoTxtMarginTopMax = logoTxtMarginTopMin + 3;
 	var nextCardBottomMin = 58;
 	var nextCardBottomMax = 140;
-	var nextCardSizeMin = 64;
-	var nextCardSizeMax = 96;
+	var nextCardSizeMin = getVal('circleDownArrowButtonSizeMin');
+	var nextCardSizeMax = getVal('circleDownArrowButtonSizeMax');
 
 	// dom elements
 	var $header = $('header');

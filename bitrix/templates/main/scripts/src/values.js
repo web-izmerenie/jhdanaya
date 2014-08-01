@@ -23,6 +23,9 @@ define(function () {
 		dynamicApiLoadInterval: 200, // ms
 		loadImgTimeout: 30000, // ms
 
+		circleDownArrowButtonSizeMin: 64,
+		circleDownArrowButtonSizeMax: 96,
+
 	};
 
 	/** Required set before "getVal" */

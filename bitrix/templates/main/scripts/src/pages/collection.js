@@ -20,7 +20,10 @@ require(['get_val', 'relative_number'], function (getVal, relativeNumber) {
 	// dom elements
 	var $main = $('main');
 	var $footer = $('footer');
-	var $list = $('ul.collection_list');
+	var $list = $main.find('ul.collection_list');
+	var $liArr = $list.find('>li');
+	var $previews = $liArr.find('.preview');
+	var $more = $main.find('.load_more');
 	var $d = $(document);
 	var $w = $(window);
 
@@ -154,6 +157,79 @@ require(['get_val', 'relative_number'], function (getVal, relativeNumber) {
 
 		return true;
 	}); // $d.click }}}1
+
+	// relative size {{{1
+
+		var relativeSizeBindSuffix = '.collection_page_relative_size_bind';
+		var moreSizeMin = getVal('circleDownArrowButtonSizeMin');
+		var moreSizeMax = getVal('circleDownArrowButtonSizeMax');
+		var itemSizeMin = 208;
+		var itemSizeMax = 342;
+		var rMinW = getVal('minWidth');
+		var rMaxW = getVal('maxWidth');
+		var topMin = 75;
+		var topMax = 130;
+
+		var $relMore = $main.find('ul.collection_list + .load_more');
+
+		$w.on('resize' + relativeSizeBindSuffix, $.proxy(setTimeout, null, function () {
+
+			var w;
+
+			function rn(min, max) {
+				return relativeNumber({
+					relVal: w,
+					relMin: rMinW,
+					relMax: rMaxW,
+					min: min,
+					max: max,
+				});
+			} // rn()
+
+			// reset
+			$more.css({
+				width: '',
+				height: '',
+				'border-radius': '',
+			});
+			$liArr.css({
+				'height': '',
+				'margin-top': '',
+			});
+			$previews.css({
+				'width': '',
+				'height': '',
+			});
+			$relMore.css('margin-top', '');
+
+			w = $footer.width();
+
+			var size;
+			var top = rn(topMin, topMax);
+
+			size = rn(moreSizeMin, moreSizeMax);
+			$more.css({
+				width: size + 'px',
+				height: size + 'px',
+				'border-radius': (size / 2) + 'px',
+			});
+
+			size = rn(itemSizeMin, itemSizeMax);
+			$liArr.css({
+				'height': size + 'px',
+				'margin-top': top + 'px',
+			});
+			$previews.css({
+				'width': size + 'px',
+				'height': size + 'px',
+			});
+			$relMore.css('margin-top', top + 'px');
+
+		}, 1));
+
+		$w.trigger('resize' + relativeSizeBindSuffix);
+
+	// relative size }}}1
 
 }); // require() for page passed
 

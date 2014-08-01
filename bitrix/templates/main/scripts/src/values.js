@@ -26,6 +26,8 @@ define(function () {
 		circleDownArrowButtonSizeMin: 64,
 		circleDownArrowButtonSizeMax: 96,
 
+		dynamicItemsLoadURL: '/dev_markup/kollektsia/ajax.php',
+
 	};
 
 	/** Required set before "getVal" */

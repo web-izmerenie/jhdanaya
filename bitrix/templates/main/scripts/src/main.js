@@ -17,6 +17,7 @@ define(['basics/get_val'], function (getVal) {
 		'grayscale_img': 'basics/grayscale_img',
 		'load_img': 'basics/load_img',
 		'blur_img': 'basics/blur_img',
+		'json_answer': 'basics/json_answer',
 	};
 
 	var paths = {};

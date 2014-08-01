@@ -204,6 +204,7 @@ html.collection_page body {
 							.fontMetrics(13px, 20px);
 							.absolute(13px, auto, auto, 16px);
 							text-align: left;
+							z-index: 1;
 						}
 
 						.zoom {
@@ -212,6 +213,7 @@ html.collection_page body {
 							.absolute(auto, auto, 0, 0);
 							.size(100%, 49px);
 							background: #c5b8b4;
+							z-index: 2;
 
 							&>span {
 								.sprite(@sprite_icons_lens2);
@@ -224,7 +226,18 @@ html.collection_page body {
 								text-indent: 50000px;
 							}
 						} // .zoom
+
+						.opacity(0);
+						.transit(~'opacity');
+
+						&:hover {
+							.opacity(1);
+						}
 					} // .info
+
+					a.preview:hover + .info {
+						.opacity(1);
+					}
 				} // &>li
 			} // &.rings }}}2
 		} // ul.collection_list }}}1

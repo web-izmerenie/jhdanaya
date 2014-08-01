@@ -14,8 +14,6 @@ require(['get_val', 'get_local_text', 'relative_number'],
 function (getVal, getLocalText, relativeNumber) {
 
 	// values
-	var minW = getVal('minWidth');
-	var maxW = getVal('maxWidth');
 	var bindSuffix = '.collection_page_bind';
 
 	// dom elements
@@ -268,7 +266,7 @@ function (getVal, getLocalText, relativeNumber) {
 									err instanceof jsonAnswer.exceptions.UnknownStatusValue &&
 									err.json && err.json.status === 'end_of_list'
 								) {
-									$more.slideUp(getVal('animationSpeed'), function () {
+									$more.slideUp(getVal('animationSpeed') * 6, function () {
 										$more.remove();
 									});
 									if (!err.json.items) return;
@@ -295,7 +293,7 @@ function (getVal, getLocalText, relativeNumber) {
 									$page.animate({
 										scrollTop: (scrollTop + (newLastTop - lastTop)) + 'px'
 									}, {
-										duration: getVal('animationSpeed') * 2,
+										duration: getVal('animationSpeed') * 6,
 										easing: 'easeInOutQuad'
 									});
 								} else stopping();

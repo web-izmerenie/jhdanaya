@@ -82,7 +82,7 @@ html.collection_page body {
 				&:before, &:after { display: none; }
 			} // &>li
 
-			&.brand, &.rings {
+			&.brand, &.rings { // {{{2
 				.preview {
 					.linkNoLine;
 					.fontMetrics(0, 0);
@@ -107,7 +107,7 @@ html.collection_page body {
 				}
 
 				span.preview { cursor: default; }
-			}
+			} // &.brand, &.rings }}}2
 
 			&.brand.popup>li .preview img {
 				&.blur { .opacity(1); }
@@ -237,6 +237,79 @@ html.collection_page body {
 					}
 				} // &>li
 			} // &.rings }}}2
+
+			&.produce { // {{{2
+				margin-top: 42px - 9px;
+
+				@topMin: 54px; // max 90
+				@min: 232px; // max 339
+				@minText: 277px; // max 460
+				@minFontS: 22px; // max 31
+
+				&>li {
+					vertical-align: top;
+					height: auto;
+					text-align: center;
+					margin-top: @topMin;
+
+					&>a {
+						.linkNoLine;
+						display: inline-block;
+						text-align: center;
+						vertical-align: top;
+						width: @minText;
+						.relative;
+						overflow: hidden;
+
+						&>span:first-child { // pic
+							display: block;
+							.size(@min);
+							margin: 0 auto;
+							.relative;
+							margin-top: 10px;
+							z-index: 0;
+
+							&>img {
+								display: block;
+								.size(100%, auto);
+								.relative(50%);
+								.transform(translateY(-50%));
+							}
+						} // pic
+
+						&>span:first-child + span { // text
+							display: block;
+							margin: 0 auto;
+							font: @contentFont;
+							.sansSerifFont('Roboto-Light', @minFontS, (@minFontS + 2px));
+							text-transform: uppercase;
+							margin-top: 10px;
+							margin-bottom: 10px;
+							width: @minText;
+							z-index: 2;
+							.relative;
+							color: @contentColor;
+
+							&:before {
+								.pseudoBlock;
+								.size(40000px, 40000px);
+								.absolute(-1000px, auto, auto, -1000px);
+								background: rgba(237, 230, 228, 0.5);
+								z-index: -1;
+								.opacity(0);
+								.transit(~'opacity');
+							}
+						} // text
+
+						&:hover {
+							&>span:first-child + span {
+								color: @contentColor;
+								&:before { .opacity(1); }
+							}
+						}
+					} // &>a
+				} // &>li
+			} // &.produce }}}2
 		} // ul.collection_list }}}1
 
 		a.load_more {

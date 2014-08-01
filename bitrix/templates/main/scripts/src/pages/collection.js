@@ -177,6 +177,20 @@ function (getVal, getLocalText, relativeNumber) {
 			var ringItemSizeMax = 450;
 			var zoomHeightMin = 49;
 			var zoomHeightMax = 79;
+		} else if ($list.hasClass('produce')) {
+			itemSizeMin = 232;
+			itemSizeMax = 339;
+			topMin = 54;
+			topMax = 90;
+
+			var fontSizeMin = 22;
+			var fontSizeMax = 31;
+			var textWidthMin = 277;
+			var textWidthMax = 460;
+
+			var $a = $liArr.find('>a');
+			var $pic = $a.find('>span:first');
+			var $font = $a.find('>span:first + span');
 		}
 
 		var $relMore = $main.find('ul.collection_list + .load_more');
@@ -216,6 +230,18 @@ function (getVal, getLocalText, relativeNumber) {
 				$zooms.css('height', rn(zoomHeightMin, zoomHeightMax) + 'px');
 			} else if ($list.hasClass('brand')) {
 				$liArr.css('height', size + 'px');
+			} else if ($list.hasClass('produce')) {
+				$a.css('width', rn(textWidthMin, textWidthMax) + 'px');
+				$pic.css({
+					'width': size + 'px',
+					'height': size + 'px',
+				});
+				$font.css({
+					'width': rn(textWidthMin, textWidthMax) + 'px',
+					'font-size': rn(fontSizeMin, fontSizeMax) + 'px',
+					'line-height': (rn(fontSizeMin, fontSizeMax) + 2) + 'px',
+				});
+				return;
 			}
 
 			$previews.css({
@@ -246,6 +272,22 @@ function (getVal, getLocalText, relativeNumber) {
 				'height': '',
 				'margin-left': '',
 			});
+			if ($list.hasClass('produce')) {
+				$a.css({
+					'width': '',
+					'height': '',
+				});
+				$pic.css({
+					'width': '',
+					'height': '',
+				});
+				$font.css({
+					'width': '',
+					'height': '',
+					'font-size': '',
+					'line-height': '',
+				});
+			}
 			$zooms.css({
 				'width': '',
 				'height': '',
@@ -433,11 +475,13 @@ function (getVal, getLocalText, relativeNumber) {
 		return false;
 	}); // $more.click }}}1
 
-	$w.on('scroll' + bindSuffix, function () {
-		if ($d.scrollTop() + $w.height() >= $more.offset().top) {
-			$more.trigger('click' + bindSuffix);
-		}
-	});
+	if ($more.size() > 0) { // {{{1
+		$w.on('scroll' + bindSuffix, function () {
+			if ($d.scrollTop() + $w.height() >= $more.offset().top) {
+				$more.trigger('click' + bindSuffix);
+			}
+		});
+	} // auto more by scroll }}}1
 
 }); // require() for page passed
 

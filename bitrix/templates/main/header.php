@@ -56,7 +56,7 @@
 				urlArgs: 'v=<?=$revision?>',
 			});
 			require(['basics/get_val'], function (getVal) {
-				getVal.set('clientSide', true);
+				getVal.set('clientSide', <?=($debug)?'true':'false'?>);
 				getVal.set('lang', '<?=LANGUAGE_ID?>');
 				getVal.set('revision', '<?=$revision?>');
 				getVal.set('tplPath', '<?=$tplPath?>');

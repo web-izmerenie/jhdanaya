@@ -27,7 +27,6 @@ function (getVal, getLocalText, relativeNumber) {
 	var $more = $main.find('.load_more');
 	var $d = $(document);
 	var $w = $(window);
-	var $page = $('html,body');
 
 	function initList() {
 		$liArr = $list.find('>li');

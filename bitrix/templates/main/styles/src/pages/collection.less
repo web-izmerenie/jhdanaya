@@ -80,7 +80,9 @@ html.collection_page body {
 				margin-top: @topMin;
 
 				&:before, &:after { display: none; }
+			} // &>li
 
+			&.brand, &.rings {
 				.preview {
 					.linkNoLine;
 					.fontMetrics(0, 0);
@@ -98,11 +100,6 @@ html.collection_page body {
 						.transit(~'opacity');
 					}
 
-					img.grayscale {
-						z-index: 2;
-						.opacity(0);
-					}
-
 					img.blur {
 						z-index: 3;
 						.opacity(0);
@@ -110,7 +107,7 @@ html.collection_page body {
 				}
 
 				span.preview { cursor: default; }
-			} // &>li
+			}
 
 			&.brand.popup>li .preview img {
 				&.blur { .opacity(1); }

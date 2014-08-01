@@ -297,6 +297,7 @@ function (getVal, getLocalText, relativeNumber) {
 				$more.removeClass('loading');
 				setTimeout(function () {
 					$more.removeData('process');
+					$w.trigger('scroll' + bindSuffix);
 				}, getVal('animationSpeed'));
 			}
 
@@ -324,6 +325,7 @@ function (getVal, getLocalText, relativeNumber) {
 									err instanceof jsonAnswer.exceptions.UnknownStatusValue &&
 									err.json && err.json.status === 'end_of_list'
 								) {
+									$list.addClass('end_of_list');
 									$more.slideUp(getVal('animationSpeed') * 6, function () {
 										$more.remove();
 									});
@@ -342,20 +344,8 @@ function (getVal, getLocalText, relativeNumber) {
 
 							var items = json.items;
 							var i = 0;
-							var scrollTop = $d.scrollTop();
-							var lastTop = $liArr.last().offset().top;
 
-							function loopEnd() {
-								var newLastTop = $liArr.last().offset().top;
-								if (newLastTop > lastTop) {
-									$page.animate({
-										scrollTop: (scrollTop + (newLastTop - lastTop)) + 'px'
-									}, {
-										duration: getVal('animationSpeed') * 6,
-										easing: 'easeInOutQuad'
-									});
-								} else stopping();
-							}
+							var loopEnd = stopping;
 
 							function loadItemLoop() { // {{{3
 								if (items.length <= i) return loopEnd();
@@ -469,6 +459,12 @@ function (getVal, getLocalText, relativeNumber) {
 
 		return false;
 	}); // $more.click }}}1
+
+	$w.on('scroll' + bindSuffix, function () {
+		if ($d.scrollTop() + $w.height() >= $more.offset().top) {
+			$more.trigger('click' + bindSuffix);
+		}
+	});
 
 }); // require() for page passed
 

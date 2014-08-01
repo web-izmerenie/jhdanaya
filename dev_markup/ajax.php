@@ -82,9 +82,9 @@ HTML
 );
 
 echo json_encode(array(
-	//"status" => "success",
+	"status" => "success",
 	// или:
-	"status" => "end_of_list",
+	//"status" => "end_of_list",
 
 	"items" => $items[$_GET['iblock']]
 ));

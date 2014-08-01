@@ -6,14 +6,50 @@ $APPLICATION->SetTitle("Коллекция");
 
 <ul class="collection_list">
 	<li>
-		<span class="preview">
+		<a class="preview">
 			<img alt="" src="/upload/markup_tmp/collection/01.png" />
-		</span>
+		</a>
+		<div class="info">
+			<div class="text">
+				<p>Арт. ТТ3932</p>
+				<p>
+					Белое золото: Проба: 585.<br/>
+					Обработка: Алмазная грань<br/>
+					Желтое золото: Проба: 585.<br/>
+					Обработка: Алмазная грань<br/>
+					Вес: 3,02 г.<br/>
+					Размер: 15,5 мм.
+				</p>
+				<p>
+					ТРЦ «Золотой Вавило»<br/>
+					Тел.: (863) 204-07-40
+				</p>
+			</div>
+			<img class="picture" alt="" src="/upload/markup_tmp/collection/01.png" />
+		</div>
 	</li>
 	<li>
-		<span class="preview">
+		<a class="preview">
 			<img alt="" src="/upload/markup_tmp/collection/02.png" />
-		</span>
+		</a>
+		<div class="info">
+			<div class="text">
+				<p>Арт. ТТ3932</p>
+				<p>
+					Белое золото: Проба: 585.<br/>
+					Обработка: Алмазная грань<br/>
+					Желтое золото: Проба: 585.<br/>
+					Обработка: Алмазная грань<br/>
+					Вес: 3,02 г.<br/>
+					Размер: 15,5 мм.
+				</p>
+				<p>
+					ТРЦ «Золотой Вавило»<br/>
+					Тел.: (863) 204-07-40
+				</p>
+			</div>
+			<img class="picture" alt="" src="/upload/markup_tmp/collection/02.png" />
+		</div>
 	</li>
 	<li>
 		<span class="preview">
@@ -26,12 +62,30 @@ $APPLICATION->SetTitle("Коллекция");
 		</span>
 	</li>
 	<li>
-		<span class="preview">
+		<a class="preview">
 			<img alt="" src="/upload/markup_tmp/collection/05.png" />
-		</span>
+		</a>
+		<div class="info">
+			<div class="text">
+				<p>Арт. ТТ3932</p>
+				<p>
+					Белое золото: Проба: 585.<br/>
+					Обработка: Алмазная грань<br/>
+					Желтое золото: Проба: 585.<br/>
+					Обработка: Алмазная грань<br/>
+					Вес: 3,02 г.<br/>
+					Размер: 15,5 мм.
+				</p>
+				<p>
+					ТРЦ «Золотой Вавило»<br/>
+					Тел.: (863) 204-07-40
+				</p>
+			</div>
+			<img class="picture" alt="" src="/upload/markup_tmp/collection/05.png" />
+		</div>
 	</li>
 </ul>
 
-<a class="load_more" title="Загрузить ещё"><span>Загрузить ещё</span></a>
+<a class="load_more" title="Загрузить еще"><span>Загрузить еще</span></a>
 
 <?require($_SERVER["DOCUMENT_ROOT"]."/bitrix/footer.php");?>

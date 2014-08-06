@@ -13,9 +13,10 @@
 	// <html> classes
 	if(defined("HTML_MAIN_PAGE"))
 		$html_classes[] = "main_page";
-	if(defined("COLLECTION_PAGE")) {
+	if(defined("COLLECTION_PAGE")){
 		$html_classes[] = "collection_page";
-		$html_classes[] = "content_bg";
+		if(!defined('COLLECTION_BRAND_DETAIL_PAGE'))
+			$html_classes[] = "content_bg";
 	}
 
 	// <main> classes
@@ -23,6 +24,10 @@
 		$main_classes[] = "about";
 	if(defined("MAIN_SHOPS"))
 		$main_classes[] = "shops";
+	if(defined('COLLECTION_BRAND_DETAIL_PAGE')){
+		$main_classes[] = "stretch";
+		$main_classes[] = "no_limits";
+	}
 
 	$html_classes = implode(" ", $html_classes);
 	$main_classes = implode(" ", $main_classes);
@@ -95,11 +100,19 @@
 	</header>
 	<?if(!defined("HTML_MAIN_PAGE")){?>
 		<?if(defined('COLLECTION_BRAND_PAGE')){?>
-			<div class="collection_page_headline">
+			<div class="collection_brand_page_headline">
 				<h1><img alt="Pasqualebruni" src="/upload/markup_tmp/collection_logo.png" /></h1>
 				<a href="#" class="about_brand">
 					<img alt="" src="/upload/markup_tmp/collection_about_brand.png" />
 					<span>О бренде</span>
+				</a>
+			</div>
+		<?}elseif(defined('COLLECTION_BRAND_DETAIL_PAGE')){?>
+			<div class="collection_brand_page_headline">
+				<h1><img alt="Pasqualebruni" src="/upload/markup_tmp/collection_logo.png" /></h1>
+				<a href="#" class="about_brand">
+					<img alt="" src="/upload/markup_tmp/collection_about_brand.png" />
+					<span>Коллекция</span>
 				</a>
 			</div>
 		<?}else{?>

@@ -129,9 +129,7 @@ html body {
 		margin-right: auto;
 		font: @contentFont;
 
-		p + p {
-			padding-top: 24px;
-		}
+		p + p { padding-top: 24px; }
 
 		p + p>img {
 			margin-top: 24px;
@@ -145,5 +143,8 @@ html body {
 			text-align: center;
 			padding-top: 74px - 24px;
 		}
+
+		&.stretch { max-width: @maxWidth; }
+		&.no_limits { padding-left: 0; padding-right: 0; }
 	} // main }}}1
 } // html body

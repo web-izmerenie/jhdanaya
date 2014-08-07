@@ -18,6 +18,8 @@
 		if(!defined('COLLECTION_BRAND_DETAIL_PAGE'))
 			$html_classes[] = "content_bg";
 	}
+	if(defined('EVENT_DETAIL_PAGE'))
+		$html_classes[] = "event_detail_page";
 
 	// <main> classes
 	if(defined("MAIN_ABOUT"))

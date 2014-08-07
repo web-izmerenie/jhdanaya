@@ -58,10 +58,10 @@ html.collection_page body {
 		}
 	} // .collection_brand_page_headline }}}1
 
-	main {
+	main { // {{{1
 		@topMin: 75px;
 
-		ul.collection_list { // {{{1
+		ul.collection_list { // {{{2
 			.resetCSS;
 			min-width: @minWidth;
 			max-width: @maxWidth - ((@mainMargin2 - @mainMargin) * 2);
@@ -82,7 +82,7 @@ html.collection_page body {
 				&:before, &:after { display: none; }
 			} // &>li
 
-			&.brand, &.rings { // {{{2
+			&.brand, &.rings { // {{{3
 				.preview {
 					.linkNoLine;
 					.fontMetrics(0, 0);
@@ -107,13 +107,13 @@ html.collection_page body {
 				}
 
 				span.preview { cursor: default; }
-			} // &.brand, &.rings }}}2
+			} // &.brand, &.rings }}}3
 
 			&.brand.popup>li .preview img {
 				&.blur { .opacity(1); }
 			}
 
-			&.brand>li .info { // {{{2
+			&.brand>li .info { // {{{3
 				@w: 720px;
 
 				display: block;
@@ -166,9 +166,9 @@ html.collection_page body {
 
 				display: none;
 				.transit(~'opacity');
-			} // &.brand>li .info }}}2
+			} // &.brand>li .info }}}3
 
-			&.rings { // {{{2
+			&.rings { // {{{3
 				.relative;
 
 				&>li {
@@ -236,9 +236,9 @@ html.collection_page body {
 						.opacity(1);
 					}
 				} // &>li
-			} // &.rings }}}2
+			} // &.rings }}}3
 
-			&.produce { // {{{2
+			&.produce { // {{{3
 				margin-top: 42px - 9px;
 
 				@topMin: 54px; // max 90
@@ -309,8 +309,8 @@ html.collection_page body {
 						}
 					} // &>a
 				} // &>li
-			} // &.produce }}}2
-		} // ul.collection_list }}}1
+			} // &.produce }}}3
+		} // ul.collection_list }}}2
 
 		a.load_more {
 			.circleDownArrowButtonLight();
@@ -322,7 +322,7 @@ html.collection_page body {
 			margin-top: @topMin;
 		}
 
-		ul.produce_submenu {
+		ul.produce_submenu { // {{{2
 			.resetCSS;
 			display: block;
 			min-width: @minWidth;
@@ -354,10 +354,122 @@ html.collection_page body {
 					}
 				}
 			} // &>li
-		} // ul.produce_submenu
+		} // ul.produce_submenu }}}2
 
 		ul.collection_list.produce + ul.produce_submenu {
 			margin-top: 72px - 15px;
 		}
-	} // main
+
+		.about_brand { // {{{2
+			display: block;
+			padding-top: 52px - 28px;
+
+			// limited blocks {{{3
+			section.based {
+				.box-sizing(border-box);
+				padding-left: @mainMargin;
+				padding-right: @mainMargin;
+				max-width: @maxWidth - ((@mainMargin2 - @mainMargin) * 2);
+				margin-left: auto;
+				margin-right: auto;
+			} // limited blocks }}}3
+
+			& > blockquote { // {{{3
+				@picS: 118px;
+				@picOffset: 32px - 18px;
+
+				.resetCSS;
+				display: block;
+				width: 625px;
+				.sansSerifFont('Roboto', 17px, 24px);
+				margin-left: auto;
+				margin-right: auto;
+				padding-top: 58px;
+				.relative;
+				min-height: @picS - @picOffset;
+
+				&>img {
+					@s: @picS;
+					display: block;
+					.size(@s);
+					.border-radius(@s / 2);
+					float: left;
+					margin-right: 27px;
+					.relative(-@picOffset);
+				}
+
+				p.signature {
+					text-align: right;
+					font: @contentFont;
+					font-weight: bold;
+				}
+				p + p.signature { padding-top: 24px - 16px; }
+			} // & > blockquote }}}3
+
+			* + section.accent_info_block { margin-top: 44px; }
+			section.accent_info_block { // {{{3
+				display: table;
+				width: 100%;
+				background: #5d6464;
+				color: white;
+
+				&>.picture {
+					display: table-cell;
+					width: 50%;
+					height: 468px;
+					background-color: white;
+					background-position: 0 middle;
+					.background-size(cover);
+					vertical-align: middle;
+				}
+
+				&>.info {
+					display: table-cell;
+					width: 50%;
+					vertical-align: middle;
+
+					&>p {
+						@pL: 32px;
+						padding-left: @pL;
+						padding-right: @mainMargin;
+						max-width: (@maxWidth/2) - @mainMargin2 + @mainMargin;
+						.box-sizing(border-box);
+
+						&:first-child { padding-top: @mainMargin; }
+						&:last-child { padding-bottom: @mainMargin; }
+					}
+				}
+			} // section.accent_info_block }}}3
+
+			section.info_right_pic { // {{{3
+				@picS: 304px;
+				@picOffset: 45px - 18px;
+
+				display: block;
+				width: 790px;
+				margin-left: auto;
+				margin-right: auto;
+				margin-top: 95px - 18px;
+				.relative;
+				min-height: @picS - @picOffset;
+
+				&>img {
+					@s: @picS;
+					float: right;
+					.size(@s);
+					.border-radius(@s/2);
+					margin-left: @mainMargin2;
+					.relative(-@picOffset);
+				}
+			} // section.info_right_pic }}}3
+
+			.figure_split {
+				display: block;
+				height: 18px;
+				.bg('rhomb_splitter.png', 0 center repeat-x);
+				margin-top: 49px;
+				margin-bottom: 49px;
+			}
+		} // .about_brand }}}2
+	} // main }}}1
 } // html.collection_page body

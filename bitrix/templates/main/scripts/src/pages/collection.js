@@ -28,6 +28,18 @@ function (getVal, getLocalText, relativeNumber) {
 	var $d = $(document);
 	var $w = $(window);
 
+	function brandDetailPageInit() {
+		var $block = $('.about_brand');
+		if ($block.size() <= 0) return;
+
+		//alert('OH YEAH!');
+	}
+
+	if ($list.size() <= 0) {
+		brandDetailPageInit();
+		return;
+	}
+
 	function initList() {
 		$liArr = $list.find('>li');
 		$previews = $liArr.find('.preview');

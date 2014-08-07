@@ -32,7 +32,18 @@ function (getVal, getLocalText, relativeNumber) {
 		var $block = $('.about_brand');
 		if ($block.size() <= 0) return;
 
-		//alert('OH YEAH!');
+		$block.find('.youtube_video').each(function () {
+			var attrName = 'data-youtube-id';
+			var attr = $(this).attr(attrName);
+			if (!attr) {
+				if (window.console && window.console.error)
+					window.console.error(
+						new Error('Missed attribute "'+ attrName +'".'));
+				return;
+			}
+			$(this).html('<iframe src="//www.youtube.com/embed/'+
+				attr +'" allowfullscreen></iframe>');
+		});
 	}
 
 	if ($list.size() <= 0) {

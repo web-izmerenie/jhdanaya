@@ -26,8 +26,8 @@ $APPLICATION->SetTitle("Pasquale Bruni");
 
 	<section class="accent_info_block">
 		<!-- .picutre не должен превышать 800 пикселей в ширину -->
-		<div class="picture" style="background-image:url('/upload/markup_tmp/hand_with_gems.png');"></div>
-		<div class="info">
+		<div class="col_l picture" style="background-image:url('/upload/markup_tmp/hand_with_gems.png');"></div>
+		<div class="col_r info">
 			<p>Эти слова Пскуале Бруни определяют политику развития компании уже не&nbsp;один десяток лет, начиная с&nbsp;1976&nbsp;года.</p>
 			<p>В&nbsp;его руках драгоценные камни превращаются в&nbsp;шедевры ювелирного искусства, становясь символом удивительной способности женщин сочетать в&nbsp;одном лице индивидуальность и&nbsp;многообразие.</p>
 			<p>Его украшения задают моду. Мода&nbsp;&mdash; настроение. Постоянно меняющееся. Непредсказуемое. Всегда разное. Настроение женщины.</p>
@@ -44,7 +44,13 @@ $APPLICATION->SetTitle("Pasquale Bruni");
 	<div class="figure_split"></div>
 
 	<section class="two_column_info">
-		check
+		<div class="col_l">
+			<div class="youtube_video" data-youtube-id="gXp6NYsVDtc"></div>
+		</div>
+		<div class="col_r">
+			<p>Каждый день Паскуале и&nbsp;Еуджения Бруни лично наблюдают за&nbsp;работой компании на&nbsp;каждом этапе создания и&nbsp;производства ювелирных изделий.</p>
+			<p>Его международный успех свидетельствует о&nbsp;творческой интуиции мастера, который, несмотря на&nbsp;сохранение своего самобытного направления в&nbsp;искусстве, обладает способностью предвидеть будущие тенденции, приспосабливаясь ко&nbsp;всё более и&nbsp;более конкурентоспособному рынку.</p>
+		</div>
 	</section>
 </div>
 

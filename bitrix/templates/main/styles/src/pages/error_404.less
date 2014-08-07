@@ -6,6 +6,7 @@
 
 html.error_404_page body {
 	h1 { display: none; }
+	min-width: @minWidth;
 
 	.error_404 {
 		display: table;
@@ -16,7 +17,7 @@ html.error_404_page body {
 			display: table-cell;
 			vertical-align: middle;
 			text-align: center;
-			height: 500px;
+			height: @error404MinHeight;
 
 			.logo {
 				display: inline-block;

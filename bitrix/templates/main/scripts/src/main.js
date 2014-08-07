@@ -57,6 +57,7 @@ define(['basics/get_val'], function (getVal) {
 			if ($('main.shops').size() > 0) require(['pages/shops']);
 			if ($html.hasClass('collection_page')) require(['pages/collection']);
 			if ($('.events_list').size() > 0) require(['pages/events']);
+			if ($html.hasClass('error_404_page')) require(['pages/error_404']);
 
 			if ($('header').size() > 0) require(['header']);
 		}); // domReady()

@@ -17,6 +17,7 @@ define(['basics/get_val'], function (getVal) {
 		'load_img': 'basics/load_img',
 		'blur_img': 'basics/blur_img',
 		'json_answer': 'basics/json_answer',
+		'grayscale_img': 'basics/grayscale_img',
 	};
 
 	var paths = {};
@@ -55,6 +56,7 @@ define(['basics/get_val'], function (getVal) {
 			if ($html.hasClass('main_page')) require(['pages/main']);
 			if ($('main.shops').size() > 0) require(['pages/shops']);
 			if ($html.hasClass('collection_page')) require(['pages/collection']);
+			if ($('.events_list').size() > 0) require(['pages/events']);
 
 			if ($('header').size() > 0) require(['header']);
 		}); // domReady()

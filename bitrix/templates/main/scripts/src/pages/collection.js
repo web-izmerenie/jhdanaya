@@ -1,5 +1,5 @@
 /**
- * "collection" page behavior
+ * "collection" pages behavior
  *
  * @author Viacheslav Lotsmanov
  */

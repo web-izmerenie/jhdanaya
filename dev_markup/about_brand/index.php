@@ -52,6 +52,27 @@ $APPLICATION->SetTitle("Pasquale Bruni");
 			<p>Его международный успех свидетельствует о&nbsp;творческой интуиции мастера, который, несмотря на&nbsp;сохранение своего самобытного направления в&nbsp;искусстве, обладает способностью предвидеть будущие тенденции, приспосабливаясь ко&nbsp;всё более и&nbsp;более конкурентоспособному рынку.</p>
 		</div>
 	</section>
+
+	<section class="notation">
+		<p>Украшения Pasquale Bruni сочетают в&nbsp;себе элементы различных художественных<br/>
+		концепций, ориентированы на&nbsp;ценителей современного дизайна.</p>
+	</section>
+
+	<!-- превьюшки должны ограничиваться по ширине в 140, по высоте в 200 -->
+	<ul class="production_list">
+		<li><img alt="" src="/upload/markup_tmp/about_brand/01.png" /></li>
+		<li><img alt="" src="/upload/markup_tmp/about_brand/02.png" /></li>
+		<li><img alt="" src="/upload/markup_tmp/about_brand/03.png" /></li>
+		<li><img alt="" src="/upload/markup_tmp/about_brand/04.png" /></li>
+		<li><img alt="" src="/upload/markup_tmp/about_brand/05.png" /></li>
+	</ul>
+
+	<section class="back_link">
+		<a href="#">
+			<img alt="" src="/upload/markup_tmp/collection_about_brand.png" />
+			<span>Коллекция</span>
+		</a>
+	</section>
 </div>
 
 <?require($_SERVER["DOCUMENT_ROOT"]."/bitrix/footer.php");?>

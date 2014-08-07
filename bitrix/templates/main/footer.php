@@ -1,4 +1,4 @@
-	</main>
+	<?if(!defined('ERROR_404')){?></main><?}?>
 	<footer>
 		<div class="developer">
 			<?=GetMessage("DEVELOPER")?>

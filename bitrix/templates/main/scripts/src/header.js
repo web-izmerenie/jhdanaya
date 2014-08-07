@@ -25,6 +25,7 @@ stylesReady(function () {
 
 	var mainPage = $html.hasClass('main_page');
 	var $topCard;
+	var error404Page = $html.hasClass('error_404_page');
 
 	if (mainPage) $topCard = $('main .top_card');
 
@@ -32,7 +33,7 @@ stylesReady(function () {
 		var hVal = headerH - smallHeaderH;
 		if (mainPage) hVal += $topCard.height();
 
-		if ($d.scrollTop() >= hVal) {
+		if ($d.scrollTop() >= hVal && !error404Page) {
 			if (!$html.hasClass( fClass )) {
 				$html.addClass( fClass );
 				$img.prop('src', smallImgSrc);

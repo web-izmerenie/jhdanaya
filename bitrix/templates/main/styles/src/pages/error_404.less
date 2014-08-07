@@ -1,0 +1,53 @@
+/**
+ * "error 404" page styles
+ *
+ * @author Viacheslav Lotsmanov
+ */
+
+html.error_404_page body {
+	h1 { display: none; }
+
+	.error_404 {
+		display: table;
+		width: 100%;
+		margin-top: @headerHeight;
+
+		&>.wrap {
+			display: table-cell;
+			vertical-align: middle;
+			text-align: center;
+			height: 500px;
+
+			.logo {
+				display: inline-block;
+				.size(402px, 167px);
+				.bg('404_logo.png', center center no-repeat);
+				margin-bottom: 53px - 18px - 2px;
+			} // .logo
+
+			p { font: @contentFont; line-height: 26px; }
+
+			nav.menu {
+				padding-top: 84px - 24px;
+
+				&>a, &>span {
+					display: inline-block;
+					.sansSerifFont('Roboto-Light', 18px);
+					text-transform: uppercase;
+					white-space: nowrap;
+					margin-left: 32px;
+					color: @contentColor;
+					&:first-child { margin-left: 0; }
+				}
+
+				&>a:hover { color: @activeLinkColor; }
+
+				&>span {
+					cursor: default;
+					border-bottom-color: @bgColor;
+					&, &:hover { color: @contentColor; }
+				}
+			} // nav.menu
+		} // .wrap
+	} // .error_404
+} // html.error_404_page body

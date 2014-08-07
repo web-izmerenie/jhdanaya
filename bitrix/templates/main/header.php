@@ -20,6 +20,8 @@
 	}
 	if(defined('EVENT_DETAIL_PAGE'))
 		$html_classes[] = "event_detail_page";
+	if(defined('ERROR_404'))
+		$html_classes[] = "error_404_page";
 
 	// <main> classes
 	if(defined("MAIN_ABOUT"))
@@ -82,6 +84,7 @@
 		if($APPLICATION->GetCurPage(0) != SITE_DIR){?>
 			</a><?
 		}?>
+		<?if(!defined('ERROR_404')){?>
 		<nav class="menu"><?$APPLICATION->IncludeComponent("bitrix:menu", "menu.main", Array(
 	"ROOT_MENU_TYPE" => "top",	// Тип меню для первого уровня
 	"MENU_CACHE_TYPE" => "A",	// Тип кеширования
@@ -99,6 +102,7 @@
 	false
 );?>
 		</nav>
+		<?}?>
 	</header>
 	<?if(!defined("HTML_MAIN_PAGE")){?>
 		<?if(defined('COLLECTION_BRAND_PAGE')){?>
@@ -137,7 +141,7 @@
 	false
 );?>
 	<?}?>
-	<main class="<?=$main_classes?>">
+	<?if(!defined('ERROR_404')){?><main class="<?=$main_classes?>"><?}?>
 		<?if(defined("HTML_MAIN_PAGE")){?>
 			<section class="top_card">
 				<div class="logo">

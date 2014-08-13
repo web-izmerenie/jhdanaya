@@ -7,9 +7,23 @@ $aMenuLinks = Array(
 		Array(), 
 		"" 
 	),
+    Array(
+		"Изделия", 
+		"/products/", 
+		Array(), 
+		Array(), 
+		"" 
+	),
 	Array(
 		"О компании", 
 		"/about/", 
+		Array(), 
+		Array(), 
+		"" 
+	),
+    Array(
+		"События", 
+		"/events/", 
 		Array(), 
 		Array(), 
 		"" 

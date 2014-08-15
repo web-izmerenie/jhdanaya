@@ -8,4 +8,5 @@ $MESS["FOR_WOMEN"] = "Женщинам";
 $MESS["FOR_MEN"] = "Мужчинам";
 $MESS["FOR_CHILDREN"] = "Детям";
 $MESS["ALL"] = "Все";
+$MESS["SHOW_MORE"] = "Загрузить еще";
 ?>

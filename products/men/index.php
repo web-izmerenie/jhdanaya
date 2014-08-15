@@ -1,8 +1,9 @@
 <?
 define('COLLECTION_PAGE', 'Y');
 require($_SERVER["DOCUMENT_ROOT"]."/bitrix/header.php");
-$APPLICATION->SetTitle("Изделия");
+$APPLICATION->SetTitle("Мужчинам");
 ?><?
+$arrFilter["PROPERTY_FOR"] = "men";
 $arrFilter["PROPERTY_BRAND"] = false;
 $APPLICATION->IncludeComponent(
 	"bitrix:news", 
@@ -43,7 +44,7 @@ $APPLICATION->IncludeComponent(
 		"PREVIEW_TRUNCATE_LEN" => "",
 		"LIST_ACTIVE_DATE_FORMAT" => "",
 		"LIST_FIELD_CODE" => array(
-			0 => "DETAIL_PICTURE",
+			0 => "",
 			1 => "",
 		),
 		"LIST_PROPERTY_CODE" => array(
@@ -81,7 +82,7 @@ $APPLICATION->IncludeComponent(
 		"PAGER_DESC_NUMBERING" => "N",
 		"PAGER_DESC_NUMBERING_CACHE_TIME" => "36000",
 		"PAGER_SHOW_ALL" => "N",
-		"SEF_FOLDER" => "/products/",
+		"SEF_FOLDER" => "/products/women/",
 		"AJAX_OPTION_ADDITIONAL" => "",
 		"FILTER_NAME" => "arrFilter",
 		"FILTER_FIELD_CODE" => array(

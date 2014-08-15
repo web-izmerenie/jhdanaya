@@ -1,12 +1,19 @@
 <?
 define('COLLECTION_PAGE', 'Y');
+define('COLLECTION_BRAND_PAGE', 'Y');
 require($_SERVER["DOCUMENT_ROOT"]."/bitrix/header.php");
-$APPLICATION->SetTitle("Изделия");
+$APPLICATION->SetTitle("Коллекция");
 ?><?
-$arrFilter["PROPERTY_BRAND"] = false;
+global $tplPathBrand, $currentBrendID;
+
+$arrFilter["PROPERTY_BRAND"] = $currentBrendID;
+
+if($_REQUEST["SECTION"]){
+    $arrFilter["SECTION_CODE"] = $_REQUEST["SECTION"];
+}
 $APPLICATION->IncludeComponent(
 	"bitrix:news", 
-	"news.products", 
+	"news.brandproducts", 
 	array(
 		"IBLOCK_TYPE" => "lists",
 		"IBLOCK_ID" => "4",
@@ -21,7 +28,7 @@ $APPLICATION->IncludeComponent(
 		"SORT_BY2" => "",
 		"SORT_ORDER2" => "",
 		"CHECK_DATES" => "Y",
-		"SEF_MODE" => "Y",
+		"SEF_MODE" => "N",
 		"AJAX_MODE" => "N",
 		"AJAX_OPTION_JUMP" => "N",
 		"AJAX_OPTION_STYLE" => "Y",
@@ -81,7 +88,7 @@ $APPLICATION->IncludeComponent(
 		"PAGER_DESC_NUMBERING" => "N",
 		"PAGER_DESC_NUMBERING_CACHE_TIME" => "36000",
 		"PAGER_SHOW_ALL" => "N",
-		"SEF_FOLDER" => "/products/",
+		"SEF_FOLDER" => "/brand/",
 		"AJAX_OPTION_ADDITIONAL" => "",
 		"FILTER_NAME" => "arrFilter",
 		"FILTER_FIELD_CODE" => array(
@@ -92,10 +99,9 @@ $APPLICATION->IncludeComponent(
 			0 => "",
 			1 => "",
 		),
-		"SEF_URL_TEMPLATES" => array(
-			"news" => "",
-			"section" => "#SECTION_CODE#/",
-			"detail" => "#SECTION_CODE#/#ELEMENT_CODE#/",
+		"VARIABLE_ALIASES" => array(
+			"SECTION_ID" => "SECTION_ID",
+			"ELEMENT_ID" => "ELEMENT_ID",
 		)
 	),
 	false

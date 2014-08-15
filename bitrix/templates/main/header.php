@@ -105,7 +105,29 @@
 		<?}?>
 	</header>
 	<?if(!defined("HTML_MAIN_PAGE")){?>
-		<?if(defined('COLLECTION_BRAND_PAGE')){?>
+        <?if(defined('COLLECTION_BRAND_PAGE')){
+            if(CSite::InDir("/brand/")){
+                $tplPathBrand = $APPLICATION->GetCurPage();
+                $tplPathBrand = explode("/", $tplPathBrand);
+                foreach($tplPathBrand as $k => $v){
+                    if($v === "") unset($tplPathBrand[$k]);
+                }
+                CModule::IncludeModule("iblock");
+                $rs_brand = CIBlockElement::GetList(
+                    array(),
+                    array(
+                        "IBLOCK_TYPE" => "lists",
+                        "IBLOCK_CODE" => "brand",
+                        "CODE" => $tplPathBrand[2]
+                    ),
+                    false,
+                    false,
+                    array()
+                );
+                $ar_brand = $rs_brand->GetNext();
+                $currentBrendID = $ar_brand["ID"];
+            }
+        ?>
 			<div class="collection_brand_page_headline">
 				<h1><img alt="Pasqualebruni" src="/upload/markup_tmp/collection_logo.png" /></h1>
 				<a href="#" class="about_brand">
@@ -124,6 +146,9 @@
 		<?}else{?>
 			<h1><?$APPLICATION->ShowTitle()?></h1>
 		<?}?>
+        <?
+            
+        ?>
 		<?$APPLICATION->IncludeComponent("bitrix:menu", "menu.sub", Array(
 	"ROOT_MENU_TYPE" => "left",	// Тип меню для первого уровня
 	"MENU_CACHE_TYPE" => "A",	// Тип кеширования
@@ -137,6 +162,7 @@
 	"USE_EXT" => "Y",	// Подключать файлы с именами вида .тип_меню.menu_ext.php
 	"DELAY" => "N",	// Откладывать выполнение шаблона меню
 	"ALLOW_MULTI_SELECT" => "N",	// Разрешить несколько активных пунктов одновременно
+    "BRAND_NAME" => $tplPathBrand[2]
 	),
 	false
 );?>

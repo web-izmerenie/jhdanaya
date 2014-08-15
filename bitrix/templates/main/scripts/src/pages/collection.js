@@ -342,6 +342,10 @@ function (getVal, getLocalText, relativeNumber) {
 			var getData = {
 				page: parseInt($more.attr("data-next-page"), 10),
 				iblock: $more.attr('data-iblock'),
+				section: $more.attr('data-iblock-section'),
+				brand: $more.attr('data-brand'),
+				datafor: $more.attr('data-for'),
+				brand: $more.attr('data-brand'),
 			};
 
 			if ($more.attr('data-count'))

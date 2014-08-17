@@ -36,6 +36,12 @@ $arUrlRewrite = array(
 		"ID" => "bitrix:news",
 		"PATH" => "/bitrix/templates/main/header.php",
 	),
+    array(
+		"CONDITION" => "#^/events/(.*)/#",
+		"RULE" => "CODE=$1",
+		"ID" => "bitrix:news.detail",
+		"PATH" => "/events/detail.php",
+	),
 );
 
 ?>

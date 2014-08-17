@@ -2,7 +2,7 @@
 	IncludeTemplateLangFile(__FILE__);
 
 	$revision = 3;
-	$debug = false;
+	$debug = true;
 
 	if($USER->IsAdmin()) $debug = true;
 	if($debug) $revision = 'dev' . mktime();
@@ -37,12 +37,12 @@
 	$main_classes = implode(" ", $main_classes);
 
 	$tplPath = '/bitrix/templates/main';
-    
-    if($_REQUEST["BRAND"]){
-        if(stripos($_REQUEST["BRAND"], "?show=all")){
-            $_REQUEST["BRAND"] = str_replace("?show=all", "", $_REQUEST["BRAND"]);
-        }
-    }
+
+	if($_REQUEST["BRAND"]){
+		if(stripos($_REQUEST["BRAND"], "?show=all")){
+			$_REQUEST["BRAND"] = str_replace("?show=all", "", $_REQUEST["BRAND"]);
+		}
+	}
 
 ?><!doctype html>
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="<?=LANGUAGE_ID?>" lang="<?=LANGUAGE_ID?>" class="<?=$html_classes?>">
@@ -59,11 +59,12 @@
 
 	<link href="/favicon.ico?v=<?=$revision?>" rel="shortcut icon" type="image/x-icon" />
 	<?if($debug){?><script>var less = { env: 'development' };</script><?}?>
-	<!--<link rel="stylesheet/less" type="text/css" href="<?=$tplPath?>/styles/src/main.less?v=<?=$revision?>" />-->
-	<link rel="stylesheet" href="<?=$tplPath?>/styles/build/build.css?v=<?=$revision?>" />
+	<link rel="stylesheet/less" type="text/css" href="<?=$tplPath?>/styles/src/main.less?v=<?=$revision?>" />
+	<!--<link rel="stylesheet" href="<?=$tplPath?>/styles/build/build.css?v=<?=$revision?>" />-->
 	<script src="<?=$tplPath?>/scripts/src/libs/require.js?v=<?=$revision?>"></script>
-	<?$APPLICATION->ShowCSS()?>
-	<?$APPLICATION->ShowHeadStrings()?>
+	<?if($USER->IsAuthorized()){?>
+		<?$APPLICATION->ShowHead()?>
+	<?}?>
 	<script>
 		//<![CDATA[
 			require.config({
@@ -81,80 +82,81 @@
 	</script>
 </head>
 
-<body><?$APPLICATION->ShowPanel()?>
-	<header><?
-		if($APPLICATION->GetCurPage(0) != SITE_DIR){?>
-			<a class="logo" href="<?=SITE_DIR?>" title="<?=GetMessage("GOTO_MAINPAGE")?>"><?
-		}?>
-			<img class="logo" alt="<?=GetMessage("MAIN_SLOGAN")?>" src="<?=$tplPath?>/images/header_logo.png" /><?
-		if($APPLICATION->GetCurPage(0) != SITE_DIR){?>
-			</a><?
-		}?>
+<body>
+	<?$APPLICATION->ShowPanel()?>
+	<header>
+		<?if($APPLICATION->GetCurPage(0) != SITE_DIR){?>
+		<a class="logo" href="<?=SITE_DIR?>" title="<?=GetMessage("GOTO_MAINPAGE")?>">
+		<?}?>
+			<img class="logo" alt="<?=GetMessage("MAIN_SLOGAN")?>" src="<?=$tplPath?>/images/header_logo.png" />
+		<?if($APPLICATION->GetCurPage(0) != SITE_DIR){?>
+		</a>
+		<?}?>
 		<?if(!defined('ERROR_404')){?>
-		<nav class="menu"><?$APPLICATION->IncludeComponent("bitrix:menu", "menu.main", Array(
-	"ROOT_MENU_TYPE" => "top",	// Тип меню для первого уровня
-	"MENU_CACHE_TYPE" => "A",	// Тип кеширования
-	"MENU_CACHE_TIME" => "3600",	// Время кеширования (сек.)
-	"MENU_CACHE_USE_GROUPS" => "Y",	// Учитывать права доступа
-	"MENU_CACHE_GET_VARS" => array(	// Значимые переменные запроса
-		0 => "",
-	),
-	"MAX_LEVEL" => "1",	// Уровень вложенности меню
-	"CHILD_MENU_TYPE" => "left",	// Тип меню для остальных уровней
-	"USE_EXT" => "Y",	// Подключать файлы с именами вида .тип_меню.menu_ext.php
-	"DELAY" => "N",	// Откладывать выполнение шаблона меню
-	"ALLOW_MULTI_SELECT" => "N",	// Разрешить несколько активных пунктов одновременно
-	),
-	false
-);?>
-		</nav>
+			<nav class="menu">
+				<?$APPLICATION->IncludeComponent("bitrix:menu", "menu.main", Array(
+					"ROOT_MENU_TYPE" => "top",	// Тип меню для первого уровня
+					"MENU_CACHE_TYPE" => "A",	// Тип кеширования
+					"MENU_CACHE_TIME" => "3600",	// Время кеширования (сек.)
+					"MENU_CACHE_USE_GROUPS" => "Y",	// Учитывать права доступа
+					"MENU_CACHE_GET_VARS" => array(	// Значимые переменные запроса
+						0 => "",
+					),
+					"MAX_LEVEL" => "1",	// Уровень вложенности меню
+					"CHILD_MENU_TYPE" => "left",	// Тип меню для остальных уровней
+					"USE_EXT" => "Y",	// Подключать файлы с именами вида .тип_меню.menu_ext.php
+					"DELAY" => "N",	// Откладывать выполнение шаблона меню
+					"ALLOW_MULTI_SELECT" => "N",	// Разрешить несколько активных пунктов одновременно
+					),
+					false
+				);?>
+			</nav>
 		<?}?>
 	</header>
-	<?if(!defined("HTML_MAIN_PAGE")){
-        CModule::IncludeModule("iblock");?>
-        <?if(defined('COLLECTION_BRAND_PAGE')){
-            if(CSite::InDir("/brand/")){
-                $tplPathBrand = $APPLICATION->GetCurPage();
-                $tplPathBrand = explode("/", $tplPathBrand);
-                foreach($tplPathBrand as $k => $v){
-                    if($v === "") unset($tplPathBrand[$k]);
-                }
-                
-                $rs_brand = CIBlockElement::GetList(
-                    array(),
-                    array(
-                        "IBLOCK_TYPE" => "lists",
-                        "IBLOCK_CODE" => "brand",
-                        "CODE" => $tplPathBrand[2]
-                    ),
-                    false,
-                    false,
-                    array()
-                );
-                
-                $ar_brand = $rs_brand->GetNextElement();
-                $ar_brand_f = $ar_brand->GetFields();
-                $ar_brand_p = $ar_brand->GetProperties();
-                $currentBrendID = $ar_brand_f["ID"];
-                
-                $aboutBrandPage = str_replace("brand", "brand/about", $APPLICATION->GetCurPage());
-                $aboutBrandPage = explode("/", $aboutBrandPage);
-               
-                foreach($aboutBrandPage as $k => $v){
-                    if($v === "") unset($aboutBrandPage[$k]);
-                }
-                
-                $aboutBrandPage = "/" . $aboutBrandPage[1] . "/" . $aboutBrandPage[2] . "/" . $aboutBrandPage[3] . "/";
-                
-                $ar_small_piture = CFile::GetFileArray($ar_brand_p["SMALL_PICTURE"]["VALUE"]);
-                if($ar_small_piture["width"] > 57){
-                    $small_picture = CFile::ResizeImageGet($ar_brand_p["SMALL_PICTURE"]["VALUE"], array("width" => "57", "height" => "57"), BX_RESIZE_IMAGE_PROPORTIONAL);
-                }else{
-                    $small_picture["src"] = CFile::GetPath($ar_brand_p["SMALL_PICTURE"]["VALUE"]);
-                }
-                $title_picture["src"] = CFile::GetPath($ar_brand_p["TITLE_PICTURE"]["VALUE"]);
-            }
-        ?>
+	<?if(!defined("HTML_MAIN_PAGE")){?>
+		<?CModule::IncludeModule("iblock");?>
+		<?if(defined('COLLECTION_BRAND_PAGE')){?>
+			<?if(CSite::InDir("/brand/")){
+				$tplPathBrand = $APPLICATION->GetCurPage();
+				$tplPathBrand = explode("/", $tplPathBrand);
+				foreach($tplPathBrand as $k => $v){
+					if($v === "") unset($tplPathBrand[$k]);
+				}
+
+				$rs_brand = CIBlockElement::GetList(
+					array(),
+					array(
+						"IBLOCK_TYPE" => "lists",
+						"IBLOCK_CODE" => "brand",
+						"CODE" => $tplPathBrand[2]
+					),
+					false,
+					false,
+					array()
+				);
+
+				$ar_brand = $rs_brand->GetNextElement();
+				$ar_brand_f = $ar_brand->GetFields();
+				$ar_brand_p = $ar_brand->GetProperties();
+				$currentBrendID = $ar_brand_f["ID"];
+
+				$aboutBrandPage = str_replace("brand", "brand/about", $APPLICATION->GetCurPage());
+				$aboutBrandPage = explode("/", $aboutBrandPage);
+
+				foreach($aboutBrandPage as $k => $v){
+					if($v === "") unset($aboutBrandPage[$k]);
+				}
+
+				$aboutBrandPage = "/" . $aboutBrandPage[1] . "/" . $aboutBrandPage[2] . "/" . $aboutBrandPage[3] . "/";
+
+				$ar_small_piture = CFile::GetFileArray($ar_brand_p["SMALL_PICTURE"]["VALUE"]);
+				if($ar_small_piture["width"] > 57){
+					$small_picture = CFile::ResizeImageGet($ar_brand_p["SMALL_PICTURE"]["VALUE"], array("width" => "57", "height" => "57"), BX_RESIZE_IMAGE_PROPORTIONAL);
+				}else{
+					$small_picture["src"] = CFile::GetPath($ar_brand_p["SMALL_PICTURE"]["VALUE"]);
+				}
+				$title_picture["src"] = CFile::GetPath($ar_brand_p["TITLE_PICTURE"]["VALUE"]);
+			}?>
 			<div class="collection_brand_page_headline">
 				<h1><img alt="<?=$ar_brand_f["NAME"]?>" src="<?=$title_picture["src"]?>" /></h1>
 				<a href="<?=$aboutBrandPage?>" class="about_brand">
@@ -162,41 +164,41 @@
 					<span><?=GetMessage("ABOUT_BRAND")?></span>
 				</a>
 			</div>
-		<?}elseif(defined('COLLECTION_BRAND_DETAIL_PAGE')){
-            if(CSite::InDir("/brand/")){
-                $collectionPageBrand = str_replace("/about", "", $APPLICATION->GetCurPage());
-                $collectionPageBrand = explode("/", $collectionPageBrand);
-                foreach($collectionPageBrand as $k => $v){
-                    if($v === "") unset($collectionPageBrand[$k]);
-                }
-                
-                $rs_brand = CIBlockElement::GetList(
-                    array(),
-                    array(
-                        "IBLOCK_TYPE" => "lists",
-                        "IBLOCK_CODE" => "brand",
-                        "CODE" => $collectionPageBrand[2]
-                    ),
-                    false,
-                    false,
-                    array()
-                );
-                
-                $ar_brand = $rs_brand->GetNextElement();
-                $ar_brand_f = $ar_brand->GetFields();
-                $ar_brand_p = $ar_brand->GetProperties();
-                $currentBrendID = $ar_brand_f["ID"];
-                
-                $ar_small_piture = CFile::GetFileArray($ar_brand_p["SMALL_PICTURE"]["VALUE"]);
-                if($ar_small_piture["width"] > 57){
-                    $small_picture = CFile::ResizeImageGet($ar_brand_p["SMALL_PICTURE"]["VALUE"], array("width" => "57", "height" => "57"), BX_RESIZE_IMAGE_PROPORTIONAL);
-                }else{
-                    $small_picture["src"] = CFile::GetPath($ar_brand_p["SMALL_PICTURE"]["VALUE"]);
-                }
-                $title_picture["src"] = CFile::GetPath($ar_brand_p["TITLE_PICTURE"]["VALUE"]);
-                
-                $collectionPageBrand = "/".implode("/", $collectionPageBrand)."/?show=all";
-            }?>
+		<?}elseif(defined('COLLECTION_BRAND_DETAIL_PAGE')){?>
+			<?if(CSite::InDir("/brand/")){
+				$collectionPageBrand = str_replace("/about", "", $APPLICATION->GetCurPage());
+				$collectionPageBrand = explode("/", $collectionPageBrand);
+				foreach($collectionPageBrand as $k => $v){
+					if($v === "") unset($collectionPageBrand[$k]);
+				}
+
+				$rs_brand = CIBlockElement::GetList(
+					array(),
+					array(
+						"IBLOCK_TYPE" => "lists",
+						"IBLOCK_CODE" => "brand",
+						"CODE" => $collectionPageBrand[2]
+					),
+					false,
+					false,
+					array()
+				);
+
+				$ar_brand = $rs_brand->GetNextElement();
+				$ar_brand_f = $ar_brand->GetFields();
+				$ar_brand_p = $ar_brand->GetProperties();
+				$currentBrendID = $ar_brand_f["ID"];
+
+				$ar_small_piture = CFile::GetFileArray($ar_brand_p["SMALL_PICTURE"]["VALUE"]);
+				if($ar_small_piture["width"] > 57){
+					$small_picture = CFile::ResizeImageGet($ar_brand_p["SMALL_PICTURE"]["VALUE"], array("width" => "57", "height" => "57"), BX_RESIZE_IMAGE_PROPORTIONAL);
+				}else{
+					$small_picture["src"] = CFile::GetPath($ar_brand_p["SMALL_PICTURE"]["VALUE"]);
+				}
+				$title_picture["src"] = CFile::GetPath($ar_brand_p["TITLE_PICTURE"]["VALUE"]);
+
+				$collectionPageBrand = "/".implode("/", $collectionPageBrand)."/?show=all";
+			}?>
 			<div class="collection_brand_page_headline">
 				<h1><img alt="<?=$ar_brand_f["NAME"]?>" src="<?=$title_picture["src"]?>" /></h1>
 				<a href="<?=$collectionPageBrand?>" class="about_brand">
@@ -207,27 +209,24 @@
 		<?}else{?>
 			<h1><?$APPLICATION->ShowTitle()?></h1>
 		<?}?>
-        <?
-            
-        ?>
 		<?$APPLICATION->IncludeComponent("bitrix:menu", "menu.sub", Array(
-	"ROOT_MENU_TYPE" => "left",	// Тип меню для первого уровня
-	"MENU_CACHE_TYPE" => "A",	// Тип кеширования
-	"MENU_CACHE_TIME" => "3600",	// Время кеширования (сек.)
-	"MENU_CACHE_USE_GROUPS" => "Y",	// Учитывать права доступа
-	"MENU_CACHE_GET_VARS" => array(	// Значимые переменные запроса
-		0 => "",
-	),
-	"MAX_LEVEL" => "1",	// Уровень вложенности меню
-	"CHILD_MENU_TYPE" => "left",	// Тип меню для остальных уровней
-	"USE_EXT" => "Y",	// Подключать файлы с именами вида .тип_меню.menu_ext.php
-	"DELAY" => "N",	// Откладывать выполнение шаблона меню
-	"ALLOW_MULTI_SELECT" => "N",	// Разрешить несколько активных пунктов одновременно
-    "BRAND_NAME" => $tplPathBrand[2]
-	),
-	false
-);?>
-	<?}?>
+			"ROOT_MENU_TYPE" => "left",	// Тип меню для первого уровня
+			"MENU_CACHE_TYPE" => "A",	// Тип кеширования
+			"MENU_CACHE_TIME" => "3600",	// Время кеширования (сек.)
+			"MENU_CACHE_USE_GROUPS" => "Y",	// Учитывать права доступа
+			"MENU_CACHE_GET_VARS" => array(	// Значимые переменные запроса
+				0 => "",
+			),
+			"MAX_LEVEL" => "1",	// Уровень вложенности меню
+			"CHILD_MENU_TYPE" => "left",	// Тип меню для остальных уровней
+			"USE_EXT" => "Y",	// Подключать файлы с именами вида .тип_меню.menu_ext.php
+			"DELAY" => "N",	// Откладывать выполнение шаблона меню
+			"ALLOW_MULTI_SELECT" => "N",	// Разрешить несколько активных пунктов одновременно
+			"BRAND_NAME" => $tplPathBrand[2]
+			),
+			false
+		);?>
+	<?}//if(!defined("HTML_MAIN_PAGE"))?>
 	<?if(!defined('ERROR_404')){?><main class="<?=$main_classes?>"><?}?>
 		<?if(defined("HTML_MAIN_PAGE")){?>
 			<section class="top_card">
@@ -312,7 +311,7 @@
 );?>
 				</div>
 				<a class="next_card"><span></span></a>
-			</section>
+			</section><!--.top_card-->
 			<section class="brands"><?$APPLICATION->IncludeComponent("bitrix:news", "news.brand", Array(
 	"IBLOCK_TYPE" => "lists",	// Тип инфоблока
 	"IBLOCK_ID" => "3",	// Инфоблок
@@ -397,5 +396,5 @@
 	),
 	false
 );?>
-			</section>
-		<?}?>
+			</section><!--.brands-->
+		<?}//if(!defined('ERROR_404'))?>

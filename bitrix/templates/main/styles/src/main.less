@@ -154,6 +154,30 @@ html body {
 
 		&.stretch { max-width: @maxWidth; }
 		&.no_limits { padding-left: 0; padding-right: 0; }
-		blockquote.simple_rigth_quote { text-align: right; }
+
+		blockquote.simple_rigth_quote { // {{{2
+			display: block;
+			&:after { .pseudoBlock; clear: both; }
+
+			.wrap {
+				display: block;
+				float: right;
+				&:after { .pseudoBlock; clear: both; }
+
+				p {
+					.sansSerifFont('Roboto', 17px, 24px);
+				}
+
+				p.signature {
+					text-align: right;
+					font: @contentFont;
+					font-weight: bold;
+				}
+
+				p + p.signature { margin-top: -(48px - 32px); }
+			} // .wrap
+
+			& + p { padding-top: 34px; }
+		} // blockquote.simple_rigth_quote }}}2
 	} // main }}}1
 } // html body

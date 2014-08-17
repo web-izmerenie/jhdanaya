@@ -312,7 +312,7 @@
 				</div>
 				<a class="next_card"><span></span></a>
 			</section><!--.top_card-->
-			<section class="brands"><?$APPLICATION->IncludeComponent("bitrix:news", "news.brand", Array(
+			<section class="brands" id="brands"><?$APPLICATION->IncludeComponent("bitrix:news", "news.brand", Array(
 	"IBLOCK_TYPE" => "lists",	// Тип инфоблока
 	"IBLOCK_ID" => "3",	// Инфоблок
 	"NEWS_COUNT" => "1000",	// Количество новостей на странице

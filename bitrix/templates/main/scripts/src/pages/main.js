@@ -178,6 +178,17 @@ require(['get_val', 'relative_number'], function (getVal, relativeNumber) {
 		return false;
 	});
 
+	// scroll to brands by hash
+	var $header = $('header');
+	var smallHeaderH = parseInt($header.css('min-height'), 10);
+	if (window.location.hash === '#brands') $scroll.animate(
+		{ scrollTop: ($('#brands').offset().top - smallHeaderH) + 'px' },
+		{
+			duration: getVal('animationSpeed')*4,
+			easing: getVal('animationCurve'),
+		}
+	);
+
 }); // require() for main page passed
 
 }); // stylesReady()

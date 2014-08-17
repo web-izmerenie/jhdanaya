@@ -62,17 +62,17 @@ $this->setFrameMode(true);
 	</section>
 	<div class="figure_split"></div>
 
-	<section class="two_column_info"><?
-		if($arResult["DISPLAY_PROPERTIES"]["BL2_CODE"]["VALUE"]){?>
+	<section class="two_column_info">
+		<?if($arResult["DISPLAY_PROPERTIES"]["BL2_CODE"]["VALUE"]){?>
 			<div class="col_l">
 				<div class="youtube_video" data-youtube-id="<?=$arResult["DISPLAY_PROPERTIES"]["BL2_CODE"]["VALUE"]?>"></div>
-			</div><?
-		}?><?
-		if($arResult["DISPLAY_PROPERTIES"]["BL2_TEXT"]["~VALUE"]["TEXT"]){?>
+			</div>
+		<?}?>
+		<?if($arResult["DISPLAY_PROPERTIES"]["BL2_TEXT"]["~VALUE"]["TEXT"]){?>
 			<div class="col_r">
 				<?=$arResult["DISPLAY_PROPERTIES"]["BL2_TEXT"]["~VALUE"]["TEXT"]?>
-			</div><?
-		}?>
+			</div>
+		<?}?>
 	</section><?
 	if($arResult["DISPLAY_PROPERTIES"]["PROMO_SLOGAN"]["~VALUE"]["TEXT"]){?>
 		<section class="notation">

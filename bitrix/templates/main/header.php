@@ -158,7 +158,13 @@
 				$title_picture["src"] = CFile::GetPath($ar_brand_p["TITLE_PICTURE"]["VALUE"]);
 			}?>
 			<div class="collection_brand_page_headline">
-				<h1><img alt="<?=$ar_brand_f["NAME"]?>" src="<?=$title_picture["src"]?>" /></h1>
+				<h1>
+					<?if(!empty($title_picture["src"])){?>
+						<img alt="<?=$ar_brand_f["NAME"]?>" src="<?=$title_picture["src"]?>" />
+					<?}else{?>
+						<?=$ar_brand_f["NAME"]?>
+					<?}?>
+				</h1>
 				<a href="<?=$aboutBrandPage?>" class="about_brand">
 					<img alt="" src="<?=$small_picture["src"]?>" />
 					<span><?=GetMessage("ABOUT_BRAND")?></span>

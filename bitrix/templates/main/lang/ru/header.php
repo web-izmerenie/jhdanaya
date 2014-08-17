@@ -9,4 +9,9 @@ $MESS["FOR_MEN"] = "Мужчинам";
 $MESS["FOR_CHILDREN"] = "Детям";
 $MESS["ALL"] = "Все";
 $MESS["SHOW_MORE"] = "Загрузить еще";
+$MESS["ART."] = "Арт.";
+$MESS["ABOUT_BRAND"] = "О бренде";
+$MESS["COLLECTION_BRAND"] = "Коллекция";
+$MESS["FOUNDATION_YEAR"] = "Год основания";
+$MESS["FOUNDATION_PLACE"] = "Место основания";
 ?>

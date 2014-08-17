@@ -2,7 +2,7 @@
 	IncludeTemplateLangFile(__FILE__);
 
 	$revision = 3;
-	$debug = true;
+	$debug = false;
 
 	if($USER->IsAdmin()) $debug = true;
 	if($debug) $revision = 'dev' . mktime();
@@ -37,6 +37,12 @@
 	$main_classes = implode(" ", $main_classes);
 
 	$tplPath = '/bitrix/templates/main';
+    
+    if($_REQUEST["BRAND"]){
+        if(stripos($_REQUEST["BRAND"], "?show=all")){
+            $_REQUEST["BRAND"] = str_replace("?show=all", "", $_REQUEST["BRAND"]);
+        }
+    }
 
 ?><!doctype html>
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="<?=LANGUAGE_ID?>" lang="<?=LANGUAGE_ID?>" class="<?=$html_classes?>">
@@ -53,8 +59,8 @@
 
 	<link href="/favicon.ico?v=<?=$revision?>" rel="shortcut icon" type="image/x-icon" />
 	<?if($debug){?><script>var less = { env: 'development' };</script><?}?>
-	<link rel="stylesheet/less" type="text/css" href="<?=$tplPath?>/styles/src/main.less?v=<?=$revision?>" />
-	<?/*<link rel="stylesheet" href="<?=$tplPath?>/styles/build/build.css?v=<?=$revision?>" />*/?>
+	<!--<link rel="stylesheet/less" type="text/css" href="<?=$tplPath?>/styles/src/main.less?v=<?=$revision?>" />-->
+	<link rel="stylesheet" href="<?=$tplPath?>/styles/build/build.css?v=<?=$revision?>" />
 	<script src="<?=$tplPath?>/scripts/src/libs/require.js?v=<?=$revision?>"></script>
 	<?$APPLICATION->ShowCSS()?>
 	<?$APPLICATION->ShowHeadStrings()?>
@@ -104,7 +110,8 @@
 		</nav>
 		<?}?>
 	</header>
-	<?if(!defined("HTML_MAIN_PAGE")){?>
+	<?if(!defined("HTML_MAIN_PAGE")){
+        CModule::IncludeModule("iblock");?>
         <?if(defined('COLLECTION_BRAND_PAGE')){
             if(CSite::InDir("/brand/")){
                 $tplPathBrand = $APPLICATION->GetCurPage();
@@ -112,7 +119,7 @@
                 foreach($tplPathBrand as $k => $v){
                     if($v === "") unset($tplPathBrand[$k]);
                 }
-                CModule::IncludeModule("iblock");
+                
                 $rs_brand = CIBlockElement::GetList(
                     array(),
                     array(
@@ -124,23 +131,77 @@
                     false,
                     array()
                 );
-                $ar_brand = $rs_brand->GetNext();
-                $currentBrendID = $ar_brand["ID"];
+                
+                $ar_brand = $rs_brand->GetNextElement();
+                $ar_brand_f = $ar_brand->GetFields();
+                $ar_brand_p = $ar_brand->GetProperties();
+                $currentBrendID = $ar_brand_f["ID"];
+                
+                $aboutBrandPage = str_replace("brand", "brand/about", $APPLICATION->GetCurPage());
+                $aboutBrandPage = explode("/", $aboutBrandPage);
+               
+                foreach($aboutBrandPage as $k => $v){
+                    if($v === "") unset($aboutBrandPage[$k]);
+                }
+                
+                $aboutBrandPage = "/" . $aboutBrandPage[1] . "/" . $aboutBrandPage[2] . "/" . $aboutBrandPage[3] . "/";
+                
+                $ar_small_piture = CFile::GetFileArray($ar_brand_p["SMALL_PICTURE"]["VALUE"]);
+                if($ar_small_piture["width"] > 57){
+                    $small_picture = CFile::ResizeImageGet($ar_brand_p["SMALL_PICTURE"]["VALUE"], array("width" => "57", "height" => "57"), BX_RESIZE_IMAGE_PROPORTIONAL);
+                }else{
+                    $small_picture["src"] = CFile::GetPath($ar_brand_p["SMALL_PICTURE"]["VALUE"]);
+                }
+                $title_picture["src"] = CFile::GetPath($ar_brand_p["TITLE_PICTURE"]["VALUE"]);
             }
         ?>
 			<div class="collection_brand_page_headline">
-				<h1><img alt="Pasqualebruni" src="/upload/markup_tmp/collection_logo.png" /></h1>
-				<a href="#" class="about_brand">
-					<img alt="" src="/upload/markup_tmp/collection_about_brand.png" />
-					<span>О бренде</span>
+				<h1><img alt="<?=$ar_brand_f["NAME"]?>" src="<?=$title_picture["src"]?>" /></h1>
+				<a href="<?=$aboutBrandPage?>" class="about_brand">
+					<img alt="" src="<?=$small_picture["src"]?>" />
+					<span><?=GetMessage("ABOUT_BRAND")?></span>
 				</a>
 			</div>
-		<?}elseif(defined('COLLECTION_BRAND_DETAIL_PAGE')){?>
+		<?}elseif(defined('COLLECTION_BRAND_DETAIL_PAGE')){
+            if(CSite::InDir("/brand/")){
+                $collectionPageBrand = str_replace("/about", "", $APPLICATION->GetCurPage());
+                $collectionPageBrand = explode("/", $collectionPageBrand);
+                foreach($collectionPageBrand as $k => $v){
+                    if($v === "") unset($collectionPageBrand[$k]);
+                }
+                
+                $rs_brand = CIBlockElement::GetList(
+                    array(),
+                    array(
+                        "IBLOCK_TYPE" => "lists",
+                        "IBLOCK_CODE" => "brand",
+                        "CODE" => $collectionPageBrand[2]
+                    ),
+                    false,
+                    false,
+                    array()
+                );
+                
+                $ar_brand = $rs_brand->GetNextElement();
+                $ar_brand_f = $ar_brand->GetFields();
+                $ar_brand_p = $ar_brand->GetProperties();
+                $currentBrendID = $ar_brand_f["ID"];
+                
+                $ar_small_piture = CFile::GetFileArray($ar_brand_p["SMALL_PICTURE"]["VALUE"]);
+                if($ar_small_piture["width"] > 57){
+                    $small_picture = CFile::ResizeImageGet($ar_brand_p["SMALL_PICTURE"]["VALUE"], array("width" => "57", "height" => "57"), BX_RESIZE_IMAGE_PROPORTIONAL);
+                }else{
+                    $small_picture["src"] = CFile::GetPath($ar_brand_p["SMALL_PICTURE"]["VALUE"]);
+                }
+                $title_picture["src"] = CFile::GetPath($ar_brand_p["TITLE_PICTURE"]["VALUE"]);
+                
+                $collectionPageBrand = "/".implode("/", $collectionPageBrand)."/?show=all";
+            }?>
 			<div class="collection_brand_page_headline">
-				<h1><img alt="Pasqualebruni" src="/upload/markup_tmp/collection_logo.png" /></h1>
-				<a href="#" class="about_brand">
-					<img alt="" src="/upload/markup_tmp/collection_about_brand.png" />
-					<span>Коллекция</span>
+				<h1><img alt="<?=$ar_brand_f["NAME"]?>" src="<?=$title_picture["src"]?>" /></h1>
+				<a href="<?=$collectionPageBrand?>" class="about_brand">
+					<img alt="" src="<?=$small_picture["src"]?>" />
+					<span><?=GetMessage("COLLECTION_BRAND")?></span>
 				</a>
 			</div>
 		<?}else{?>

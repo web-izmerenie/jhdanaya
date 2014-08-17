@@ -16,25 +16,32 @@ if((count($arDir) > 1 || $_GET["show"] === "all") && ($page != "/products/women/
             "SORT" => "asc"
         ),
         array(
-            "IBLOCK_CODE" => "catalog"
-        )
+            "IBLOCK_CODE" => "catalog",
+            "PROPERTY" => array(
+                "BRAND" => false
+            )
+        ),
+        true
+        
     );
     if($section->SelectedRowsCount()){
         while($arSection = $section->GetNExt()){
-            if(stripos($APPLICATION->GetCurDir(), "/women/"))
-                $arSection["SECTION_PAGE_URL"] = str_replace("products", "products/women", $arSection["SECTION_PAGE_URL"]);
-            if(stripos("/men/", $APPLICATION->GetCurDir()))
-                $arSection["SECTION_PAGE_URL"] = str_replace("products", "products/men", $arSection["SECTION_PAGE_URL"]);
-            if(stripos("/children/", $APPLICATION->GetCurDir()))
-                $arSection["SECTION_PAGE_URL"] = str_replace("products", "products/children", $arSection["SECTION_PAGE_URL"]);
-                
-            $aMenuLinks[] = Array(
-                $arSection["NAME"], 
-                $arSection["SECTION_PAGE_URL"], 
-                array(), 
-                array(), 
-                "" 
-            );
+            if($arSection["ELEMENT_CNT"]){
+                if(stripos($APPLICATION->GetCurDir(), "/women/"))
+                    $arSection["SECTION_PAGE_URL"] = str_replace("products", "products/women", $arSection["SECTION_PAGE_URL"]);
+                if(stripos("/men/", $APPLICATION->GetCurDir()))
+                    $arSection["SECTION_PAGE_URL"] = str_replace("products", "products/men", $arSection["SECTION_PAGE_URL"]);
+                if(stripos("/children/", $APPLICATION->GetCurDir()))
+                    $arSection["SECTION_PAGE_URL"] = str_replace("products", "products/children", $arSection["SECTION_PAGE_URL"]);
+                    
+                $aMenuLinks[] = Array(
+                    $arSection["NAME"], 
+                    $arSection["SECTION_PAGE_URL"], 
+                    array(), 
+                    array(), 
+                    "" 
+                );
+            }
         }
         $aMenuLinks[] = Array(
             GetMessage("ALL"), 

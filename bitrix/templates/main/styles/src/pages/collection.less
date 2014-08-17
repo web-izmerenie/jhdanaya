@@ -219,16 +219,32 @@ html.collection_page body {
 							.size(100%, 49px);
 							background: #c5b8b4;
 							z-index: 2;
+							.transit(~'background-color');
 
 							&>span {
-								.sprite(@sprite_icons_lens2);
+								.sprite-width(@sprite_icons_lens2);
+								.sprite-height(@sprite_icons_lens2);
 								display: block;
-								.absolute(50%, auto, auto, 50%);
 								margin-left: -(@sprite_icons_lens2-width / 2);
 								margin-top: -(@sprite_icons_lens2-height / 2);
 								overflow: hidden;
 								white-space: nowrap;
 								text-indent: 50000px;
+
+								&:before { .sprite(@sprite_icons_lens2); }
+								&:after { .sprite(@sprite_icons_lens2_active); }
+
+								.animatedIcon;
+
+								.absolute(50%, auto, auto, 50%);
+							}
+
+							&:hover {
+								background: #4b3c38;
+								&>span {
+									&:before { .opacity(0); }
+									&:after { .opacity(1); }
+								}
 							}
 						} // .zoom
 

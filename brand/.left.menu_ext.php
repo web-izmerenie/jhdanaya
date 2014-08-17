@@ -1,5 +1,5 @@
 <?
-global $APPLICATION, $tplPathBrand;
+global $APPLICATION, $tplPathBrand, $currentBrendID;
 $dir = $APPLICATION->GetCurDir();
 $page = $APPLICATION->GetCurPage();
 
@@ -10,18 +10,24 @@ $section = CIBlockSection::GetList(
         "SORT" => "asc"
     ),
     array(
-        "IBLOCK_CODE" => "catalog"
-    )
+        "IBLOCK_CODE" => "catalog",
+        "PROPERTY" => array(
+            "BRAND" => $currentBrendID
+        )
+    ),
+    true
 );
 if($section->SelectedRowsCount()){
     while($arSection = $section->GetNExt()){
-        $aMenuLinks[] = Array(
-            $arSection["NAME"], 
-            "/brand/" . $tplPathBrand[2] . "/" . $arSection["CODE"] . "/",
-            array(), 
-            array(), 
-            "" 
-        );
+        if($arSection["ELEMENT_CNT"]){
+            $aMenuLinks[] = Array(
+                $arSection["NAME"], 
+                "/brand/" . $tplPathBrand[2] . "/" . $arSection["CODE"] . "/",
+                array(), 
+                array(), 
+                "" 
+            );
+        }
     }
     $aMenuLinks[] = Array(
         GetMessage("ALL"), 

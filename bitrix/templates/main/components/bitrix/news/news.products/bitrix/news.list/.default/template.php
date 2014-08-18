@@ -1,11 +1,13 @@
-<?if(!defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED!==true)die();?><?
+<?if(!defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED!==true)die();?>
 
+<?
 $show = $_GET["show"] ? $_GET["show"] : false;
 $itemCount = 6;
 $onPage = count($arResult["ITEMS"]);
 global $arrFilter, $currentBrendID;
+?>
 
-if(is_array($arResult["SECTION"]) || $show === "all"){?>
+<?if(is_array($arResult["SECTION"]) || $show === "all"){?>
 
 	<ul class="collection_list rings">
 	<?foreach($arResult["ITEMS"] as $Item){?>
@@ -17,7 +19,24 @@ if(is_array($arResult["SECTION"]) || $show === "all"){?>
 				</a>
 			<?}?>
 			<?if($Item["PREVIEW_TEXT"]){?>
-				<div class="info">
+				<div class="info detail">
+					<div class="text">
+						<p><?=GetMessage("ART.")?>&nbsp;<?=$Item["DISPLAY_PROPERTIES"]["ARTICLE"]["VALUE"]?></p>
+						<?=$Item["PREVIEW_TEXT"]?>
+						<?if($Item["DISPLAY_PROPERTIES"]["SHOP"]["VALUE"]){?>
+							<?$shop = CIBlockElement::GetById($Item["DISPLAY_PROPERTIES"]["SHOP"]["VALUE"]);
+							$arShop = $shop->GetNextElement();
+							$shopFields = $arShop->GetFields();
+							$shopProps = $arShop->GetProperties();?>
+							<p><?=$shopFields["NAME"]?><br /><?=$shopProps["PHONE"]["VALUE"]?></p>
+						<?}?>
+					</div>
+					<?if($Item["DETAIL_PICTURE"]){?>
+						<img class="picture" alt="<?=$Item["DETAIL_PICTURE"]["DESCRIPTION"]
+							?>" src="<?=$Item["DETAIL_PICTURE"]["SRC"]?>" />
+					<?}?>
+				</div>
+				<div class="info hover">
 					<div class="text">
 						<?=$Item["PREVIEW_TEXT"]?>
 					</div>
@@ -31,7 +50,6 @@ if(is_array($arResult["SECTION"]) || $show === "all"){?>
 	$arFilter = array(
 		"ACTIVE" => "Y",
 		"IBLOCK_ID" => $arResult["ID"],
-
 	);
 	if($arResult["SECTION"]["PATH"][0]["ID"]){
 		$arFilter["SECTION_ID"] = $arResult["SECTION"]["PATH"][0]["ID"];

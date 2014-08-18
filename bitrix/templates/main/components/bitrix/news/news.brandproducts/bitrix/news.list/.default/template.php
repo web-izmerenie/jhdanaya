@@ -1,20 +1,23 @@
-<?if(!defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED!==true)die();?><?
+<?if(!defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED!==true)die();?>
 
+<?
 $show = $_GET["show"] ? $_GET["show"] : false;
 $itemCount = 6;
 $onPage = count($arResult["ITEMS"]);
 global $arrFilter, $currentBrendID;
 ?>
+
 <ul class="collection_list brand">
 <?foreach($arResult["ITEMS"] as $Item){?>
 	<li id="bx_id_<?=$Item["ID"]?>">
 		<?if($Item["PREVIEW_PICTURE"]){?>
 			<a href="<?=$Item["DETAIL_PICTURE"]["SRC"]?>" class="preview">
-				<img alt="<?=$Item["PREVIEW_PICTURE"]["DESCRIPTION"]?>" src="<?=$Item["PREVIEW_PICTURE"]["SRC"]?>" />
+				<img alt="<?=$Item["PREVIEW_PICTURE"]["DESCRIPTION"]
+					?>" src="<?=$Item["PREVIEW_PICTURE"]["SRC"]?>" />
 			</a>
 		<?}?>
 		<?if($Item["PREVIEW_TEXT"]){?>
-			<div class="info">
+			<div class="info detail">
 				<div class="text">
 					<p><?=GetMessage("ART.")?>&nbsp;<?=$Item["DISPLAY_PROPERTIES"]["ARTICLE"]["VALUE"]?></p>
 					<?=$Item["PREVIEW_TEXT"]?>
@@ -30,6 +33,11 @@ global $arrFilter, $currentBrendID;
 					<img class="picture" alt="<?=$Item["DETAIL_PICTURE"]["DESCRIPTION"]
 						?>" src="<?=$Item["DETAIL_PICTURE"]["SRC"]?>" />
 				<?}?>
+			</div>
+			<div class="info hover">
+				<div class="text">
+					<?=$Item["PREVIEW_TEXT"]?>
+				</div>
 			</div>
 		<?}?>
 	</li>

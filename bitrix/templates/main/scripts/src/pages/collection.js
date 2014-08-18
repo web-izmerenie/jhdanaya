@@ -22,8 +22,9 @@ function (getVal, getLocalText, relativeNumber) {
 	var $list = $main.find('ul.collection_list');
 	var $liArr;
 	var $previews;
-	var $infos;
-	var $zooms;
+	var $infosH; // hover
+	var $infosD; // detail
+	var $zoomH;
 	var $more = $main.find('.load_more');
 	var $d = $(document);
 	var $w = $(window);
@@ -54,15 +55,17 @@ function (getVal, getLocalText, relativeNumber) {
 	function initList() {
 		$liArr = $list.find('>li');
 		$previews = $liArr.find('.preview');
-		$infos = $liArr.find('.info');
-		$zooms = $liArr.find('.zoom');
+		$infosH = $liArr.find('.info.hover');
+		$infosD = $liArr.find('.info.detail');
+		$zoomH = $infosH.find('.zoom');
 	}
 	initList();
 
 	function liInitHandler() { // {{{1
 		var $ul = $list;
 		var $li = $(this);
-		var $info = $li.find('.info');
+		var $infoH = $li.find('.info.hover');
+		var $infoD = $li.find('.info.detail');
 		var $a = $li.find('a.preview');
 		var $preview = $li.find('.preview');
 		var $img = $preview.find('img');
@@ -70,7 +73,7 @@ function (getVal, getLocalText, relativeNumber) {
 		var imgSrc = $img.attr('src');
 
 		// loadBlur {{{2
-		if ($ul.hasClass('brand')) {
+		if ($ul.hasClass('brand') || $ul.hasClass('rings')) {
 			function loadBlur() {
 				require(['blur_img', 'load_img'],
 				function (blurImg, loadImg) {
@@ -98,14 +101,14 @@ function (getVal, getLocalText, relativeNumber) {
 		}
 		// loadBlur }}}2
 
-		if ($ul.hasClass('brand')) {
-			$info
+		if ($ul.hasClass('brand') || $ul.hasClass('rings')) {
+			$infoD
 				.css('opacity', 0)
 				.prepend('<a class="closer"></a>')
 				.prepend('<a class="zoom"></a>');
 
 			function closeHandler() { // {{{2
-				$info.animate({
+				$infoD.animate({
 					'opacity': 0,
 				}, getVal('animationSpeed'), getVal('animationCurve'), function () {
 					$(this).css('display', 'none');
@@ -115,35 +118,44 @@ function (getVal, getLocalText, relativeNumber) {
 				return false;
 			} // closeHandler() }}}2
 
-			$info.find('.closer').click(closeHandler);
-			$info.find('.zoom').click(function () {
+			$infoD.find('.closer').click(closeHandler);
+			$infoD.find('.zoom').click(function () {
 				alert('Поведение кнопки не определено.');
 				return false;
 			});
 
+			$li.data('info_detail', $infoD);
+			$infoD.addClass('collection_info_detail');
+			$infoD.appendTo('body');
+
 			$a.click(function () { // {{{2
 				if ($ul.hasClass('popup')) {
-					$ul.find('>li.popup .info .closer').trigger('click');
+					var $cur = $ul.find('>li.popup');
+					if ($cur.size() <= 0) throw new Error('OH SHI~');
+					$cur = $cur.data('info_detail');
+
+					if (!$cur) throw new Error('OH SHI~');
+					if (!($cur instanceof $)) throw new Error('OH SHI~');
+					if ($cur.size() <= 0) throw new Error('OH SHI~');
+
+					$cur.find('.closer').trigger('click');
+
 					return false;
 				}
 
 				$ul.addClass('popup');
 				$li.addClass('popup');
-				$info.css('display', 'block');
-				$info.css('top', (
-					$d.scrollTop() +
-					($w.height() / 2) -
-					($info.innerHeight() / 2)
-				) + 'px');
-				$info.stop().animate({
-					'opacity': 1,
-				}, getVal('animationSpeed'), getVal('animationCurve'));
+				$infoD.css('display', 'block');
+				$infoD.stop().animate(
+					{ 'opacity': 1 },
+					getVal('animationSpeed'),
+					getVal('animationCurve'));
 				return false;
 			}); // open popup }}}2
-		} else if ($ul.hasClass('rings')) {
-			$info.append('<a class="zoom"><span></span></a>');
-			$info.find('.zoom').click(function () {
-				alert('Поведение кнопки не определено.');
+
+			$infoH.append('<a class="zoom"><span></span></a>');
+			$infoH.find('.zoom').click(function () {
+				$a.trigger('click');
 				return false;
 			});
 		}
@@ -153,10 +165,15 @@ function (getVal, getLocalText, relativeNumber) {
 
 	$liArr.each(liInitHandler);
 
-	if ($list.hasClass('brand')) {
+	if ($list.hasClass('brand') || $list.hasClass('rings')) {
 		$d.on('click' + bindSuffix, function (event) { // {{{1
-			var $infoOpened = $list.find('>li.popup .info');
+			var $infoOpened = $list.find('>li.popup');
 			if ($infoOpened.size() <= 0) return true;
+			$infoOpened = $infoOpened.data('info_detail');
+
+			if (!$infoOpened) throw new Error('OH SHI~');
+			if (!($infoOpened instanceof $)) throw new Error('OH SHI~');
+			if ($infoOpened.size() <= 0) throw new Error('OH SHI~');
 
 			var x = $infoOpened.offset().left;
 			var y = $infoOpened.offset().top;
@@ -190,7 +207,7 @@ function (getVal, getLocalText, relativeNumber) {
 		var topMin = 75;
 		var topMax = 130;
 
-		if ($list.hasClass('rings')) {
+		if ($list.hasClass('rings') || $list.hasClass('brand')) {
 			itemSizeMin = 170;
 			itemSizeMax = 272;
 			topMin = 50;
@@ -245,14 +262,12 @@ function (getVal, getLocalText, relativeNumber) {
 
 			$liArr.css('margin-top', top + 'px');
 
-			if ($list.hasClass('rings')) {
+			if ($list.hasClass('rings') || $list.hasClass('brand')) {
 				var iSize = rn(ringItemSizeMin, ringItemSizeMax);
+				$infosH.css('width', iSize + 'px');
+				$infosH.css('margin-left', (($liArr.eq(0).width() - iSize) / 2) + 'px');
+				$zoomH.css('height', rn(zoomHeightMin, zoomHeightMax) + 'px');
 				$liArr.css('height', iSize + 'px');
-				$infos.css('width', iSize + 'px');
-				$infos.css('margin-left', (($liArr.eq(0).width() - iSize) / 2) + 'px');
-				$zooms.css('height', rn(zoomHeightMin, zoomHeightMax) + 'px');
-			} else if ($list.hasClass('brand')) {
-				$liArr.css('height', size + 'px');
 			} else if ($list.hasClass('produce')) {
 				$a.css('width', rn(textWidthMin, textWidthMax) + 'px');
 				$pic.css({
@@ -290,7 +305,12 @@ function (getVal, getLocalText, relativeNumber) {
 				'width': '',
 				'height': '',
 			});
-			$infos.css({
+			$infosH.css({
+				'width': '',
+				'height': '',
+				'margin-left': '',
+			});
+			$infosD.css({
 				'width': '',
 				'height': '',
 				'margin-left': '',
@@ -311,7 +331,7 @@ function (getVal, getLocalText, relativeNumber) {
 					'line-height': '',
 				});
 			}
-			$zooms.css({
+			$zoomH.css({
 				'width': '',
 				'height': '',
 			});
@@ -409,7 +429,7 @@ function (getVal, getLocalText, relativeNumber) {
 								}
 
 								var $preview;
-								if (item.info) $preview = $('<a/>');
+								if (item.info_detail) $preview = $('<a/>');
 								else $preview = $('<span/>');
 								$preview.addClass('preview');
 
@@ -430,44 +450,52 @@ function (getVal, getLocalText, relativeNumber) {
 
 								// info {{{4
 								var $info = '';
-								if (item.info) {
-									$info = $('<div class="info" />');
+								if ($list.hasClass('brand') || $list.hasClass('rings')) {
+									if (item.info_detail) {
+										$info = $('<div class="info detail" />');
 
-									if ($list.hasClass('brand')) {
 										if (
-											$.type(item.info.text) !== 'string' ||
-											!$.isPlainObject(item.info.picture) ||
-											$.type(item.info.picture.src) !== 'string'
+											$.type(item.info_detail.text) !== 'string' ||
+											!$.isPlainObject(item.info_detail.picture) ||
+											$.type(item.info_detail.picture.src) !== 'string'
 										) {
 											alert(getLocalText('ERR', 'AJAX_PARSE'));
 											return stopping();
 										}
 
 										var $text = $('<div class="text" />');
-										$text.html(item.info.text);
+										$text.html(item.info_detail.text);
 										$info.append( $text );
 
 										imgTag = '<img class="picture" alt="';
-										if (item.info.picture.description)
-											imgTag += item.info.picture.description;
-										imgTag += '" src="'+ item.info.picture.src +'"';
-										if (item.info.picture.width)
-											imgTag += ' width="'+ item.info.picture.width +'"';
-										if (item.info.picture.height)
-											imgTag += ' height="'+ item.info.picture.height +'"';
+										if (item.info_detail.picture.description)
+											imgTag += item.info_detail.picture.description;
+										imgTag += '" src="'+ item.info_detail.picture.src +'"';
+										if (item.info_detail.picture.width)
+											imgTag += ' width="'+ item.info_detail.picture.width +'"';
+										if (item.info_detail.picture.height)
+											imgTag += ' height="'+ item.info_detail.picture.height +'"';
 										imgTag += ' />';
 
 										$info.append(imgTag);
-									} else if ($list.hasClass('rings')) {
-										if ($.type(item.info.text) === 'string') {
+										$newLi.append( $info );
+										$info = '';
+									} // if info detail
+
+									if (item.info_hover) {
+										$info = $('<div class="info hover" />');
+
+										if ($.type(item.info_hover.text) === 'string') {
 											var $text = $('<div class="text" />');
-											$text.html(item.info.text);
+											$text.html(item.info_hover.text);
 											$info.append( $text );
 										}
-									}
 
-									$newLi.append( $info );
-								}
+										$newLi.append( $info );
+										$info = '';
+									} // if info hover
+								} // if brands or rings
+								$info = undefined;
 								// info }}}4
 
 								$newLi.css('opacity', 0);
@@ -501,14 +529,6 @@ function (getVal, getLocalText, relativeNumber) {
 
 		return false;
 	}); // $more.click }}}1
-
-	if ($more.size() > 0) { // {{{1
-		$w.on('scroll' + bindSuffix, function () {
-			if ($d.scrollTop() + $w.height() >= $more.offset().top) {
-				$more.trigger('click' + bindSuffix);
-			}
-		});
-	} // auto more by scroll }}}1
 
 }); // require() for page passed
 

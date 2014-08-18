@@ -4,7 +4,7 @@
  * @author Viacheslav Lotsmanov
  */
 
-section.events_list { // {{{1
+html body main section.events_list { // {{{1
 	display: block;
 	.fontMetrics(0,0);
 
@@ -13,10 +13,12 @@ section.events_list { // {{{1
 
 		// title {{{2
 		h3 {
+			.resetCSS;
 			display: block;
 			.sansSerifFont('Roboto-Light', 29px, 38px);
 			color: @contentColor;
 			text-transform: uppercase;
+			font-weight: normal;
 
 			span {
 				border-bottom: 1px solid @bgColor;
@@ -54,11 +56,13 @@ section.events_list { // {{{1
 		} // .preview_text }}}2
 
 		ul.preview_photos { // {{{2
+			.resetCSS;
 			display: block;
 			white-space: nowrap;
 			padding-top: 32px - 6px;
 
 			&>li {
+				.resetCSS; &:before { display: none; }
 				@s: @eventsPreviewPictureSize;
 				display: none;
 				&, img { .size(@s); }
@@ -93,7 +97,7 @@ html.event_detail_page body { // {{{1
 		max-width: @minWidth;
 	} // h1
 
-	section.event_detail {
+	main section.event_detail {
 		display: block;
 		.fontMetrics(0,0);
 
@@ -112,11 +116,13 @@ html.event_detail_page body { // {{{1
 		}
 
 		ul.preview_photos { // {{{2
+			.resetCSS;
 			display: block;
 			padding-top: 32px - 6px;
 			width: @eventsPreviewPictureSize * 4;
 
 			&>li {
+				.resetCSS; &:before { display: none; }
 				@s: @eventsPreviewPictureSize;
 				display: inline-block;
 				&, img { .size(@s); }

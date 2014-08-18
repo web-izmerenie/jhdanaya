@@ -8,6 +8,7 @@ define(['basics/get_val'], function (getVal) {
 
 	var aliasMap = {
 		'modernizr': 'libs/modernizr.custom.01922',
+		'jquery.colorbox': 'libs/jquery.colorbox-1.5.10',
 
 		// basics
 		'get_local_text': 'basics/get_local_text',
@@ -56,7 +57,7 @@ define(['basics/get_val'], function (getVal) {
 			if ($html.hasClass('main_page')) require(['pages/main']);
 			if ($('main.shops').size() > 0) require(['pages/shops']);
 			if ($html.hasClass('collection_page')) require(['pages/collection']);
-			if ($('.events_list').size() > 0) require(['pages/events']);
+			if ($('.events_list').size() > 0 || $html.hasClass('event_detail_page')) require(['pages/events']);
 			if ($html.hasClass('error_404_page')) require(['pages/error_404']);
 
 			if ($('header').size() > 0) require(['header']);

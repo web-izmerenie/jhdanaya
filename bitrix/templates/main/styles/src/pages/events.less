@@ -116,16 +116,17 @@ html.event_detail_page body { // {{{1
 		}
 
 		ul.preview_photos { // {{{2
-			.resetCSS;
+			.resetList;
 			display: block;
 			padding-top: 32px - 6px;
 			width: @eventsPreviewPictureSize * 4;
 
 			&>li {
-				.resetCSS; &:before { display: none; }
+				.resetList;
 				@s: @eventsPreviewPictureSize;
 				display: inline-block;
 				&, img { .size(@s); }
+				a { .linkNoLine; }
 			}
 		} // ul.preview_photos }}}2
 	} // section.event_detail

@@ -28,6 +28,13 @@ define(function () {
 
 		dynamicItemsLoadURL: '/ajax/handler.php',
 
+		galleryColorboxParams: {
+			transition: 'fade',
+			height: '80%',
+			opacity: 0.7,
+			rel: 'photos',
+		},
+
 	};
 
 	/** Required set before "getVal" */

@@ -1,7 +1,7 @@
 <?
 	IncludeTemplateLangFile(__FILE__);
 
-	$revision = 4;
+	$revision = 5;
 	$debug = true;
 
 	if($USER->IsAdmin()) $debug = true;

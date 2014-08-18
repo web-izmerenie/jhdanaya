@@ -114,6 +114,7 @@ function (getVal, getLocalText, relativeNumber) {
 					$(this).css('display', 'none');
 					$ul.removeClass('popup');
 					$li.removeClass('popup');
+					$html.removeClass('collection_page_over_popup');
 				});
 				return false;
 			} // closeHandler() }}}2
@@ -143,6 +144,7 @@ function (getVal, getLocalText, relativeNumber) {
 					return false;
 				}
 
+				$html.addClass('collection_page_over_popup');
 				$ul.addClass('popup');
 				$li.addClass('popup');
 				$infoD.css('display', 'block');

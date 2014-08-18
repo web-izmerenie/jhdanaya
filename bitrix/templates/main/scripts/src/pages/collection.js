@@ -484,8 +484,11 @@ function (getVal, getLocalText, relativeNumber) {
 								}
 
 								var $preview;
-								if (item.info_detail) $preview = $('<a/>');
-								else $preview = $('<span/>');
+								if (item.info_detail) {
+									$preview = $('<a/>');
+									if (item.info_detail.picture && item.info_detail.picture.src)
+										$preview.attr('href', item.info_detail.picture.src);
+								} else $preview = $('<span/>');
 								$preview.addClass('preview');
 
 								imgTag = '<img alt="';

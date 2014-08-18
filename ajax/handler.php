@@ -1,7 +1,7 @@
 <?
 require($_SERVER["DOCUMENT_ROOT"]."/bitrix/modules/main/include/prolog_before.php");
 
-$json["dedug"] = $_GET;
+//$json["dedug"] = $_GET;
 
 CModule::IncludeModule("iblock");
 $iblock = CIBlock::GetList(

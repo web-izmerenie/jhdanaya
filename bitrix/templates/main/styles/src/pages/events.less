@@ -56,13 +56,13 @@ html body main section.events_list { // {{{1
 		} // .preview_text }}}2
 
 		ul.preview_photos { // {{{2
-			.resetCSS;
+			.resetList;
 			display: block;
 			white-space: nowrap;
 			padding-top: 32px - 6px;
 
 			&>li {
-				.resetCSS; &:before { display: none; }
+				.resetList;
 				@s: @eventsPreviewPictureSize;
 				display: none;
 				&, img { .size(@s); }

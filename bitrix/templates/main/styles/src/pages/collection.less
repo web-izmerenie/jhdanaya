@@ -576,7 +576,46 @@ html.collection_page body {
 	} // .info.detail }}}1
 } // html.collection_page body
 
-html.collection_page_over_popup {
+html.collection_page_over_popup { // {{{1
 	overflow-y: hidden !important;
 	body { overflow-y: hidden !important; }
-}
+
+	body > .collection_page_big_photo_block {
+		display: block;
+		.size(100%);
+		.fixed(0, 0, 0, 0);
+		background: white;
+		z-index: 200;
+		.fontMetrics(0, 0);
+		.opacity(0);
+
+		.closer {
+			.linkNoLine;
+			&, &:before { .sprite(@sprite_icons_closer); }
+			&:after { .sprite(@sprite_icons_closer_active); }
+			background: none !important;
+			display: block;
+			.animatedIcon;
+			.absolute(20px, 20px);
+			z-index: 210;
+		}
+
+		.wrap {
+			display: block;
+			padding: 80px;
+			.relative;
+			z-index: 205;
+			.box-sizing(border-box);
+			.size(100%);
+
+			img {
+				display: block;
+				margin: 0 auto;
+				max-width: 100%;
+				max-height: 100%;
+				.relative(50%);
+				.transform(translateY(-50%));
+			}
+		}
+	} // body > .collection_page_big_photo_block
+} // html.collection_page_over_popup }}}1

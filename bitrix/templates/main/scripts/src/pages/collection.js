@@ -121,7 +121,56 @@ function (getVal, getLocalText, relativeNumber) {
 
 			$infoD.find('.closer').click(closeHandler);
 			$infoD.find('.zoom').click(function () {
-				alert('Поведение кнопки не определено.');
+
+				var process = false;
+
+				$html.addClass('collection_page_big_photo');
+				$ul.animate(
+					{ 'opacity': 0 },
+					getVal('animationSpeed'),
+					getVal('animationCurve'),
+					function () {
+						$(this).css('visibility', 'hidden');
+					});
+
+				var $block = $('<div/>').addClass('collection_page_big_photo_block');
+				var $closer = $('<a/>').addClass('closer');
+				var $wrap = $('<div/>').addClass('wrap');
+				var $img = $('<img/>').attr('src', $a.attr('href'));
+
+				$wrap.append($img);
+				$block.append($closer).append($wrap);
+
+				$('body').append($block);
+
+				$block.stop().animate(
+					{opacity: 1},
+					getVal('animationSpeed'),
+					getVal('animationCurve'), function () {
+						$img.on('click', function () { return false; });
+
+						$closer.on('click', function () {
+							if (process) return false; else process = true;
+							$block.animate(
+								{ opacity: 0 },
+								getVal('animationSpeed'),
+								getVal('animationCurve'), function () {
+									$html.removeClass('collection_page_big_photo');
+									$block.remove();
+								});
+							$ul.stop().css('visibility', 'visible').animate(
+								{ 'opacity': 1 },
+								getVal('animationSpeed'),
+								getVal('animationCurve'));
+							return false;
+						});
+
+						$block.on('click', function () {
+							$closer.trigger('click');
+							return false
+						});
+					});
+
 				return false;
 			});
 
@@ -131,6 +180,8 @@ function (getVal, getLocalText, relativeNumber) {
 
 			$a.click(function () { // {{{2
 				if ($ul.hasClass('popup')) {
+					if ($html.hasClass('collection_page_big_photo')) return false;
+
 					var $cur = $ul.find('>li.popup');
 					if ($cur.size() <= 0) throw new Error('OH SHI~');
 					$cur = $cur.data('info_detail');
@@ -169,6 +220,8 @@ function (getVal, getLocalText, relativeNumber) {
 
 	if ($list.hasClass('brand') || $list.hasClass('rings')) {
 		$d.on('click' + bindSuffix, function (event) { // {{{1
+			if ($html.hasClass('collection_page_big_photo')) return true;
+
 			var $infoOpened = $list.find('>li.popup');
 			if ($infoOpened.size() <= 0) return true;
 			$infoOpened = $infoOpened.data('info_detail');

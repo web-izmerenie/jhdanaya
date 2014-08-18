@@ -41,6 +41,7 @@
 @import "pages/collection";
 @import "pages/events";
 @import "pages/error_404";
+@import "pages/vacancies";
 
 // imports }}}1
 
@@ -132,8 +133,31 @@ html body {
 		margin-right: auto;
 		font: @contentFont;
 
+		h3 {
+			font: @contentFont;
+			.fontMetrics(16px, 24px);
+			font-weight: bold;
+		}
+
+		ul {
+			.relative;
+
+			li {
+				padding-left: 38px;
+				padding-top: 6px;
+				.relative;
+
+				&:before {
+					.pseudoBlock('—');
+					.absolute(auto, auto, auto, 18px);
+				}
+			}
+		}
+
 		p + p, blockquote + p,
-		blockquote + blockquote, blockquote + p { padding-top: 24px; }
+		blockquote + blockquote, blockquote + p,
+		h3 + p, p + h3, blockquote + h3, h3 + blockquote,
+		ul + h3, p + ul, ul + p, blockquote + ul, ul + blockquote { padding-top: 24px; }
 
 		p + p>img,
 		blockquote + p>img {

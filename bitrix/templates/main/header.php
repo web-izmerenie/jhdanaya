@@ -1,7 +1,7 @@
 <?
 	IncludeTemplateLangFile(__FILE__);
 
-	$revision = 3;
+	$revision = 4;
 	$debug = true;
 
 	if($USER->IsAdmin()) $debug = true;
@@ -22,6 +22,9 @@
 		$html_classes[] = "event_detail_page";
 	if(defined('ERROR_404'))
 		$html_classes[] = "error_404_page";
+
+	if(defined('VACANCIES_PAGE'))
+		$html_classes[] = "vacancies_page";
 
 	// <main> classes
 	if(defined("MAIN_ABOUT"))
@@ -84,6 +87,7 @@
 
 <body>
 	<?$APPLICATION->ShowPanel()?>
+	<?if(defined('VACANCIES_PAGE')){?><div class="vacancies_bg"></div><?}?>
 	<header>
 		<?if($APPLICATION->GetCurPage(0) != SITE_DIR){?>
 		<a class="logo" href="<?=SITE_DIR?>" title="<?=GetMessage("GOTO_MAINPAGE")?>">

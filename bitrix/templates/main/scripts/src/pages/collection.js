@@ -43,7 +43,7 @@ function (getVal, getLocalText, relativeNumber) {
 				return;
 			}
 			$(this).html('<iframe src="//www.youtube.com/embed/'+
-				attr +'" allowfullscreen></iframe>');
+				attr +'?rel=0" allowfullscreen></iframe>');
 		});
 	}
 

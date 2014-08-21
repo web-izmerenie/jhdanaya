@@ -262,9 +262,12 @@ function (getVal, getLocalText, relativeNumber) {
 		var topMin = 75;
 		var topMax = 130;
 
-		if ($list.hasClass('rings') || $list.hasClass('brand')) {
+		if ($list.hasClass('rings')) {
 			itemSizeMin = 170;
 			itemSizeMax = 272;
+		}
+
+		if ($list.hasClass('rings') || $list.hasClass('brand')) {
 			topMin = 50;
 			topMax = 80;
 

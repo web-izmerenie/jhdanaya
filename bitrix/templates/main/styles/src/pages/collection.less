@@ -81,6 +81,7 @@ html.collection_page body {
 			.fontMetrics(0, 0);
 
 			@min: 208px;
+			@minBrand: @min;
 
 			&>li {
 				.resetCSS;
@@ -139,6 +140,11 @@ html.collection_page body {
 
 				span.preview { cursor: default; }
 			} // &.brand, &.rings }}}3
+
+			&.brand>li {
+				height: @minBrand;
+				.preview { .size(@minBrand); }
+			}
 
 			&.rings.popup>li .preview img,
 			&.brand.popup>li .preview img {

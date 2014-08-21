@@ -591,6 +591,12 @@ function (getVal, getLocalText, relativeNumber) {
 		return false;
 	}); // $more.click }}}1
 
+	$w.on('scroll' + bindSuffix, function () {
+		if ($d.scrollTop() + $w.height() >= $more.offset().top) {
+			$more.trigger('click' + bindSuffix);
+		}
+	});
+
 }); // require() for page passed
 
 }); // stylesReady()

@@ -91,6 +91,8 @@ html.collection_page body {
 				margin-top: @topMin;
 
 				&:before, &:after { display: none; }
+
+				.preview img { .transit(~'opacity'); }
 			} // &>li
 
 			&.brand, &.rings { // {{{3
@@ -115,7 +117,6 @@ html.collection_page body {
 							.absolute(0, auto, auto, 0);
 							z-index: 1;
 							.opacity(1);
-							.transit(~'opacity');
 						}
 
 						img.blur {
@@ -148,6 +149,7 @@ html.collection_page body {
 
 			&.rings.popup>li .preview img,
 			&.brand.popup>li .preview img {
+				& { .opacity(0); }
 				&.blur { .opacity(1); }
 			}
 

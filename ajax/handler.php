@@ -28,8 +28,11 @@ if($_GET["section"]){
 if($_GET["datafor"]){
 	$arFilter["PROPERTY_FOR"] = $_GET["datafor"];
 }
+$arOrder = array(
+    "SORT" => "asc"
+);
 $total = CIBlockElement::GetList(
-	array(),
+	$arOrder,
 	$arFilter,
 	false,
 	array(),
@@ -38,9 +41,7 @@ $total = CIBlockElement::GetList(
 $totalcount = $total->SelectedRowsCount();
 
 $res = CIBlockElement::GetList(
-	array(
-		"ID" => "desc"
-	),
+	$arOrder,
 	$arFilter,
 	false,
 	array(

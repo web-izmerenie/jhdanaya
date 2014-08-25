@@ -4,8 +4,8 @@
  * @author Viacheslav Lotsmanov
  */
 
-var $ = require('jquery'),
-	basics = require('./basics');
+var $ = require('jquery');
+var basics = require('./basics');
 
 module.exports = function (factory) {
 	basics.init(function () {

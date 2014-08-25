@@ -4,10 +4,10 @@
  * @author Viacheslav Lotsmanov
  */
 
-var $ = require('jquery'),
-	ready = require('./ready'),
-	basics = require('./basics'),
-	getVal = basics.getVal;
+var $ = require('jquery');
+var ready = require('./ready');
+var basics = require('./basics');
+var getVal = basics.getVal;
 
 ready(function factory() {
 

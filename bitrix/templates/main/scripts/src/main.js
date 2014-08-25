@@ -4,13 +4,13 @@
  * @author Viacheslav Lotsmanov
  */
 
-var $ = require('jquery'),
-	basics = require('./basics'),
-	ready = require('./ready');
+var $ = require('jquery');
+var basics = require('./basics');
+var ready = require('./ready');
 
 ready(function factory(window, document, undefined) {
-	var Modernizr = require('modernizr'), // init <html> Modernizr classes
-		getVal = basics.getVal;
+	var Modernizr = require('modernizr'); // init <html> Modernizr classes
+	var getVal = basics.getVal;
 
 	if (getVal('debug') && Modernizr.localstorage) { // clear less cache {{{1
 		var ls = window.localStorage;

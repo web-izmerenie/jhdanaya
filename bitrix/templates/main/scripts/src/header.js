@@ -4,8 +4,12 @@
  * @author Viacheslav Lotsmanov
  */
 
-define(['get_val', 'jquery', 'styles_ready'], function (getVal, $, stylesReady) {
-stylesReady(function () {
+var $ = require('jquery'),
+	ready = require('./ready'),
+	basics = require('./basics'),
+	getVal = basics.getVal;
+
+ready(function factory() {
 
 	var $header = $('header');
 
@@ -58,5 +62,4 @@ stylesReady(function () {
 		.on('resize' + bindSuffix, handler);
 	handler();
 
-}); // stylesReady()
-}); // define()
+}); // factory()

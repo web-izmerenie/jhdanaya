@@ -4,15 +4,15 @@
  * @author Viacheslav Lotsmanov
  */
 
-var $ = require('jquery');
+var $ = require('jquery'),
+	basics = require('./basics'),
+	ready = require('./ready');
 
-var basics = require('./basics');
+ready(function factory(window, document, undefined) {
+	var Modernizr = require('modernizr'), // init <html> Modernizr classes
+		getVal = basics.getVal;
 
-function factory(window, document, undefined) {
-	var Modernizr = require('modernizr'); // init <html> Modernizr classes
-	var getVal = basics.getVal;
-
-	if (getVal('debug') && Modernizr.localstorage) {
+	if (getVal('debug') && Modernizr.localstorage) { // clear less cache {{{1
 		var ls = window.localStorage;
 		if (
 			!ls.revision ||
@@ -22,13 +22,9 @@ function factory(window, document, undefined) {
 			ls.clear();
 			ls.revision = getVal('revision');
 		}
-	}
-}
+	} // clear less cache }}}1
 
-basics.init(function () {
-	$(function () {
-		factory(window, window.document);
-	});
+	if ($('header').size() > 0) require('./header');
 });
 
 /*

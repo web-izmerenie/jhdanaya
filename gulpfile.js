@@ -19,6 +19,7 @@ var rename = require('gulp-rename');
 var browserify = require('gulp-browserify');
 var uglify = require('gulp-uglify');
 var jshint = require('gulp-jshint');
+var stylish = require('jshint-stylish');
 
 gulp.task('help', taskListing);
 
@@ -190,13 +191,24 @@ function browserifyCleanTask(name, params) { // {{{2
 		.pipe(clean({ force: true }));
 } // browserifyCleanTask() }}}2
 
+function browserifyJSHintTask(name, params) { // {{{2
+	var src = [ path.join(params.path, 'src/**/*.js') ];
+	params.jshintExclude.forEach(function (exclude) {
+		src.push('!' + exclude);
+	});
+	return gulp
+		.src(src)
+		.pipe(jshint(params.jshintParams))
+		.pipe(jshint.reporter(stylish));
+} // browserifyJSHintTask() }}}2
+
 function browserifyBuildTask(name, params) { // {{{2
 	return gulp
 		.src(path.join(params.path, 'src/', params.mainSrc))
 		.pipe(browserify({
 			shim: params.shim,
+			debug: !production,
 		}))
-		.pipe(gulpif(!params.jshintDisabled, jshint()))
 		.pipe(gulpif(production, uglify()))
 		.pipe(rename(function (buildPath) {
 			renameBuildFile(buildPath, params.mainSrc, params.buildFile);
@@ -222,9 +234,27 @@ Object.keys(pkg.gulp.browserify).forEach(function (name) {
 		path: item.path,
 		mainSrc: item.main_src,
 		buildFile: item.build_file,
-		jshintDisabled: item.jshint_disabled ? true : false,
 		shim: item.shim || {},
+		jshintDisabled: item.jshint_disabled ? true : false,
+		jshintParams: item.jshint_params ? item.jshint_params : null,
+		jshintExclude: item.jshint_exclude ? item.jshint_exclude : [],
 	};
+
+	if (item.jshint_relative_exclude)
+		item.jshint_relative_exclude.forEach(function (exclude) {
+			params.jshintExclude.push(
+				path.join(item.path, 'src/', exclude));
+		});
+
+	var preBuildTasks = ['clean-browserify-' + name];
+
+	if (!params.jshintDisabled) {
+		gulp.task(
+			'browserify-' + name + '-jshint',
+			browserifyJSHintTask.bind(null, name, params)
+		);
+		preBuildTasks.push('browserify-' + name + '-jshint');
+	}
 
 	gulp.task(
 		'clean-browserify-' + name,
@@ -232,7 +262,7 @@ Object.keys(pkg.gulp.browserify).forEach(function (name) {
 	);
 	gulp.task(
 		'browserify-' + name,
-		['clean-browserify-' + name],
+		preBuildTasks,
 		browserifyBuildTask.bind(null, name, params)
 	);
 

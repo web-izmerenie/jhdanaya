@@ -61,13 +61,22 @@
 	<![endif]-->
 
 	<link href="/favicon.ico?v=<?=$revision?>" rel="shortcut icon" type="image/x-icon" />
-	<?if($debug){?><script>var less = { env: 'development' };</script><?}?>
-	<link rel="stylesheet/less" type="text/css" href="<?=$tplPath?>/styles/src/main.less?v=<?=$revision?>" />
-	<!--<link rel="stylesheet" href="<?=$tplPath?>/styles/build/build.css?v=<?=$revision?>" />-->
+
+	<?/* styles */?>
+	<?if($debug){?>
+		<?/* client-side compiling */?>
+		<script>var less = { env: 'development' };</script>
+		<link rel="stylesheet/less" type="text/css" href="<?=$tplPath?>/styles/src/main.less?v=<?=$revision?>" />
+	<?}else{?>
+		<link rel="stylesheet" href="<?=$tplPath?>/styles/build/build.css?v=<?=$revision?>" />
+	<?}?>
+
 	<script src="<?=$tplPath?>/scripts/src/libs/require.js?v=<?=$revision?>"></script>
+
 	<?if($USER->IsAuthorized()){?>
 		<?$APPLICATION->ShowHead()?>
 	<?}?>
+
 	<script>
 		//<![CDATA[
 			require.config({

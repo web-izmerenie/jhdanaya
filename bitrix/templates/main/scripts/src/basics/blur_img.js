@@ -271,7 +271,7 @@
 	 * @param {blurImg~params} params
 	 * @param {blurImg~callback} callback
 	 */
-	var exports = function (params, callback) {
+	var exports = function (params, callback) { // {{{1
 
 		params = $.extend({
 			src: null,
@@ -333,7 +333,7 @@
 
 		}); // loadImg()
 
-	}; // exports()
+	}; // exports() }}}1
 
 	/* exceptions {{{1 */
 

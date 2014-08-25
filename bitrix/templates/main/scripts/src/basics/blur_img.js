@@ -79,7 +79,7 @@
 	 * @private
 	 * @inner
 	 */
-	function stackBlurCanvasRGB(canvas, b, c, width, height, radius) {
+	function stackBlurCanvasRGB(canvas, b, c, width, height, radius) { // {{{1
 		var a = canvas;
 		var d = width;
 		var f = height;
@@ -90,21 +90,15 @@
 		var h = a.getContext("2d");
 		var j;
 		try {
-			try {
-				j = h.getImageData(b, c, d, f);
-			} catch(e) {
-				try {
-					window.netscape.security.PrivilegeManager
-						.enablePrivilege("UniversalBrowserRead");
-					j = h.getImageData(b, c, d, f);
-				} catch(e) {
-					window.alert("Cannot access local image");
-					throw new Error("unable to access local image data: " + e);
-				}
-			}
+			j = h.getImageData(b, c, d, f);
 		} catch(e) {
-			window.alert("Cannot access image");
-			throw new Error("unable to access image data: " + e);
+			try {
+				window.netscape.security.PrivilegeManager
+					.enablePrivilege("UniversalBrowserRead");
+				j = h.getImageData(b, c, d, f);
+			} catch(err) {
+				throw new exports.exceptions.CannotAccessImageData(null, err);
+			}
 		}
 		var k = j.data;
 		var x, y, i, p, yp, yi, yw, r_sum, g_sum, b_sum, r_out_sum, g_out_sum,
@@ -244,20 +238,20 @@
 			}
 		}
 		h.putImageData(j, b, c);
-	}
+	} // stackBlurCanvasRGB() }}}1
 
 	/**
 	 * @private
 	 * @inner
 	 * @constructor
 	 */
-	function BlurStack() {
+	function BlurStack() { // {{{1
 		this.r = 0;
 		this.g = 0;
 		this.b = 0;
 		this.a = 0;
 		this.next = null;
-	}
+	} // BlurStack() }}}1
 
 	/**
 	 * @typedef {function} blurImg~callback
@@ -277,7 +271,7 @@
 	 * @param {blurImg~params} params
 	 * @param {blurImg~callback} callback
 	 */
-	function blurImg(params, callback) {
+	var exports = function (params, callback) {
 
 		params = $.extend({
 			src: null,
@@ -285,7 +279,7 @@
 		}, params);
 
 		if (typeof Image !== 'function') {
-			callback(new blurImg.exceptions.NoImage());
+			callback(new exports.exceptions.NoImage());
 			return;
 		}
 
@@ -295,11 +289,11 @@
 		if (canvas.getContext) {
 			ctx = canvas.getContext('2d');
 			if (!ctx) {
-				callback(new blurImg.exceptions.CanvasIsNotSupported());
+				callback(new exports.exceptions.CanvasIsNotSupported());
 				return;
 			}
 		} else {
-			callback(new blurImg.exceptions.CanvasIsNotSupported());
+			callback(new exports.exceptions.CanvasIsNotSupported());
 			return;
 		}
 
@@ -316,16 +310,21 @@
 			try {
 				ctx.drawImage(imgObj, 0, 0);
 			} catch (err) {
-				callback(new blurImg.exceptions.DrawImageError(null, err));
+				callback(new exports.exceptions.DrawImageError(null, err));
 				return;
 			}
 
-			stackBlurCanvasRGB(canvas, 0, 0, canvas.width, canvas.height, params.radius);
+			try {
+				stackBlurCanvasRGB(canvas, 0, 0, canvas.width, canvas.height, params.radius);
+			} catch (err) {
+				callback(err);
+				return;
+			}
 
 			try {
 				dataURL = canvas.toDataURL('image/png');
 			} catch (err) {
-				callback(new blurImg.exceptions.ConvertToDataURLError(null, err));
+				callback(new exports.exceptions.ConvertToDataURLError(null, err));
 				return;
 			}
 
@@ -334,7 +333,7 @@
 
 		}); // loadImg()
 
-	} // blurImg()
+	}; // exports()
 
 	/* exceptions {{{1 */
 
@@ -342,41 +341,46 @@
 	 * @public
 	 * @static
 	 */
-	blurImg.exceptions = {};
-	var exceptions = blurImg.exceptions;
+	var exceptions = exports.exceptions = {};
 
-	exceptions.NoImage = function (message) {
+	exceptions.NoImage = function (message) { // {{{2
 		Error.call(this);
 		this.name = 'NoImage';
-		this.message = message || 'No "Image" constructor.';
-	};
+		this.message = message || 'No "Image" constructor';
+	}; // }}}2
 
-	exceptions.CanvasIsNotSupported = function (message) {
+	exceptions.CanvasIsNotSupported = function (message) { // {{{2
 		Error.call(this);
 		this.name = 'CanvasIsNotSupported';
-		this.message = message || 'Canvas is not supported.';
-	};
+		this.message = message || 'Canvas is not supported';
+	}; // }}}2
 
-	exceptions.DrawImageError = function (message, err) {
+	exceptions.DrawImageError = function (message, err) { // {{{2
 		Error.call(this);
 		this.name = 'DrawImageError';
-		this.message = message || 'Draw image to 2D canvas context error.';
+		this.message = message || 'Draw image to 2D canvas context error';
 		if (err) this.message += ('\n\n' + err.toString());
-	};
+	}; // }}}2
 
-	exceptions.ConvertToDataURLError = function (message, err) {
+	exceptions.ConvertToDataURLError = function (message, err) { // {{{2
 		Error.call(this);
 		this.name = 'ConvertToDataURLError';
-		this.message = message || 'Convert image data from 2D canvas to URL data error.';
+		this.message = message || 'Convert image data from 2D canvas to URL data error';
 		if (err) this.message += ('\n\n' + err.toString());
-	};
+	}; // }}}2
 
-	for (var key in blurImg.exceptions) {
+	exceptions.CannotAccessImageData = function (message, err) { // {{{2
+		Error.call(this);
+		this.name = 'CannotAccessImageData';
+		this.message = message || 'Unable to access image data';
+		if (err) this.message += ('\n\n' + err.toString());
+	}; // }}}2
+
+	for (var key in exports.exceptions)
 		exceptions[key].prototype = inherit(Error.prototype);
-	}
 
 	/* exceptions }}}1 */
 
-	return blurImg;
+	return exports;
 
 }); // factory()

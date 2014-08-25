@@ -52,6 +52,7 @@
 	?>" lang="<?=LANGUAGE_ID
 	?>" data-revision="<?=$revision
 	?>" data-template-path="<?=$tplPath
+	?>" data-debug="<?=($debug) ? 'true' : 'false'
 	?>" class="<?=$html_classes?>">
 <head>
 	<meta charset="utf-8" />
@@ -76,29 +77,11 @@
 		<link rel="stylesheet" href="<?=$tplPath?>/styles/build/build.css?v=<?=$revision?>" />
 	<?}?>
 
-	<?/*<script src="<?=$tplPath?>/scripts/src/libs/require.js?v=<?=$revision?>"></script>*/?>
-
 	<?if($USER->IsAuthorized()){?>
 		<?$APPLICATION->ShowHead()?>
 	<?}?>
 
 	<script src="<?=$tplPath?>/scripts/build/build.js?v=<?=$revision?>"></script>
-
-	<?/*<script>
-		//<![CDATA[
-			require.config({
-				baseUrl: '<?=$tplPath?>/scripts/src/',
-				urlArgs: 'v=<?=$revision?>',
-			});
-			require(['basics/get_val'], function (getVal) {
-				getVal.set('clientSide', <?=($debug)?'true':'false'?>);
-				getVal.set('lang', '<?=LANGUAGE_ID?>');
-				getVal.set('revision', '<?=$revision?>');
-				getVal.set('tplPath', '<?=$tplPath?>');
-				require(['main']);
-			});
-		//]]>
-	</script>*/?>
 </head>
 
 <body>

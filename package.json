@@ -41,7 +41,17 @@
 			"main": {
 				"path": "./bitrix/templates/main/scripts/",
 				"main_src": "main.js",
-				"build_file": "build.js"
+				"build_file": "build.js",
+				"shim": {
+					"jquery": {
+						"relative_path": "./libs/jquery-2.1.1",
+						"exports": ""
+					},
+					"modernizr": {
+						"relative_path": "./libs/modernizr.custom.39986",
+						"exports": "Modernizr"
+					}
+				}
 			}
 		}
 	}

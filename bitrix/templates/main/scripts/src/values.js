@@ -38,4 +38,5 @@ module.exports.required = [
 	'lang',
 	'revision',
 	'tplPath',
+	'debug',
 ];

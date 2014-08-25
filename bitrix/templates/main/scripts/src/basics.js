@@ -4,7 +4,7 @@
  * @author Viacheslav Lotsmanov
  */
 
-var $ = require('./libs/jquery');
+var $ = require('jquery');
 
 module.exports = {
 	getVal: null,
@@ -22,6 +22,7 @@ $(function () {
 			'lang': $html.attr('lang'),
 			'revision': $html.attr('data-revision'),
 			'tplPath': $html.attr('data-template-path'),
+			'debug': ($html.attr('data-debug').toLowerCase() === 'true') ? true : false,
 		}
 	);
 	initTrigger();

@@ -206,6 +206,16 @@ function browserifyBuildTask(name, params) { // {{{2
 Object.keys(pkg.gulp.browserify).forEach(function (name) {
 	var item = pkg.gulp.browserify[name];
 
+	if (item.shim) Object.keys(item.shim).forEach(function (key) {
+		Object.keys(item.shim[key]).forEach(function (paramName) {
+			if (paramName === 'relative_path') {
+				item.shim[key]['path'] = path.join(
+					item.path, 'src/', item.shim[key][paramName]);
+				delete item.shim[key][paramName];
+			}
+		});
+	});
+
 	var params = {
 		path: item.path,
 		mainSrc: item.main_src,

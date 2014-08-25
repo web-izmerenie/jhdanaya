@@ -16,10 +16,23 @@ var taskListing = require('gulp-task-listing');
 var less = require('gulp-less');
 var gulpif = require('gulp-if');
 var rename = require('gulp-rename');
+var browserify = require('gulp-browserify');
+var uglify = require('gulp-uglify');
 
 gulp.task('help', taskListing);
 
 var production = argv.production ? true : false;
+
+// helpers {{{1
+
+function renameBuildFile(buildPath, mainSrc, buildFile) { // {{{2
+	if (buildPath.basename === path.basename(mainSrc, path.extname(mainSrc))) {
+		buildPath.extname = path.extname(buildFile);
+		buildPath.basename = path.basename(buildFile, buildPath.extname);
+	}
+} // renameBuildFile() }}}2
+
+// helpers }}}1
 
 // clean {{{1
 
@@ -124,8 +137,7 @@ function lessBuildTask(name, params) { // {{{2
 			compress: production,
 		}))
 		.pipe(rename(function (buildPath) {
-			buildPath.extname = path.extname(params.buildFile);
-			buildPath.basename = path.basename(params.buildFile, buildPath.extname);
+			renameBuildFile(buildPath, params.mainSrc, params.buildFile);
 		}))
 		.pipe(gulp.dest(path.join(params.path, 'build/')));
 } // lessBuildTask() }}}2
@@ -166,4 +178,62 @@ gulp.task('less', lessBuildTasks);
 
 // less }}}1
 
-gulp.task('default', ['sprites', 'less']);
+// browserify {{{1
+
+var browserifyCleanTasks = [];
+var browserifyBuildTasks = [];
+
+function browserifyCleanTask(name, params) { // {{{2
+	return gulp
+		.src(path.join(params.path, 'build/'))
+		.pipe(clean({ force: true }));
+} // browserifyCleanTask() }}}2
+
+function browserifyBuildTask(name, params) { // {{{2
+	return gulp
+		.src(path.join(params.path, 'src/', params.mainSrc))
+		.pipe(browserify({
+			shim: params.shim,
+		}))
+		.pipe(gulpif(production, uglify()))
+		.pipe(rename(function (buildPath) {
+			renameBuildFile(buildPath, params.mainSrc, params.buildFile);
+		}))
+		.pipe(gulp.dest(path.join(params.path, 'build/')));
+} // browserifyBuildTask() }}}2
+
+// create tasks by package.json {{{2
+Object.keys(pkg.gulp.browserify).forEach(function (name) {
+	var item = pkg.gulp.browserify[name];
+
+	var params = {
+		path: item.path,
+		mainSrc: item.main_src,
+		buildFile: item.build_file,
+		shim: item.shim || {},
+	};
+
+	gulp.task(
+		'clean-browserify-' + name,
+		browserifyCleanTask.bind(null, name, params)
+	);
+	gulp.task(
+		'browserify-' + name,
+		['clean-browserify-' + name],
+		browserifyBuildTask.bind(null, name, params)
+	);
+
+	browserifyCleanTasks.push('clean-browserify-' + name);
+	browserifyBuildTasks.push('browserify-' + name);
+}); // create tasks by package.json }}}2
+
+gulp.task('clean-browserify', browserifyCleanTasks);
+gulp.task('browserify', browserifyBuildTasks);
+
+// browserify }}}1
+
+gulp.task('default', [
+	'sprites',
+	'less',
+	'browserify'
+]);

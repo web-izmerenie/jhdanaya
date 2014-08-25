@@ -7,7 +7,9 @@
 		"gulp-task-listing": "*",
 		"gulp-less": "*",
 		"gulp-if": "*",
-		"gulp-rename": "*"
+		"gulp-rename": "*",
+		"gulp-browserify": "*",
+		"gulp-uglify": "*"
 	},
 	"scripts": {
 		"postinstall": "bash ./deploy.sh"
@@ -33,6 +35,13 @@
 				"main_src": "main.less",
 				"build_file": "build.css",
 				"required_sprites": [ "icons" ]
+			}
+		},
+		"browserify": {
+			"main": {
+				"path": "./bitrix/templates/main/scripts/",
+				"main_src": "main.js",
+				"build_file": "build.js"
 			}
 		}
 	}

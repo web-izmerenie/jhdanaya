@@ -4,6 +4,25 @@
  * @author Viacheslav Lotsmanov
  */
 
+'use strict';
+
+var $ = require('./libs/jquery');
+
+var values = require('./values');
+var getVal = require('./basics/get_val');
+
+$(function () {
+
+	var $html = $('html');
+
+	// init required "getVal" module values
+	$.each(values.required, function (i, key) {
+		getVal.set(key, $html.attr('data-' + key));
+	});
+
+}); // dom ready
+
+/*
 define(['basics/get_val'], function (getVal) {
 
 	var aliasMap = {
@@ -65,3 +84,4 @@ define(['basics/get_val'], function (getVal) {
 	});
 
 }); // define()
+*/

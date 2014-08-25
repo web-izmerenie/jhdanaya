@@ -2,7 +2,7 @@
 	IncludeTemplateLangFile(__FILE__);
 
 	$revision = 5;
-	$debug = true;
+	$debug = false;
 
 	if($USER->IsAdmin()) $debug = true;
 	if($debug) $revision = 'dev' . mktime();
@@ -48,7 +48,12 @@
 	}
 
 ?><!doctype html>
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="<?=LANGUAGE_ID?>" lang="<?=LANGUAGE_ID?>" class="<?=$html_classes?>">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="<?=LANGUAGE_ID
+	?>" lang="<?=LANGUAGE_ID
+	?>" data-lang="<?=LANGUAGE_ID
+	?>" data-revision="<?=$revision
+	?>" data-template-path="<?=$tplPath
+	?>" class="<?=$html_classes?>">
 <head>
 	<meta charset="utf-8" />
 	<meta name="viewport" content="width=980" />
@@ -67,7 +72,7 @@
 		<?/* client-side compiling */?>
 		<script>var less = { env: 'development' };</script>
 		<link rel="stylesheet/less" type="text/css" href="<?=$tplPath?>/styles/src/main.less?v=<?=$revision?>" />
-		<script src="<?=$tplPath?>/scripts/alone/less-latest.js?v=<?=$revision?>"></script>
+		<script src="<?=$tplPath?>/scripts/alone/less.js?v=<?=$revision?>"></script>
 	<?}else{?>
 		<link rel="stylesheet" href="<?=$tplPath?>/styles/build/build.css?v=<?=$revision?>" />
 	<?}?>
@@ -77,6 +82,8 @@
 	<?if($USER->IsAuthorized()){?>
 		<?$APPLICATION->ShowHead()?>
 	<?}?>
+
+	<script src="<?=$tplPath?>/scripts/build/build.js?v=<?=$revision?>"></script>
 
 	<?/*<script>
 		//<![CDATA[

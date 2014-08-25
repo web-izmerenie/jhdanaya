@@ -4,47 +4,38 @@
  * @author Viacheslav Lotsmanov
  */
 
-define(function () {
+module.exports.values = {
 
-	/** @public */ var exports = {};
+	minWidth: 980, // px
+	maxWidth: 1600, // px
+	relativeMaxWidth: 2560, // px (for main page)
+	animationSpeed: 200, // ms
+	animationCurve: 'easeInOutQuad', // easing
+	fixedHeaderHTMLClass: 'fixed_header',
+	headerSmallLogoURL: 'header_small_logo.png',
+	footerHeight: 74, // px
+	waiterTimeout: 200, // ms
+	mainPageSliderInterval: 3, // sec
+	dynamicApiLoadInterval: 200, // ms
+	loadImgTimeout: 30000, // ms
 
-	exports.values = {
+	circleDownArrowButtonSizeMin: 64,
+	circleDownArrowButtonSizeMax: 96,
 
-		minWidth: 980, // px
-		maxWidth: 1600, // px
-		relativeMaxWidth: 2560, // px (for main page)
-		animationSpeed: 200, // ms
-		animationCurve: 'easeInOutQuad', // easing
-		fixedHeaderHTMLClass: 'fixed_header',
-		headerSmallLogoURL: 'header_small_logo.png',
-		footerHeight: 74, // px
-		waiterTimeout: 200, // ms
-		mainPageSliderInterval: 3, // sec
-		dynamicApiLoadInterval: 200, // ms
-		loadImgTimeout: 30000, // ms
+	dynamicItemsLoadURL: '/ajax/handler.php',
 
-		circleDownArrowButtonSizeMin: 64,
-		circleDownArrowButtonSizeMax: 96,
+	galleryColorboxParams: {
+		transition: 'fade',
+		height: '80%',
+		opacity: 0.7,
+		rel: 'photos',
+	},
 
-		dynamicItemsLoadURL: '/ajax/handler.php',
+};
 
-		galleryColorboxParams: {
-			transition: 'fade',
-			height: '80%',
-			opacity: 0.7,
-			rel: 'photos',
-		},
-
-	};
-
-	/** Required set before "getVal" */
-	exports.required = [
-		'clientSide',
-		'lang',
-		'revision',
-		'tplPath',
-	];
-
-	return exports;
-
-}); // define()
+/** Required set before "getVal" */
+module.exports.required = [
+	'lang',
+	'revision',
+	'template-path',
+];

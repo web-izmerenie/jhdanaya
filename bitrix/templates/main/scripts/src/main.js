@@ -8,19 +8,15 @@
 
 var $ = require('./libs/jquery');
 
-var values = require('./values');
-var getVal = require('./basics/get_val');
+var basics = require('./basics');
 
+basics.init(function () {
 $(function () {
 
-	var $html = $('html');
-
-	// init required "getVal" module values
-	$.each(values.required, function (i, key) {
-		getVal.set(key, $html.attr('data-' + key));
-	});
+	//
 
 }); // dom ready
+}); // "basics" init
 
 /*
 define(['basics/get_val'], function (getVal) {

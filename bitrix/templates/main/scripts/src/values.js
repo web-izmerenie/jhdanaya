@@ -37,5 +37,5 @@ module.exports.values = {
 module.exports.required = [
 	'lang',
 	'revision',
-	'template-path',
+	'tplPath',
 ];

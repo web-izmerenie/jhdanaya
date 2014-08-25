@@ -50,7 +50,6 @@
 ?><!doctype html>
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="<?=LANGUAGE_ID
 	?>" lang="<?=LANGUAGE_ID
-	?>" data-lang="<?=LANGUAGE_ID
 	?>" data-revision="<?=$revision
 	?>" data-template-path="<?=$tplPath
 	?>" class="<?=$html_classes?>">

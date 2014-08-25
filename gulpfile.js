@@ -18,6 +18,7 @@ var gulpif = require('gulp-if');
 var rename = require('gulp-rename');
 var browserify = require('gulp-browserify');
 var uglify = require('gulp-uglify');
+var jshint = require('gulp-jshint');
 
 gulp.task('help', taskListing);
 
@@ -195,6 +196,7 @@ function browserifyBuildTask(name, params) { // {{{2
 		.pipe(browserify({
 			shim: params.shim,
 		}))
+		.pipe(gulpif(!params.jshintDisabled, jshint()))
 		.pipe(gulpif(production, uglify()))
 		.pipe(rename(function (buildPath) {
 			renameBuildFile(buildPath, params.mainSrc, params.buildFile);
@@ -220,6 +222,7 @@ Object.keys(pkg.gulp.browserify).forEach(function (name) {
 		path: item.path,
 		mainSrc: item.main_src,
 		buildFile: item.build_file,
+		jshintDisabled: item.jshint_disabled ? true : false,
 		shim: item.shim || {},
 	};
 

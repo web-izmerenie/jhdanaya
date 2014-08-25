@@ -9,7 +9,8 @@
 		"gulp-if": "*",
 		"gulp-rename": "*",
 		"gulp-browserify": "*",
-		"gulp-uglify": "*"
+		"gulp-uglify": "*",
+		"gulp-jshint": "*"
 	},
 	"scripts": {
 		"postinstall": "bash ./deploy.sh"

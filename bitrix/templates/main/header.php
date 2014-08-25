@@ -67,17 +67,18 @@
 		<?/* client-side compiling */?>
 		<script>var less = { env: 'development' };</script>
 		<link rel="stylesheet/less" type="text/css" href="<?=$tplPath?>/styles/src/main.less?v=<?=$revision?>" />
+		<script src="<?=$tplPath?>/scripts/alone/less-latest.js?v=<?=$revision?>"></script>
 	<?}else{?>
 		<link rel="stylesheet" href="<?=$tplPath?>/styles/build/build.css?v=<?=$revision?>" />
 	<?}?>
 
-	<script src="<?=$tplPath?>/scripts/src/libs/require.js?v=<?=$revision?>"></script>
+	<?/*<script src="<?=$tplPath?>/scripts/src/libs/require.js?v=<?=$revision?>"></script>*/?>
 
 	<?if($USER->IsAuthorized()){?>
 		<?$APPLICATION->ShowHead()?>
 	<?}?>
 
-	<script>
+	<?/*<script>
 		//<![CDATA[
 			require.config({
 				baseUrl: '<?=$tplPath?>/scripts/src/',
@@ -91,7 +92,7 @@
 				require(['main']);
 			});
 		//]]>
-	</script>
+	</script>*/?>
 </head>
 
 <body>

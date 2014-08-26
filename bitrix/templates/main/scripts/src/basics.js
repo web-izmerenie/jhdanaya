@@ -9,7 +9,19 @@ var $ = require('jquery');
 module.exports = {
 	getVal: null,
 	getLocalText: null,
+	dynamicLoadApi: null,
 };
+
+// "dynamicLoadApi" {{{1
+
+function initDynamicLoadApi() {
+	var DynamicLoadApi = require('./basics/dynamic_api');
+	module.exports.dynamicLoadApi = new DynamicLoadApi(
+		module.exports.getVal('waiterInterval'));
+	initTrigger();
+}
+
+// "dynamicLoadApi" }}}1
 
 // "getVal" {{{1
 
@@ -26,6 +38,7 @@ $(function () {
 		}
 	);
 	initTrigger();
+	initDynamicLoadApi();
 });
 
 // "getVal" }}}1

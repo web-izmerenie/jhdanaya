@@ -14,9 +14,8 @@ module.exports.values = {
 	fixedHeaderHTMLClass: 'fixed_header',
 	headerSmallLogoURL: 'header_small_logo.png',
 	footerHeight: 74, // px
-	waiterTimeout: 200, // ms
+	waiterInterval: 200, // ms
 	mainPageSliderInterval: 3, // sec
-	dynamicApiLoadInterval: 200, // ms
 	loadImgTimeout: 30000, // ms
 
 	circleDownArrowButtonSizeMin: 64,

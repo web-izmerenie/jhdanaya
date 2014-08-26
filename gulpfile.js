@@ -209,7 +209,9 @@ function browserifyBuildTask(name, params) { // {{{2
 			shim: params.shim,
 			debug: !production,
 		}))
-		.pipe(gulpif(production, uglify()))
+		.pipe(gulpif(production, uglify({
+			preserveComments: 'some',
+		})))
 		.pipe(rename(function (buildPath) {
 			renameBuildFile(buildPath, params.mainSrc, params.buildFile);
 		}))

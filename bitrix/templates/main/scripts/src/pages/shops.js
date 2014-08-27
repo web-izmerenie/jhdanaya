@@ -27,6 +27,45 @@ ready(function (window, document, undefined) {
 	// dom elements
 	var $footer = $('footer');
 
+	var dynamicLoadApi = basics.dynamicLoadApi;
+
+	var yamapApiUrl =
+		'http://api-maps.yandex.ru/2.0/?load=package.standard&lang=' +
+		((getVal('lang') === 'ru') ? 'ru-RU' : 'en-US');
+
+	function initYaMap(id, x, y, zoom, cb) { // {{{1
+		dynamicLoadApi(
+			yamapApiUrl,
+			'ymaps',
+			function (err, ymaps) {
+				if (err) return setTimeout($.proxy(cb, null, err), 0);
+
+				ymaps.ready(function () {
+					var map, mark;
+
+					try {
+						map = new ymaps.Map(id, {
+							center: [ y, x ],
+							zoom: zoom,
+						});
+					} catch (err) {
+						return setTimeout($.proxy(cb, null, err), 0);
+					}
+
+					try {
+						mark = new ymaps.Placemark([ y, x ]);
+					} catch (err) {
+						return setTimeout($.proxy(cb, null, err), 0);
+					}
+
+					map.geoObjects.add(mark);
+
+					if (cb) setTimeout($.proxy(cb, null, null, map), 0);
+				});
+			}
+		); // dynamicLoadApi()
+	} // initYaMap() }}}1
+
 	$main.each(function () { // {{{1
 		var $main = $(this);
 		var $list = $main.find('>ul.shops_list');
@@ -63,33 +102,16 @@ ready(function (window, document, undefined) {
 			var $map = $(this);
 			var id = 'interactive_yandex_map_n_' + i;
 			$map.attr('id', id);
-			var mapLang = (getVal('lang') === 'ru') ? 'ru-RU' : 'en-US';
-			basics.dynamicLoadApi(
-				'http://api-maps.yandex.ru/2.0/?load=package.standard&lang=' +
-					mapLang,
-				'ymaps',
-				function (err, ymaps) {
+			initYaMap(
+				id,
+				parseFloat($map.attr('data-coord-x')),
+				parseFloat($map.attr('data-coord-y')),
+				parseInt($map.attr('data-zoom'), 10),
+				function (err, map) {
 					if (err) throw err;
-					ymaps.ready(function () {
-						var map = new ymaps.Map(id, {
-							center: [
-								parseFloat($map.attr('data-coord-y')),
-								parseFloat($map.attr('data-coord-x'))
-							],
-							zoom: parseInt($map.attr('data-zoom'), 10)
-						});
 
-						var mark = new ymaps.Placemark([
-							$map.attr('data-coord-y'),
-							$map.attr('data-coord-x')
-						]);
-
-						map.geoObjects.add(mark);
-
-						$map.data('yamap', map);
-					});
-				}
-			); // dynamicLoadApi()
+					$map.data('yamap', map);
+				});
 		}); // $imaps }}}2
 
 		$(window).on('resize' + bindSuffix, resizeHandler);

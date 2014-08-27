@@ -62,3 +62,26 @@ html body main.shops {
 		} // & > li
 	} // & > ul.shops_list
 } // html body main.shops
+
+html.shops_page_big_map { // {{{1
+	overflow-y: hidden !important;
+	body { overflow-y: hidden !important; }
+
+	body > .big_map {
+		display: block;
+		.opacity(0);
+
+		& > .overlay {
+			display: block;
+			.fixedStretch(0);
+			background: black;
+			.opacity(0.7);
+		}
+
+		& > .content {
+			display: block;
+			.fixedStretch(@mainMargin2);
+			background: black;
+		}
+	} // body > .big_map
+} // html.shops_page_big_map }}}1

@@ -48,14 +48,24 @@ html body main.shops {
 					.size(100%, auto);
 					min-height: 131px;
 					.bg('spinner_1.png', center center no-repeat @plugColor);
-				}
+					.relative;
+
+					&:before {
+						.pseudoBlock;
+						.size(100%);
+						.absolute(0, auto, auto, 0);
+						background: white;
+						.opacity(0);
+						z-index: 1;
+					}
+				} // .imap
 
 				.right_col {
 					&>* + * {
 						margin-top: @shopsPageRightIntervalMin;
 						&:first-child { margin-top: 0; }
 					}
-				}
+				} // .right_col
 			} // .photos
 
 			& + li { padding-top: 64px - 18px; }
@@ -69,19 +79,67 @@ html.shops_page_big_map { // {{{1
 
 	body > .big_map {
 		display: block;
-		.opacity(0);
+		.size(100%);
+		.fixedStretch(0);
+		.fontMetrics(0, 0);
+		z-index: 500;
 
-		& > .overlay {
+		& > .wrap {
 			display: block;
-			.fixedStretch(0);
-			background: black;
-			.opacity(0.7);
-		}
+			z-index: 505;
+			.size(100%);
+			.opacity(0);
 
-		& > .content {
-			display: block;
-			.fixedStretch(@mainMargin2);
-			background: black;
-		}
-	} // body > .big_map
+			& > .overlay {
+				display: block;
+				.fixedStretch(0);
+				background: black;
+				.opacity(0.7);
+				z-index: 510;
+			} // .overlay
+
+			& > .content {
+				display: block;
+				.fixedStretch(@mainMargin2);
+				background: black;
+				z-index: 520;
+				overflow: hidden;
+				min-width: 313px;
+				min-height: 213px;
+				.opacity(1);
+
+				& > .map {
+					display: block;
+					.size(100%);
+					.relative;
+					z-index: 530;
+				} // .map
+
+				& > .closer {
+					display: block;
+					@buttonSize: 48px;
+					text-indent: -9999px;
+					white-space: nowrap;
+					.box-sizing(content-box);
+					.size(@buttonSize);
+					.border-radius(@buttonSize / 2);
+					background: fade(black, 30%);
+					cursor: pointer;
+					z-index: 540;
+
+					&:before { .sprite(@sprite_icons_gallery_closer); }
+					&:after  { .sprite(@sprite_icons_gallery_closer_active); }
+
+					.animatedIcon;
+
+					&:before, &:after {
+						left: (@buttonSize - @sprite_icons_gallery_closer-width) / 2;
+						top: (@buttonSize - @sprite_icons_gallery_closer-height) / 2;
+					}
+
+					.absolute(9px, 9px);
+				} // .closer
+			} // .content
+		} // .wrap
+	} // .big_map
 } // html.shops_page_big_map }}}1

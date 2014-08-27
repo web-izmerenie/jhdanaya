@@ -79,6 +79,7 @@ ready(function (window, document, undefined) {
 		var imgSrc = $img.attr('src');
 
 		var loadBlur, closeHandler;
+		var $infoDCloser, $infoDZoom;
 
 		// loadBlur {{{2
 		if ($ul.hasClass('brand') || $ul.hasClass('rings')) {
@@ -128,8 +129,11 @@ ready(function (window, document, undefined) {
 				return false;
 			}; // closeHandler() }}}2
 
-			$infoD.find('.closer').click(closeHandler);
-			$infoD.find('.zoom').click(function () {
+			$infoDCloser = $infoD.find('.closer');
+			$infoDZoom = $infoD.find('.zoom');
+
+			$infoDCloser.click(closeHandler);
+			$infoDZoom.click(function () {
 
 				var process = false;
 
@@ -156,10 +160,13 @@ ready(function (window, document, undefined) {
 					{opacity: 1},
 					getVal('animationSpeed'),
 					getVal('animationCurve'), function () {
+						// show big photo {{{2
+
 						$img.on('click', function () { return false; });
 
 						$closer.on('click', function () {
 							if (process) return false; else process = true;
+
 							$block.animate(
 								{ opacity: 0 },
 								getVal('animationSpeed'),
@@ -167,10 +174,15 @@ ready(function (window, document, undefined) {
 									$html.removeClass('collection_page_big_photo');
 									$block.remove();
 								});
+
 							$ul.stop().css('visibility', 'visible').animate(
 								{ 'opacity': 1 },
 								getVal('animationSpeed'),
 								getVal('animationCurve'));
+
+							// skip back to detail info
+							$infoDCloser.trigger('click');
+
 							return false;
 						});
 
@@ -178,6 +190,8 @@ ready(function (window, document, undefined) {
 							$closer.trigger('click');
 							return false;
 						});
+
+						// show big photo }}}2
 					});
 
 				return false;
@@ -216,8 +230,18 @@ ready(function (window, document, undefined) {
 			}); // open popup }}}2
 
 			$infoH.append('<a class="zoom"><span></span></a>');
-			$infoH.find('.zoom').click(function () {
+
+			/*$infoH.find('.zoom').click(function () {
 				$a.trigger('click');
+				return false;
+			});*/
+
+			// open big photo (without detail info)
+			$infoH.click(function () {
+				$html.addClass('collection_page_over_popup');
+				$ul.addClass('popup');
+				$li.addClass('popup');
+				$infoDZoom.trigger('click');
 				return false;
 			});
 		}

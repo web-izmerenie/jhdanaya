@@ -4,14 +4,14 @@
  * @author Viacheslav Lotsmanov
  */
 
-define(['jquery', 'styles_ready'],
-function ($, stylesReady) {
-stylesReady(function () {
+var $ = require('jquery');
+var ready = require('../ready');
 
-var $html = $('html');
-if (!$html.hasClass('error_404_page')) return;
-require(['get_val'],
-function (getVal) {
+ready(function (window, document, undefined) {
+
+	var $html = $('html');
+
+	if (!$html.hasClass('error_404_page')) return;
 
 	var $header = $('header');
 	var $footer = $('footer');
@@ -31,13 +31,10 @@ function (getVal) {
 			$wrap.css('height', '');
 			var wrh = $w.height() - hh - fh;
 			if (wrh > mh) $wrap.css('height', wrh + 'px');
-		}, 1);
+		}, 0);
 
 		$w.on('resize' + bindSuffix, handler);
 		handler();
 	});
 
-}); // require() for page passed
-
-}); // stylesReady()
-}); // define()
+}); // ready()

@@ -61,9 +61,17 @@
 						"relative_path": "./libs/jquery-2.1.1",
 						"exports": ""
 					},
+					"jquery.easing": {
+						"relative_path": "./libs/jquery.easing-1.3",
+						"exports": ""
+					},
 					"modernizr": {
 						"relative_path": "./libs/modernizr.custom.39986",
 						"exports": "Modernizr"
+					},
+					"load_img": {
+						"relative_path": "./wrappers/load_img",
+						"exports": ""
 					}
 				}
 			}

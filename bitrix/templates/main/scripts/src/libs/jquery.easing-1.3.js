@@ -1,5 +1,7 @@
-/*! jQuery Easing v1.3 - http://gsgd.co.uk/sandbox/jquery/easing/ */
-/* Uses the built in easing capabilities added In jQuery 1.1
+/*
+ * jQuery Easing v1.3 - http://gsgd.co.uk/sandbox/jquery/easing/
+ *
+ * Uses the built in easing capabilities added In jQuery 1.1
  * to offer multiple easing options
  *
  * TERMS OF USE - jQuery Easing
@@ -31,10 +33,9 @@
  *  NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED 
  * OF THE POSSIBILITY OF SUCH DAMAGE. 
  *
- */
-/*! Wrapped to AMD by Viacheslav Lotsmanov lotsmanov89 at gmail dot com */
+*/
 
-define('jquery.easing', ['jquery'], function (jQuery) {
+var jQuery = require('jquery'); // added by Viacheslav Lotsmanov
 
 // t: current time, b: begInnIng value, c: change In value, d: duration
 jQuery.easing['jswing'] = jQuery.easing['swing'];
@@ -171,9 +172,6 @@ jQuery.extend( jQuery.easing,
 		return jQuery.easing.easeOutBounce (x, t*2-d, 0, c, d) * .5 + c*.5 + b;
 	}
 });
-
-return jQuery;
-}); // define()
 
 /*
  *

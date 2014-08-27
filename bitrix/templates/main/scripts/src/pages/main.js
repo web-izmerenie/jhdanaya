@@ -4,12 +4,16 @@
  * @author Viacheslav Lotsmanov
  */
 
-define(['jquery', 'styles_ready'],
-function ($, stylesReady) {
-stylesReady(function () {
+var $ = require('jquery');
+var ready = require('../ready');
+var basics = require('../basics');
 
-if (!$('html').hasClass('main_page')) return;
-require(['get_val', 'relative_number'], function (getVal, relativeNumber) {
+ready(function () {
+
+	if (!$('html').hasClass('main_page')) return;
+
+	var getVal = basics.getVal;
+	var relativeNumber = require('../basics/relative_number');
 
 	// values
 	var minW = getVal('minWidth');
@@ -32,7 +36,7 @@ require(['get_val', 'relative_number'], function (getVal, relativeNumber) {
 	var logoTxtMarginTopMin = 16;
 	var logoTxtMarginTopMax = logoTxtMarginTopMin + 3;
 	var nextCardBottomMin = 58;
-	var nextCardBottomMax = 140;
+	//var nextCardBottomMax = 140;
 	var nextCardSizeMin = getVal('circleDownArrowButtonSizeMin');
 	var nextCardSizeMax = getVal('circleDownArrowButtonSizeMax');
 
@@ -179,7 +183,6 @@ require(['get_val', 'relative_number'], function (getVal, relativeNumber) {
 	});
 
 	// scroll to brands by hash
-	var $header = $('header');
 	var smallHeaderH = parseInt($header.css('min-height'), 10);
 	if (window.location.hash === '#brands') $scroll.animate(
 		{ scrollTop: ($('#brands').offset().top - smallHeaderH) + 'px' },
@@ -189,7 +192,4 @@ require(['get_val', 'relative_number'], function (getVal, relativeNumber) {
 		}
 	);
 
-}); // require() for main page passed
-
-}); // stylesReady()
-}); // define()
+}); // ready()

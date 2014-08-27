@@ -7,10 +7,10 @@
 var $ = require('jquery');
 var ready = require('./ready');
 var basics = require('./basics');
-var getVal = basics.getVal;
 
-ready(function factory() {
+ready(function () {
 
+	var getVal = basics.getVal;
 	var $header = $('header');
 
 	if ($header.size() <= 0) return;
@@ -55,11 +55,11 @@ ready(function factory() {
 		} else {
 			$header.css('left', '');
 		}
-	}, 1);
+	}, 0);
 
 	$w
 		.on('scroll' + bindSuffix, handler)
 		.on('resize' + bindSuffix, handler);
 	handler();
 
-}); // factory()
+}); // ready()

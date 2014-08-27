@@ -146,6 +146,7 @@ ready(function (window, document, undefined) {
 		$closer.click(function () { // {{{2
 			if (closing) return false; else closing = true;
 			$(window).off('resize' + bindSuffix);
+			$(document).off('click' + bindSuffix);
 			$wrap.stop().animate(
 				{ opacity: 0 },
 				animationSpeed,
@@ -168,6 +169,26 @@ ready(function (window, document, undefined) {
 
 		$(window).on('resize' + bindSuffix,
 			$.proxy(setTimeout, null, setContentSize, 0));
+
+		$(document).on('click' + bindSuffix, function (event) { // {{{2
+			var x = $content.offset().left;
+			var y = $content.offset().top;
+			var w = $content.innerWidth();
+			var h = $content.innerHeight();
+
+			// hell IE
+			if (event.pageX < 0 || event.pageY < 0) return true;
+
+			if (
+				!(event.pageX >= x && event.pageX <= x+w) ||
+				!(event.pageY >= y && event.pageY <= y+h)
+			) {
+				$closer.trigger('click');
+				return false;
+			}
+
+			return true;
+		}); // document click handler }}}2
 	} // openBigMap() }}}1
 
 	$main.each(function (n) { // {{{1

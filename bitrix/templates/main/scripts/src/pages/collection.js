@@ -10,7 +10,6 @@ var basics = require('../basics');
 
 ready(function (window, document, undefined) {
 
-
 	var $html = $('html');
 
 	if (!$html.hasClass('collection_page')) return;

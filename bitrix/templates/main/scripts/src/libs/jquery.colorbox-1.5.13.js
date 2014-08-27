@@ -1,12 +1,12 @@
 /*!
-	Colorbox v1.5.10 - 2014-06-26
+	Colorbox v1.5.13 - 2014-08-04
 	jQuery lightbox and modal window plugin
 	(c) 2014 Jack Moore - http://www.jacklmoore.com/colorbox
 	license: http://www.opensource.org/licenses/mit-license.php
-
-	Wrapped to AMD by Viacheslav Lotsmanov
 */
-define(['jquery'], function (jQuery) {
+
+var jQuery = require('jquery'); // added by Viacheslav Lotsmanov
+
 (function ($, document, window) {
 	var
 	// Default settings object.
@@ -418,8 +418,9 @@ define(['jquery'], function (jQuery) {
 				}
 			}
 
+			var opacity = parseFloat(settings.get('opacity'));
 			$overlay.css({
-				opacity: parseFloat(settings.get('opacity')) || '',
+				opacity: opacity === opacity ? opacity : '',
 				cursor: settings.get('overlayClose') ? 'pointer' : '',
 				visibility: 'visible'
 			}).show();
@@ -699,7 +700,7 @@ define(['jquery'], function (jQuery) {
 					}, 1);
 				}
 
-				if (loadedCallback) {
+				if ($.isFunction(loadedCallback)) {
 					loadedCallback();
 				}
 			},
@@ -1090,5 +1091,3 @@ define(['jquery'], function (jQuery) {
 	publicMethod.settings = defaults;
 
 }(jQuery, document, window));
-return jQuery; // for AMD
-}); // define()

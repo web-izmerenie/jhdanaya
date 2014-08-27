@@ -10,6 +10,7 @@ module.exports = {
 	getVal: null,
 	getLocalText: null,
 	dynamicLoadApi: null,
+	loadImg: null,
 };
 
 // "dynamicLoadApi" {{{1
@@ -22,6 +23,17 @@ function initDynamicLoadApi() {
 }
 
 // "dynamicLoadApi" }}}1
+
+// "loadImg" {{{1
+
+function initLoadImg() {
+	var LoadImg = require('./basics/load_img');
+	module.exports.loadImg = new LoadImg(
+		module.exports.getVal('loadImgTimeout'));
+	initTrigger();
+}
+
+// "loadImg" }}}1
 
 // "getVal" {{{1
 
@@ -39,6 +51,7 @@ $(function () {
 	);
 	initTrigger();
 	initDynamicLoadApi();
+	initLoadImg();
 });
 
 // "getVal" }}}1

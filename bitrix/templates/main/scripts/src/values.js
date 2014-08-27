@@ -16,7 +16,7 @@ module.exports.values = {
 	footerHeight: 74, // px
 	waiterInterval: 200, // ms
 	mainPageSliderInterval: 3, // sec
-	loadImgTimeout: 30000, // ms
+	loadImgTimeout: 30, // sec
 
 	circleDownArrowButtonSizeMin: 64,
 	circleDownArrowButtonSizeMax: 96,

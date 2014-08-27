@@ -4,14 +4,20 @@
  * @author Viacheslav Lotsmanov
  */
 
-define(['jquery', 'styles_ready'],
-function ($, stylesReady) {
-stylesReady(function () {
+var $ = require('jquery');
+var ready = require('../ready');
+var basics = require('../basics');
 
-var $html = $('html');
-if (!$html.hasClass('collection_page')) return;
-require(['get_val', 'get_local_text', 'relative_number'],
-function (getVal, getLocalText, relativeNumber) {
+ready(function (window, document, undefined) {
+
+
+	var $html = $('html');
+
+	if (!$html.hasClass('collection_page')) return;
+
+	var getVal = basics.getVal;
+	var getLocalText = basics.getLocalText;
+	var relativeNumber = require('../basics/relative_number');
 
 	// values
 	var bindSuffix = '.collection_page_bind';
@@ -29,6 +35,8 @@ function (getVal, getLocalText, relativeNumber) {
 	var $d = $(document);
 	var $w = $(window);
 
+	var alert = window.alert;
+
 	function brandDetailPageInit() {
 		var $block = $('.about_brand');
 		if ($block.size() <= 0) return;
@@ -36,12 +44,11 @@ function (getVal, getLocalText, relativeNumber) {
 		$block.find('.youtube_video').each(function () {
 			var attrName = 'data-youtube-id';
 			var attr = $(this).attr(attrName);
-			if (!attr) {
-				if (window.console && window.console.error)
-					window.console.error(
-						new Error('Missed attribute "'+ attrName +'".'));
-				return;
-			}
+
+			if (!attr)
+				return require('../just_log_error')(
+					new Error('Missed attribute "'+ attrName +'".'));
+
 			$(this).html('<iframe src="//www.youtube.com/embed/'+
 				attr +'?rel=0" allowfullscreen></iframe>');
 		});
@@ -72,32 +79,35 @@ function (getVal, getLocalText, relativeNumber) {
 
 		var imgSrc = $img.attr('src');
 
+		var loadBlur, closeHandler;
+
 		// loadBlur {{{2
 		if ($ul.hasClass('brand') || $ul.hasClass('rings')) {
-			function loadBlur() {
-				require(['blur_img', 'load_img'],
-				function (blurImg, loadImg) {
-					blurImg({
-						src: imgSrc,
-						radius: 10,
-					}, function (err, dataURL) {
-						if (err) {
-							if (err instanceof loadImg.exceptions.Timeout) {
-								setTimeout(loadBlur, 1); // try again
-							} else window.console.error(err);
-							return;
-						}
+			loadBlur = function () {
+				var loadImg = require('load_img');
+				var blurImg = require('../basics/blur_img');
+				blurImg({
+					src: imgSrc,
+					radius: 10,
+				}, function (err, dataURL) {
+					if (err) {
+						if (err instanceof loadImg.exceptions.Timeout)
+							setTimeout(loadBlur, 0); // try again
+						else
+							window.console.error(err);
 
-						var $newImg = $('<img>', {
-							'alt': '',
-							'src': dataURL,
-							'class': 'blur',
-						});
-						$preview.append( $newImg );
+						return;
+					}
+
+					var $newImg = $('<img>', {
+						'alt': '',
+						'src': dataURL,
+						'class': 'blur',
 					});
+					$preview.append( $newImg );
 				});
-			}
-			setTimeout(loadBlur, 1);
+			}; // loadBlur()
+			setTimeout(loadBlur, 0);
 		}
 		// loadBlur }}}2
 
@@ -107,7 +117,7 @@ function (getVal, getLocalText, relativeNumber) {
 				.prepend('<a class="closer"></a>')
 				.prepend('<a class="zoom"></a>');
 
-			function closeHandler() { // {{{2
+			closeHandler = function () { // {{{2
 				$infoD.animate({
 					'opacity': 0,
 				}, getVal('animationSpeed'), getVal('animationCurve'), function () {
@@ -117,7 +127,7 @@ function (getVal, getLocalText, relativeNumber) {
 					$html.removeClass('collection_page_over_popup');
 				});
 				return false;
-			} // closeHandler() }}}2
+			}; // closeHandler() }}}2
 
 			$infoD.find('.closer').click(closeHandler);
 			$infoD.find('.zoom').click(function () {
@@ -167,7 +177,7 @@ function (getVal, getLocalText, relativeNumber) {
 
 						$block.on('click', function () {
 							$closer.trigger('click');
-							return false
+							return false;
 						});
 					});
 
@@ -218,7 +228,7 @@ function (getVal, getLocalText, relativeNumber) {
 
 	$liArr.each(liInitHandler);
 
-	if ($list.hasClass('brand') || $list.hasClass('rings')) {
+	if ($list.hasClass('brand') || $list.hasClass('rings'))
 		$d.on('click' + bindSuffix, function (event) { // {{{1
 			if ($html.hasClass('collection_page_big_photo')) return true;
 
@@ -248,7 +258,6 @@ function (getVal, getLocalText, relativeNumber) {
 
 			return true;
 		}); // $d.click }}}1
-	}
 
 	// relative size {{{1
 
@@ -396,7 +405,7 @@ function (getVal, getLocalText, relativeNumber) {
 			$relMore.css('margin-top', '');
 
 			setRelSizes();
-		}, 1));
+		}, 0));
 
 		$w.trigger('resize' + relativeSizeBindSuffix);
 
@@ -404,7 +413,7 @@ function (getVal, getLocalText, relativeNumber) {
 
 	$more.on('click' + bindSuffix, function () { // {{{1
 		if ($more.data('process')) return false;
-		$more.data('process', true)
+		$more.data('process', true);
 		$more.addClass('loading');
 
 		setTimeout(function () {
@@ -423,7 +432,6 @@ function (getVal, getLocalText, relativeNumber) {
 				section: $more.attr('data-iblock-section'),
 				brand: $more.attr('data-brand'),
 				datafor: $more.attr('data-for'),
-				brand: $more.attr('data-brand'),
 			};
 
 			if ($more.attr('data-count'))
@@ -436,149 +444,148 @@ function (getVal, getLocalText, relativeNumber) {
 				dataType: 'text',
 				data: getData,
 				success: function (data) {
-					require(['json_answer'], function (jsonAnswer) {
-						jsonAnswer.validate(data, function (err, json) {
-							$more.attr("data-next-page", ++(getData.page));
+					var jsonAnswer = require('../basics/json_answer');
+					jsonAnswer.validate(data, function (err, json) {
+						$more.attr("data-next-page", ++(getData.page));
 
-							if (err) {
-								if (
-									err instanceof jsonAnswer.exceptions.UnknownStatusValue &&
-									err.json && err.json.status === 'end_of_list'
-								) {
-									$list.addClass('end_of_list');
-									$more.slideUp(getVal('animationSpeed') * 6, function () {
-										$more.remove();
-									});
-									if (!err.json.items) return;
-									else json = err.json;
-								} else {
-									alert(getLocalText('ERR', 'AJAX') + '\n\n' + err.toString());
-									return stopping();
-								}
+						if (err) {
+							if (
+								err instanceof jsonAnswer.exceptions.UnknownStatusValue &&
+								err.json && err.json.status === 'end_of_list'
+							) {
+								$list.addClass('end_of_list');
+								$more.slideUp(getVal('animationSpeed') * 6, function () {
+									$more.remove();
+								});
+								if (!err.json.items) return;
+								else json = err.json;
+							} else {
+								alert(getLocalText('ERR', 'AJAX') + '\n\n' + err.toString());
+								return stopping();
 							}
+						}
 
-							if (!$.isArray(json.items)) {
+						if (!$.isArray(json.items)) {
+							alert(getLocalText('ERR', 'AJAX_PARSE'));
+							return stopping();
+						}
+
+						var items = json.items;
+						var i = 0;
+
+						var loopEnd = stopping;
+
+						function loadItemLoop() { // {{{3
+							if (items.length <= i) return loopEnd();
+
+							var item = items[i++];
+							var imgTag;
+
+							var $newLi = $('<li/>');
+							if (item.id) $newLi.attr('id', item.id);
+
+							// preview {{{4
+
+							if (
+								!$.isPlainObject( item.preview ) ||
+								$.type(item.preview.src) !== 'string'
+							) {
 								alert(getLocalText('ERR', 'AJAX_PARSE'));
 								return stopping();
 							}
 
-							var items = json.items;
-							var i = 0;
+							var $preview;
+							if (item.info_detail) {
+								$preview = $('<a/>');
+								if (item.info_detail.picture && item.info_detail.picture.src)
+									$preview.attr('href', item.info_detail.picture.src);
+							} else $preview = $('<span/>');
+							$preview.addClass('preview');
 
-							var loopEnd = stopping;
+							imgTag = '<img alt="';
+							if (item.preview.description)
+								imgTag += item.preview.description;
+							imgTag += '" src="'+ item.preview.src +'"';
+							if (item.preview.width)
+								imgTag += ' width="'+ item.preview.width +'"';
+							if (item.preview.height)
+								imgTag += ' height="'+ item.preview.height +'"';
+							imgTag += ' />';
 
-							function loadItemLoop() { // {{{3
-								if (items.length <= i) return loopEnd();
+							$preview.html( imgTag );
+							$newLi.append( $preview );
 
-								var item = items[i++];
-								var imgTag;
+							// preview }}}4
 
-								var $newLi = $('<li/>');
-								if (item.id) $newLi.attr('id', item.id);
-
-								// preview {{{4
-
-								if (
-									!$.isPlainObject( item.preview ) ||
-									$.type(item.preview.src) !== 'string'
-								) {
-									alert(getLocalText('ERR', 'AJAX_PARSE'));
-									return stopping();
-								}
-
-								var $preview;
+							// info {{{4
+							var $info = '';
+							if ($list.hasClass('brand') || $list.hasClass('rings')) {
 								if (item.info_detail) {
-									$preview = $('<a/>');
-									if (item.info_detail.picture && item.info_detail.picture.src)
-										$preview.attr('href', item.info_detail.picture.src);
-								} else $preview = $('<span/>');
-								$preview.addClass('preview');
+									$info = $('<div class="info detail" />');
 
-								imgTag = '<img alt="';
-								if (item.preview.description)
-									imgTag += item.preview.description;
-								imgTag += '" src="'+ item.preview.src +'"';
-								if (item.preview.width)
-									imgTag += ' width="'+ item.preview.width +'"';
-								if (item.preview.height)
-									imgTag += ' height="'+ item.preview.height +'"';
-								imgTag += ' />';
+									if (
+										$.type(item.info_detail.text) !== 'string' ||
+										!$.isPlainObject(item.info_detail.picture) ||
+										$.type(item.info_detail.picture.src) !== 'string'
+									) {
+										alert(getLocalText('ERR', 'AJAX_PARSE'));
+										return stopping();
+									}
 
-								$preview.html( imgTag );
-								$newLi.append( $preview );
+									var $text = $('<div class="text" />');
+									$text.html(item.info_detail.text);
+									$info.append( $text );
 
-								// preview }}}4
+									imgTag = '<img class="picture" alt="';
+									if (item.info_detail.picture.description)
+										imgTag += item.info_detail.picture.description;
+									imgTag += '" src="'+ item.info_detail.picture.src +'"';
+									if (item.info_detail.picture.width)
+										imgTag += ' width="'+ item.info_detail.picture.width +'"';
+									if (item.info_detail.picture.height)
+										imgTag += ' height="'+ item.info_detail.picture.height +'"';
+									imgTag += ' />';
 
-								// info {{{4
-								var $info = '';
-								if ($list.hasClass('brand') || $list.hasClass('rings')) {
-									if (item.info_detail) {
-										$info = $('<div class="info detail" />');
+									$info.append(imgTag);
+									$newLi.append( $info );
+									$info = '';
+								} // if info detail
 
-										if (
-											$.type(item.info_detail.text) !== 'string' ||
-											!$.isPlainObject(item.info_detail.picture) ||
-											$.type(item.info_detail.picture.src) !== 'string'
-										) {
-											alert(getLocalText('ERR', 'AJAX_PARSE'));
-											return stopping();
-										}
+								if (item.info_hover) {
+									$info = $('<div class="info hover" />');
 
-										var $text = $('<div class="text" />');
-										$text.html(item.info_detail.text);
-										$info.append( $text );
+									if ($.type(item.info_hover.text) === 'string') {
+										var $text2 = $('<div class="text" />');
+										$text2.html(item.info_hover.text);
+										$info.append( $text2 );
+									}
 
-										imgTag = '<img class="picture" alt="';
-										if (item.info_detail.picture.description)
-											imgTag += item.info_detail.picture.description;
-										imgTag += '" src="'+ item.info_detail.picture.src +'"';
-										if (item.info_detail.picture.width)
-											imgTag += ' width="'+ item.info_detail.picture.width +'"';
-										if (item.info_detail.picture.height)
-											imgTag += ' height="'+ item.info_detail.picture.height +'"';
-										imgTag += ' />';
+									$newLi.append( $info );
+									$info = '';
+								} // if info hover
+							} // if brands or rings
+							$info = undefined;
+							// info }}}4
 
-										$info.append(imgTag);
-										$newLi.append( $info );
-										$info = '';
-									} // if info detail
+							$newLi.css('opacity', 0);
+							$newLi.each(liInitHandler);
+							$liArr.last().after( $newLi );
+							initList();
+							setRelSizes();
 
-									if (item.info_hover) {
-										$info = $('<div class="info hover" />');
+							setTimeout(function () {
+								var $el = $liArr.last();
+								$el.animate(
+									{ opacity: 1 },
+									getVal('animationSpeed'),
+									getVal('animationCurve'),
+									loadItemLoop
+								);
+							}, 0);
+						} // loadItemLoop() }}}3
 
-										if ($.type(item.info_hover.text) === 'string') {
-											var $text = $('<div class="text" />');
-											$text.html(item.info_hover.text);
-											$info.append( $text );
-										}
-
-										$newLi.append( $info );
-										$info = '';
-									} // if info hover
-								} // if brands or rings
-								$info = undefined;
-								// info }}}4
-
-								$newLi.css('opacity', 0);
-								$newLi.each(liInitHandler);
-								$liArr.last().after( $newLi );
-								initList();
-								setRelSizes();
-
-								setTimeout(function () {
-									var $el = $liArr.last();
-									$el.animate(
-										{ opacity: 1 },
-										getVal('animationSpeed'),
-										getVal('animationCurve'),
-										loadItemLoop
-									);
-								}, 1);
-							} // loadItemLoop() }}}3
-
-							loadItemLoop();
-						}); // jsonAnswer.validate()
-					}); // require(['json_answer']...
+						loadItemLoop();
+					}); // jsonAnswer.validate()
 				}, // "success"
 				error: function () {
 					alert(getLocalText('ERR', 'AJAX'));
@@ -592,12 +599,8 @@ function (getVal, getLocalText, relativeNumber) {
 	}); // $more.click }}}1
 
 	$w.on('scroll' + bindSuffix, function () {
-		if ($d.scrollTop() + $w.height() >= $more.offset().top) {
+		if ($d.scrollTop() + $w.height() >= $more.offset().top)
 			$more.trigger('click' + bindSuffix);
-		}
 	});
 
-}); // require() for page passed
-
-}); // stylesReady()
-}); // define()
+}); // ready()

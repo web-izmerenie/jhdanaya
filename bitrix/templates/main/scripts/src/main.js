@@ -30,6 +30,7 @@ ready(function factory(window, document, undefined) {
 
 	if ($html.hasClass('main_page')) require('./pages/main');
 	if ($('main.shops').size() > 0) require('./pages/shops');
+	if ($html.hasClass('collection_page')) require('./pages/collection');
 
 	if ($('header').size() > 0) require('./header');
 });
@@ -41,7 +42,7 @@ ready(function factory(window, document, undefined) {
 
 			//if ($html.hasClass('main_page')) require(['pages/main']);
 			//if ($('main.shops').size() > 0) require(['pages/shops']);
-			if ($html.hasClass('collection_page')) require(['pages/collection']);
+			//if ($html.hasClass('collection_page')) require(['pages/collection']);
 			if ($('.events_list').size() > 0 || $html.hasClass('event_detail_page')) require(['pages/events']);
 			if ($html.hasClass('error_404_page')) require(['pages/error_404']);
 

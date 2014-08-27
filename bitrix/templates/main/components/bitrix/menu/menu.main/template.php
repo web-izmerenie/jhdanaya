@@ -4,7 +4,7 @@
 
 <?function getLink($link) {
 	global $APPLICATION;
-	if($APPLICATION->GetCurPage() !== SITE_DIR && $link == SITE_DIR):
+	if($APPLICATION->GetCurPage(0) !== SITE_DIR && $link == SITE_DIR):
 		$link .= "#brands";
 	endif;
 	return $link;
@@ -13,7 +13,10 @@
 <?foreach($arResult as $arItem):?>
 	<?if($arParams["MAX_LEVEL"] == 1 && $arItem["DEPTH_LEVEL"] > 1) continue;?>
 	<?if($arItem["SELECTED"]):?>
-		<?if($arItem["LINK"] != $APPLICATION->GetCurPage(0) && $arItem["LINK"] != SITE_DIR):?>
+		<?if(
+			$arItem["LINK"] != $APPLICATION->GetCurPage(0) &&
+			($arItem["LINK"] != SITE_DIR || $arItem["LINK"] === '/')
+		):?>
 			<a href="<?=getLink($arItem["LINK"])?>" class="active"><?=$arItem["TEXT"]?></a>
 		<?else:?>
 			<span><?=$arItem["TEXT"]?></span>

@@ -4,13 +4,18 @@
  * @author Viacheslav Lotsmanov
  */
 
-define(['jquery', 'styles_ready'],
-function ($, stylesReady) {
-stylesReady(function () {
+var $ = require('jquery');
+var ready = require('../ready');
+var basics = require('../basics');
 
-var $main = $('main.shops');
-if ($main.size() <= 0) return;
-require(['get_val', 'relative_number'], function (getVal, relativeNumber) {
+ready(function (window, document, undefined) {
+
+	var $main = $('main.shops');
+
+	if ($main.size() <= 0) return;
+
+	var getVal = basics.getVal;
+	var relativeNumber = require('../basics/relative_number');
 
 	// values
 	var minW = getVal('minWidth');
@@ -52,47 +57,43 @@ require(['get_val', 'relative_number'], function (getVal, relativeNumber) {
 				var map = $(this).data('yamap');
 				if (map) map.container.fitToViewport();
 			});
-		}, 1); // resizeHandler() }}}2
+		}, 0); // resizeHandler() }}}2
 
 		$imaps.each(function (i) { // {{{2
 			var $map = $(this);
 			var id = 'interactive_yandex_map_n_' + i;
 			$map.attr('id', id);
-			require(['dynamic_api'], function (dynamicLoadApi) {
-				var mapLang = (getVal('lang') === 'ru') ? 'ru-RU' : 'en-US';
-				dynamicLoadApi(
-					'http://api-maps.yandex.ru/2.0/?load=package.standard&lang=' + mapLang,
-					'ymaps',
-					function (err, ymaps) {
-						if (err) throw err;
-						ymaps.ready(function () {
-							var map = new ymaps.Map(id, {
-								center: [
-									parseFloat($map.attr('data-coord-y')),
-									parseFloat($map.attr('data-coord-x'))
-								],
-								zoom: parseInt($map.attr('data-zoom'), 10)
-							});
-
-							var mark = new ymaps.Placemark([
-								$map.attr('data-coord-y'),
-								$map.attr('data-coord-x')
-							]);
-
-							map.geoObjects.add(mark);
-
-							$map.data('yamap', map);
+			var mapLang = (getVal('lang') === 'ru') ? 'ru-RU' : 'en-US';
+			basics.dynamicLoadApi(
+				'http://api-maps.yandex.ru/2.0/?load=package.standard&lang=' +
+					mapLang,
+				'ymaps',
+				function (err, ymaps) {
+					if (err) throw err;
+					ymaps.ready(function () {
+						var map = new ymaps.Map(id, {
+							center: [
+								parseFloat($map.attr('data-coord-y')),
+								parseFloat($map.attr('data-coord-x'))
+							],
+							zoom: parseInt($map.attr('data-zoom'), 10)
 						});
-					}
-				); // dynamicLoadApi()
-			}); // require(['dynamic_api']...
+
+						var mark = new ymaps.Placemark([
+							$map.attr('data-coord-y'),
+							$map.attr('data-coord-x')
+						]);
+
+						map.geoObjects.add(mark);
+
+						$map.data('yamap', map);
+					});
+				}
+			); // dynamicLoadApi()
 		}); // $imaps }}}2
 
 		$(window).on('resize' + bindSuffix, resizeHandler);
 		resizeHandler();
 	}); // $main }}}1
 
-}); // require() for page passed
-
-}); // stylesReady()
-}); // define()
+}); // ready()

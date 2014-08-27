@@ -8,7 +8,7 @@ var $ = require('jquery');
 var ready = require('../ready');
 var basics = require('../basics');
 
-ready(function () {
+ready(function (window, document, undefined) {
 
 	if (!$('html').hasClass('main_page')) return;
 

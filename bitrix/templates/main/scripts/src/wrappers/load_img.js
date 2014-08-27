@@ -9,5 +9,5 @@ var basics = require('../basics');
 
 module.exports = function () {
 	// delegate
-	return basics.loadImg.apply(self, arguments);
+	return basics.loadImg.apply(null, arguments);
 };

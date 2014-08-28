@@ -1,13 +1,15 @@
 <?
 require($_SERVER["DOCUMENT_ROOT"]."/bitrix/header.php");
 $APPLICATION->SetTitle("События");
+$elements_count = 3;
+if ($_GET['show_all_elements']) $elements_count = 5000;
 ?><?$APPLICATION->IncludeComponent(
 	"bitrix:news.list", 
 	"news.list.events", 
 	array(
 		"IBLOCK_TYPE" => "lists",
 		"IBLOCK_ID" => "5",
-		"NEWS_COUNT" => "3",
+		"NEWS_COUNT" => $elements_count,
 		"SORT_BY1" => "ACTIVE_FROM",
 		"SORT_ORDER1" => "DESC",
 		"SORT_BY2" => "",

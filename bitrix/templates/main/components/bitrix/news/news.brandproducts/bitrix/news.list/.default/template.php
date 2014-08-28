@@ -82,8 +82,13 @@ $total = CIBlockElement::GetList(
 );
 $totalcount = $total->SelectedRowsCount();
 
+$all_link = '';
+foreach($_GET as $k=>$v) $all_link .= '&'.$k.'='.$v;
+$all_link .= '&show_all_elements=Y';
+$all_link = '?'.substr($all_link, 1);
+
 if(count($arResult["ITEMS"]) && count($arResult["ITEMS"]) < $totalcount){?>
-	<a class="load_more" title="<?=GetMessage("SHOW_MORE")
+	<a class="load_more" href="<?=$all_link?>" title="<?=GetMessage("SHOW_MORE")
 		?>" data-next-page="2" data-count="<?=$itemCount
 		?>" data-iblock-section="<?=$arFilter["SECTION_ID"]
 		?>" data-brand="<?=$currentBrendID

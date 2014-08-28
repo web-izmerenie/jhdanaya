@@ -3,6 +3,8 @@ define('COLLECTION_PAGE', 'Y');
 define('COLLECTION_BRAND_PAGE', 'Y');
 require($_SERVER["DOCUMENT_ROOT"]."/bitrix/header.php");
 $APPLICATION->SetTitle("Коллекция");
+$elements_count = 6;
+if ($_GET['show_all_elements']) $elements_count = 5000;
 ?><?
 if($APPLICATION->GetCurPage() == "/brand/")
     LocalRedirect("/brand/pasquale-bruni/");
@@ -19,7 +21,7 @@ $APPLICATION->IncludeComponent(
 	array(
 		"IBLOCK_TYPE" => "lists",
 		"IBLOCK_ID" => "4",
-		"NEWS_COUNT" => "6",
+		"NEWS_COUNT" => $elements_count,
 		"USE_SEARCH" => "N",
 		"USE_RSS" => "N",
 		"USE_RATING" => "N",

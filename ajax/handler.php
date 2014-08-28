@@ -64,7 +64,13 @@ if($pagecount){
 			break;
 		}
 		$sizeParams = $_GET["brand"] ? array("width" => "288", "height" => "288") : array("width" => "231", "height" => "126");
-		$thumb = CFile::ResizeImageGet($arResF["PREVIEW_PICTURE"], $sizeParams, BX_RESIZE_IMAGE_PROPORTIONAL);
+
+		$previewPicture = CFile::GetByID($arResF["PREVIEW_PICTURE"]);
+		$previewPicture = $previewPicture->Fetch();
+		$previewPicture["SRC"] = CFile::GetPath($arResF["PREVIEW_PICTURE"]);
+		$detailPicture = CFile::GetByID($arResF["DETAIL_PICTURE"]);
+		$detailPicture = $detailPicture->Fetch();
+		$detailPicture["SRC"] = CFile::GetPath($arResF["DETAIL_PICTURE"]);
 
 		$shop = CIBlockElement::GetById($arResP["SHOP"]["VALUE"]);
 		if($shop->SelectedRowsCount()){
@@ -76,7 +82,10 @@ if($pagecount){
 			"id" => "bx_id_".$arResF["ID"],
 			"preview" => array(
 				"description" => $arResF["NAME"],
-				"src" => $thumb["src"]
+				"src" => $previewPicture["SRC"],
+				"width" => $previewPicture["WIDTH"],
+				"height" => $previewPicture["HEIGHT"],
+				"description" => $previewPicture["DESCRIPTION"],
 			),
 			"info_detail" => array(
 				"text" => "
@@ -85,7 +94,10 @@ if($pagecount){
 				<p>".$shopFields["NAME"]."<br />".$shopProps["PHONE"]["VALUE"]."</p>",
 				"picture" => array(
 					"description" => $arResF["NAME"],
-					"src" => $thumb["src"]
+					"src" => $detailPicture["SRC"],
+					"width" => $detailPicture["WIDTH"],
+					"height" => $detailPicture["HEIGHT"],
+					"description" => $detailPicture["DESCRIPTION"],
 				)
 			),
 			"info_hover" => array(

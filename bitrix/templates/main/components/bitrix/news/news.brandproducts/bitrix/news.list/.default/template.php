@@ -16,30 +16,28 @@ global $arrFilter, $currentBrendID;
 					?>" src="<?=$Item["PREVIEW_PICTURE"]["SRC"]?>" />
 			</a>
 		<?}?>
-		<?if($Item["PREVIEW_TEXT"]){?>
-			<div class="info detail">
-				<div class="text">
-					<p><?=GetMessage("ART.")?>&nbsp;<?=$Item["DISPLAY_PROPERTIES"]["ARTICLE"]["VALUE"]?></p>
-					<?=$Item["PREVIEW_TEXT"]?>
-					<?if($Item["DISPLAY_PROPERTIES"]["SHOP"]["VALUE"]){?>
-						<?$shop = CIBlockElement::GetById($Item["DISPLAY_PROPERTIES"]["SHOP"]["VALUE"]);
-						$arShop = $shop->GetNextElement();
-						$shopFields = $arShop->GetFields();
-						$shopProps = $arShop->GetProperties();?>
-						<p><?=$shopFields["NAME"]?><br /><?=$shopProps["PHONE"]["VALUE"]?></p>
-					<?}?>
-				</div>
-				<?if($Item["DETAIL_PICTURE"]){?>
-					<img class="picture" alt="<?=$Item["DETAIL_PICTURE"]["DESCRIPTION"]
-						?>" src="<?=$Item["DETAIL_PICTURE"]["SRC"]?>" />
+		<div class="info detail">
+			<div class="text">
+				<p><?=GetMessage("ART.")?>&nbsp;<?=$Item["DISPLAY_PROPERTIES"]["ARTICLE"]["VALUE"]?></p>
+				<?=$Item["PREVIEW_TEXT"]?>
+				<?if($Item["DISPLAY_PROPERTIES"]["SHOP"]["VALUE"]){?>
+					<?$shop = CIBlockElement::GetById($Item["DISPLAY_PROPERTIES"]["SHOP"]["VALUE"]);
+					$arShop = $shop->GetNextElement();
+					$shopFields = $arShop->GetFields();
+					$shopProps = $arShop->GetProperties();?>
+					<p><?=$shopFields["NAME"]?><br /><?=$shopProps["PHONE"]["VALUE"]?></p>
 				<?}?>
 			</div>
-			<div class="info hover">
-				<div class="text">
-					<?=$Item["PREVIEW_TEXT"]?>
-				</div>
+			<?if($Item["DETAIL_PICTURE"]){?>
+				<img class="picture" alt="<?=$Item["DETAIL_PICTURE"]["DESCRIPTION"]
+					?>" src="<?=$Item["DETAIL_PICTURE"]["SRC"]?>" />
+			<?}?>
+		</div>
+		<div class="info hover">
+			<div class="text">
+				<?=$Item["PREVIEW_TEXT"]?>
 			</div>
-		<?}?>
+		</div>
 	</li>
 <?}?>
 </ul>

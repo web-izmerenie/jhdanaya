@@ -36,15 +36,15 @@ $this->setFrameMode(true);
 	</blockquote><?
 	}?>
 
-	<section class="accent_info_block"><?
-		if($arResult["DETAIL_PICTURE"]){?>
-			<div class="col_l picture" style="background-image:url('<?=$arResult["DETAIL_PICTURE"]["SRC"]?>');"></div><?
-		}?><?
-		if($arResult["DETAIL_TEXT"]){?>
-		<div class="col_r info">
-			<?=$arResult["DETAIL_TEXT"]?>
-		</div><?
-		}?>
+	<section class="accent_info_block">
+		<?if($arResult["DETAIL_TEXT"]){?>
+			<div class="col_r info">
+				<?=$arResult["DETAIL_TEXT"]?>
+			</div>
+		<?}?>
+		<?if($arResult["DETAIL_PICTURE"]){?>
+			<div class="col_l picture" style="background-image:url('<?=$arResult["DETAIL_PICTURE"]["SRC"]?>');"></div>
+		<?}?>
 	</section>
 	<section class="info_right_pic"><?
 		if($arResult["DISPLAY_PROPERTIES"]["BL1_PICTURE"]["VALUE"]){

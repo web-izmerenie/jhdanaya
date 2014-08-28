@@ -53,7 +53,8 @@ html.main_page body main {
 				@offsetVal: 200px;
 
 				display: block;
-				.absolute(0, auto, auto, -(@offsetVal / 2));
+				//.absolute(0, auto, auto, -(@offsetVal / 2));
+				.absolute(0, auto, auto, -(@offsetVal));
 				.size(100%, auto);
 				.opacity(0);
 				.transition(
@@ -61,7 +62,7 @@ html.main_page body main {
 					left (@mainPageSliderInterval) linear
 				);
 
-				&.current { left: (@offsetVal/ 2); }
+				&.current { left: (@offsetVal / 2); }
 				&.visible { .opacity(1); }
 			}
 		} // .slider }}}2

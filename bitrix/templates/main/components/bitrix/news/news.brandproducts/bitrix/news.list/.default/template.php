@@ -73,6 +73,7 @@ if($arResult["SECTION"]["PATH"][0]["ID"]){
 if($arrFilter["PROPERTY_FOR"]){
 	$arFilter["PROPERTY_FOR"] = $arrFilter["PROPERTY_FOR"];
 }
+$arFilter["PROPERTY_BRAND"] = $currentBrendID;
 
 $total = CIBlockElement::GetList(
 	array(),
@@ -81,10 +82,9 @@ $total = CIBlockElement::GetList(
 	array(),
 	array()
 );
-
 $totalcount = $total->SelectedRowsCount();
 
-if(count($arResult["ITEMS"]) && $onPage < $totalcount){?>
+if(count($arResult["ITEMS"]) && count($arResult["ITEMS"]) < $totalcount){?>
 	<a class="load_more" title="<?=GetMessage("SHOW_MORE")
 		?>" data-next-page="2" data-count="<?=$itemCount
 		?>" data-iblock-section="<?=$arFilter["SECTION_ID"]

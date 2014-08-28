@@ -57,6 +57,7 @@ global $arrFilter, $currentBrendID;
 	if($arrFilter["PROPERTY_FOR"]){
 		$arFilter["PROPERTY_FOR"] = $arrFilter["PROPERTY_FOR"];
 	}
+	$arFilter["PROPERTY_BRAND"] = false;
 
 	$total = CIBlockElement::GetList(
 		array(),
@@ -65,9 +66,9 @@ global $arrFilter, $currentBrendID;
 		array(),
 		array()
 	);
-
 	$totalcount = $total->SelectedRowsCount();
-	if(count($arResult["ITEMS"]) && $onPage < $totalcount){?>
+
+	if(count($arResult["ITEMS"]) && count($arResult["ITEMS"]) < $totalcount){?>
 		<a class="load_more" title="<?=GetMessage("SHOW_MORE")
 			?>" data-next-page="2" data-count="<?=$itemCount
 			?>" data-iblock-section="<?=$arResult["SECTION"]["PATH"][0]["ID"]
@@ -93,7 +94,6 @@ global $arrFilter, $currentBrendID;
 			"SORT" => "asc"
 		),
 		$sFilter
-
 	);
 	if($section->SelectedRowsCount()){?>
 		<ul class="collection_list produce">

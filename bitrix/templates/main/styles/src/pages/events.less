@@ -78,6 +78,14 @@ html body main section.events_list { // {{{1
 
 		& + .event_item { margin-top: 71px - 26px; }
 	} // .event_item
+
+	& > a.load_more {
+		.circleDownArrowButton();
+		display: block;
+		margin: 0 auto;
+	}
+
+	& > .event_item + a.load_more { margin-top: 75px; }
 } // section.events_list }}}1
 
 html.event_detail_page body { // {{{1

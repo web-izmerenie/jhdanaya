@@ -1,6 +1,8 @@
 <?
 require($_SERVER["DOCUMENT_ROOT"]."/bitrix/modules/main/include/prolog_before.php");
 
+$json["status"] = "error";
+
 //$json["dedug"] = $_GET;
 
 CModule::IncludeModule("iblock");
@@ -71,8 +73,6 @@ if($pagecount){
 		}elseif($futurecount >= $totalcount){
 			$json["status"] = "end_of_list";
 		}
-
-		$sizeParams = $_GET["brand"] ? array("width" => "288", "height" => "288") : array("width" => "231", "height" => "126");
 
 		$previewPicture = CFile::GetByID($arResF["PREVIEW_PICTURE"]);
 		$previewPicture = $previewPicture->Fetch();

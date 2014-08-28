@@ -17,7 +17,7 @@ $this->setFrameMode(true);
 		<ul class="preview_photos">
 			<?$ar_ids = $arResult["DISPLAY_PROPERTIES"]["GALLERY"]["VALUE"];?>
 			<?foreach($ar_ids as $id){?>
-				<?$thumb = CFile::ResizeImageGet($id, array("width" => "233", "height" => "233"), BX_RESIZE_IMAGE_PROPORTIONAL);?>
+				<?$thumb = CFile::ResizeImageGet($id, array("width" => "233", "height" => "233"), BX_RESIZE_IMAGE_EXACT);?>
 				<li><a href="<?=CFile::GetPath($id)
 					?>"><img alt="" src="<?=$thumb["src"]?>" itemprop="image" /></a></li>
 			<?}?>

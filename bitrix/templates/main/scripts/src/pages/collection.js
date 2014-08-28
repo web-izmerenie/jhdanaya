@@ -469,8 +469,6 @@ ready(function (window, document, undefined) {
 				success: function (data) {
 					var jsonAnswer = require('../basics/json_answer');
 					jsonAnswer.validate(data, function (err, json) {
-						$more.attr("data-next-page", ++(getData.page));
-
 						if (err) {
 							if (
 								err instanceof jsonAnswer.exceptions.UnknownStatusValue &&
@@ -479,6 +477,7 @@ ready(function (window, document, undefined) {
 								$list.addClass('end_of_list');
 								$more.slideUp(getVal('animationSpeed') * 6, function () {
 									$more.remove();
+									$w.off('scroll' + bindSuffix);
 								});
 								if (!err.json.items) return;
 								else json = err.json;
@@ -492,6 +491,8 @@ ready(function (window, document, undefined) {
 							alert(getLocalText('ERR', 'AJAX_PARSE'));
 							return stopping();
 						}
+
+						$more.attr("data-next-page", ++(getData.page));
 
 						var items = json.items;
 						var i = 0;

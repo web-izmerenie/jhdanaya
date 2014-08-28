@@ -22,6 +22,7 @@ module.exports.values = {
 	circleDownArrowButtonSizeMax: 96,
 
 	dynamicItemsLoadURL: '/ajax/handler.php',
+	moreEventsAjaxURL: '/ajax/more_events.php',
 
 	galleryColorboxParams: {
 		transition: 'fade',

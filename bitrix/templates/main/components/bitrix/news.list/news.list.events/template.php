@@ -2,7 +2,7 @@
 
 <section class="events_list">
 <?foreach($arResult["ITEMS"] as $arItem):?>
-	<?$has_link = $arResult["DETAIL_TEXT"] || count($arItem["DISPLAY_PROPERTIES"]["GALLERY"]["VALUE"]) > 4 ? true : false;?>
+	<?$has_link = $arItem["DETAIL_TEXT"] || (count($arItem["DISPLAY_PROPERTIES"]["GALLERY"]["VALUE"]) > 4 ? true : false);?>
 	<div class="event_item" itemscope itemtype="http://schema.org/NewsArticle">
 		<h3 itemprop="headline">
 			<?if($has_link){?><a href="<?=$arItem["DETAIL_PAGE_URL"]?>"><?}?>
@@ -23,11 +23,33 @@
 			<ul class="preview_photos">
 				<?$ar_ids = $arItem["DISPLAY_PROPERTIES"]["GALLERY"]["VALUE"];?>
 				<?for($i = 0; $i < 4; $i++){?>
-					<?$thumb = CFile::ResizeImageGet($ar_ids[$i], array("width" => "233", "height" => "233"), BX_RESIZE_IMAGE_PROPORTIONAL);?>
+					<?if(!$ar_ids[$i])break;?>
+					<?$thumb = CFile::ResizeImageGet($ar_ids[$i], array("width" => "233", "height" => "233"), BX_RESIZE_IMAGE_EXACT);?>
 					<li><img alt="" src="<?=$thumb["src"]?>" itemprop="image" /></li>
 				<?}?>
 			</ul>
 		<?}?>
 	</div>
 <?endforeach;?>
+
+<?
+$total = CIBlockElement::GetList(
+	array(),
+	array( // filter
+		"ACTIVE" => "Y",
+		"IBLOCK_ID" => $arResult["ID"],
+	),
+	false,
+	array(),
+	array()
+);
+$totalcount = $total->SelectedRowsCount();
+
+if(count($arResult["ITEMS"]) && count($arResult["ITEMS"]) < $totalcount){?>
+	<a class="load_more" title="<?=GetMessage("SHOW_MORE")
+		?>" data-next-page="2" data-count="<?=count($arResult["ITEMS"])
+		?>"><span><?=GetMessage("SHOW_MORE")?></span></a>
+<?}?>
+
+
 </section>

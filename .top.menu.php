@@ -7,7 +7,7 @@ $aMenuLinks = Array(
 		Array(), 
 		"" 
 	),
-    Array(
+	Array(
 		"Изделия", 
 		"/products/", 
 		Array(), 
@@ -21,7 +21,7 @@ $aMenuLinks = Array(
 		Array(), 
 		"" 
 	),
-    Array(
+	Array(
 		"События", 
 		"/events/", 
 		Array(), 
@@ -29,7 +29,7 @@ $aMenuLinks = Array(
 		"" 
 	),
 	Array(
-		"Магазины", 
+		"Салоны", 
 		"/shops/", 
 		Array(), 
 		Array(), 

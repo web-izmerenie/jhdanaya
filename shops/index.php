@@ -3,7 +3,7 @@
 define("MAIN_SHOPS", "Y");
 
 require($_SERVER["DOCUMENT_ROOT"]."/bitrix/header.php");
-$APPLICATION->SetTitle("Магазины");
+$APPLICATION->SetTitle("Салоны");
 ?><?$APPLICATION->IncludeComponent("bitrix:news.list", "news.list.shop", array(
 	"IBLOCK_TYPE" => "lists",
 	"IBLOCK_ID" => "1",

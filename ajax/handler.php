@@ -40,18 +40,23 @@ $total = CIBlockElement::GetList(
 );
 $totalcount = $total->SelectedRowsCount();
 
-$res = CIBlockElement::GetList(
-	$arOrder,
-	$arFilter,
-	false,
-	array(
-		"iNumPage" => $_GET["page"],
-		"nPageSize" => $_GET["count"]
-	),
-	array()
-);
+function getRes($arOrder, $arFilter, $page, $count) {
+	return CIBlockElement::GetList(
+		$arOrder,
+		$arFilter,
+		false,
+		array(
+			"iNumPage" => $page,
+			"nPageSize" => $count,
+		),
+		array()
+	);
+}
+
+$res = getRes($arOrder, $arFilter, $_GET["page"], $_GET["count"]);
 $pagecount = $res->SelectedRowsCount();
 $currentcount = ($_GET["page"] - 1) * $_GET["count"];
+$futurecount = ($_GET["page"]) * $_GET["count"];
 
 if($pagecount){
 	$json["status"] = "success";
@@ -59,10 +64,14 @@ if($pagecount){
 	while($arRes = $res->GetNextElement()){
 		$arResF = $arRes->GetFields();
 		$arResP = $arRes->GetProperties();
+
 		if($currentcount >= $totalcount){
 			$json["status"] = "end_of_list";
 			break;
+		}elseif($futurecount >= $totalcount){
+			$json["status"] = "end_of_list";
 		}
+
 		$sizeParams = $_GET["brand"] ? array("width" => "288", "height" => "288") : array("width" => "231", "height" => "126");
 
 		$previewPicture = CFile::GetByID($arResF["PREVIEW_PICTURE"]);

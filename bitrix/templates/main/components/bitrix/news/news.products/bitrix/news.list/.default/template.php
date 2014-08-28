@@ -93,8 +93,9 @@ global $arrFilter, $currentBrendID;
 		),
 		$sFilter
 	);
-	if($section->SelectedRowsCount()){?>
-		<ul class="collection_list produce">
+	?>
+	<ul class="collection_list produce">
+		<?if($section->SelectedRowsCount()){?>
 			<?while($arSection = $section->GetNext()){?>
 				<?
 				if(stripos($APPLICATION->GetCurDir(), "/women/"))
@@ -119,14 +120,22 @@ global $arrFilter, $currentBrendID;
 					</a>
 				</li>
 			<?}?>
+		<?}?>
+	</ul>
+
+	<?
+	$depth = trim($APPLICATION->GetCurDir(0));
+	if ($depth[0] === '/') $depth = substr($depth, 1);
+	if (substr($depth, -1) === '/') $depth = substr($depth, 0, -1);
+	$depth = count( explode('/', $depth) );
+	?>
+	<?if($depth < 2){?>
+		<ul class="produce_submenu">
+			<?$path = $APPLICATION->GetCurDir()?>
+			<li><a href="<?=$path?>women/"><?=GetMessage("FOR_WOMEN")?></a></li>
+			<li><a href="<?=$path?>men/"><?=GetMessage("FOR_MEN")?></a></li>
+			<li><a href="<?=$path?>children/"><?=GetMessage("FOR_CHILDREN")?></a></li>
 		</ul>
 	<?}?>
-
-	<ul class="produce_submenu">
-		<?$path = $APPLICATION->GetCurDir()?>
-		<li><a href="<?=$path?>women/"><?=GetMessage("FOR_WOMEN")?></a></li>
-		<li><a href="<?=$path?>men/"><?=GetMessage("FOR_MEN")?></a></li>
-		<li><a href="<?=$path?>children/"><?=GetMessage("FOR_CHILDREN")?></a></li>
-	</ul>
 
 <?}?>

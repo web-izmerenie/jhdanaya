@@ -22,8 +22,8 @@ html body header {
 	a.logo {
 		.linkNoLine;
 		img.logo { .absolute; visibility: hidden; }
-		&:before { .sprite(@sprite_icons_header_logo); }
-		&:after { .sprite(@sprite_icons_header_logo_active); }
+		&:before { .sprite(@sprite-icons-header_logo); }
+		&:after { .sprite(@sprite-icons-header_logo_active); }
 		.animatedIcon(absolute);
 	}
 
@@ -63,7 +63,7 @@ html.fixed_header body header {
 	}
 
 	a.logo {
-		&:before { .sprite(@sprite_icons_header_small_logo); }
-		&:after { .sprite(@sprite_icons_header_small_logo_active); }
+		&:before { .sprite(@sprite-icons-header_small_logo); }
+		&:after { .sprite(@sprite-icons-header_small_logo_active); }
 	}
 } // html.fixed_header body header

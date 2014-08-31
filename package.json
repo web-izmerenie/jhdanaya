@@ -1,6 +1,7 @@
 {
 	"dependencies": {
 		"yargs": "*",
+		"merge-stream": "*",
 		"gulp": "*",
 		"gulp-clean": "*",
 		"gulp.spritesmith": "*",
@@ -11,7 +12,10 @@
 		"gulp-browserify": "*",
 		"gulp-uglify": "*",
 		"gulp-jshint": "*",
-		"jshint-stylish": "*"
+		"jshint-stylish": "*",
+		"liveify": "*",
+		"gulp-livescript": "*",
+		"LiveScript": "*"
 	},
 	"scripts": {
 		"postinstall": "bash ./deploy.sh"
@@ -24,30 +28,30 @@
 		],
 		"sprites": {
 			"icons": {
-				"css_name": "icons.less",
-				"css_dir": "./bitrix/templates/main/styles/src/sprites/",
-				"img_dir": "./bitrix/templates/main/images/sprites/icons/",
-				"img_path_prefix": "/bitrix/templates/main/images/sprites/icons/",
+				"cssName": "icons.less",
+				"cssDir": "./bitrix/templates/main/styles/src/sprites/",
+				"imgDir": "./bitrix/templates/main/images/sprites/icons/",
+				"imgPathPrefix": "/bitrix/templates/main/images/sprites/icons/",
 				"algorithm": "binary-tree"
 			}
 		},
 		"less": {
 			"main": {
 				"path": "./bitrix/templates/main/styles/",
-				"main_src": "main.less",
-				"build_file": "build.css",
-				"required_sprites": [ "icons" ]
+				"mainSrc": "main.less",
+				"buildFile": "build.css",
+				"requiredSprites": [ "icons" ]
 			}
 		},
 		"browserify": {
 			"main": {
 				"path": "./bitrix/templates/main/scripts/",
-				"main_src": "main.js",
-				"build_file": "build.js",
-				"jshint_relative_exclude": [
+				"mainSrc": "main.js",
+				"buildFile": "build.js",
+				"jshintRelativeExclude": [
 					"./libs/**/*.js"
 				],
-				"jshint_params": {
+				"jshintParams": {
 					"browser": true,
 					"node": true,
 					"undef": true,
@@ -58,23 +62,23 @@
 				},
 				"shim": {
 					"jquery": {
-						"relative_path": "./libs/jquery-2.1.1",
+						"relativePath": "./libs/jquery-2.1.1",
 						"exports": ""
 					},
 					"jquery.easing": {
-						"relative_path": "./libs/jquery.easing-1.3",
+						"relativePath": "./libs/jquery.easing-1.3",
 						"exports": ""
 					},
 					"jquery.colorbox": {
-						"relative_path": "./libs/jquery.colorbox-1.5.13",
+						"relativePath": "./libs/jquery.colorbox-1.5.13",
 						"exports": ""
 					},
 					"modernizr": {
-						"relative_path": "./libs/modernizr.custom.39986",
+						"relativePath": "./libs/modernizr.custom.39986",
 						"exports": "Modernizr"
 					},
 					"load_img": {
-						"relative_path": "./wrappers/load_img",
+						"relativePath": "./wrappers/load_img",
 						"exports": ""
 					}
 				}

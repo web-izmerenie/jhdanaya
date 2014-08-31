@@ -127,14 +127,14 @@ html.shops_page_big_map { // {{{1
 					cursor: pointer;
 					z-index: 540;
 
-					&:before { .sprite(@sprite_icons_gallery_closer); }
-					&:after  { .sprite(@sprite_icons_gallery_closer_active); }
+					&:before { .sprite(@sprite-icons-gallery_closer); }
+					&:after  { .sprite(@sprite-icons-gallery_closer_active); }
 
 					.animatedIcon;
 
 					&:before, &:after {
-						left: (@buttonSize - @sprite_icons_gallery_closer-width) / 2;
-						top: (@buttonSize - @sprite_icons_gallery_closer-height) / 2;
+						left: (@buttonSize - @sprite-icons-gallery_closer-width) / 2;
+						top: (@buttonSize - @sprite-icons-gallery_closer-height) / 2;
 					}
 
 					.absolute(9px, 9px);

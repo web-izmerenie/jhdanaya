@@ -49,7 +49,7 @@
 				"mainSrc": "main.js",
 				"buildFile": "build.js",
 				"jshintRelativeExclude": [
-					"./libs/**/*.js"
+					"./lib/**/*.js"
 				],
 				"jshintParams": {
 					"browser": true,
@@ -62,19 +62,19 @@
 				},
 				"shim": {
 					"jquery": {
-						"relativePath": "./libs/jquery-2.1.1",
+						"relativePath": "./lib/jquery-2.1.1",
 						"exports": ""
 					},
 					"jquery.easing": {
-						"relativePath": "./libs/jquery.easing-1.3",
+						"relativePath": "./lib/jquery.easing-1.3",
 						"exports": ""
 					},
 					"jquery.colorbox": {
-						"relativePath": "./libs/jquery.colorbox-1.5.13",
+						"relativePath": "./lib/jquery.colorbox-1.5.13",
 						"exports": ""
 					},
 					"modernizr": {
-						"relativePath": "./libs/modernizr.custom.39986",
+						"relativePath": "./lib/modernizr.custom.39986",
 						"exports": "Modernizr"
 					},
 					"load_img": {

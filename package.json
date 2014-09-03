@@ -37,10 +37,10 @@
 		},
 		"less": {
 			"main": {
+				"buildDeps": ["sprite-icons"],
 				"path": "./bitrix/templates/main/styles/",
 				"mainSrc": "main.less",
-				"buildFile": "build.css",
-				"requiredSprites": [ "icons" ]
+				"buildFile": "build.css"
 			}
 		},
 		"browserify": {

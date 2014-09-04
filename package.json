@@ -40,7 +40,12 @@
 				"buildDeps": ["sprite-icons"],
 				"path": "./bitrix/templates/main/styles/",
 				"mainSrc": "main.less",
-				"buildFile": "build.css"
+				"buildFile": "build.css",
+				"subTasks": {
+					"fast": {
+						"buildDeps": []
+					}
+				}
 			}
 		},
 		"browserify": {

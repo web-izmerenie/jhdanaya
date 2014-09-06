@@ -17,6 +17,7 @@ module.exports.values = {
 	waiterInterval: 200, // ms
 	mainPageSliderInterval: 3, // sec
 	loadImgTimeout: 30, // sec
+	collectionsPreviewHoverAdd: 40, // px
 
 	circleDownArrowButtonSizeMin: 64,
 	circleDownArrowButtonSizeMax: 96,

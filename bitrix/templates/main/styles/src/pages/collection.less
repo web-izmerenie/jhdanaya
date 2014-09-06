@@ -102,6 +102,7 @@ html.collection_page body {
 					.relative;
 					@min: 170px;
 					height: @min;
+					overflow: hidden;
 
 					.preview {
 						.linkNoLine;
@@ -110,6 +111,7 @@ html.collection_page body {
 						.relative;
 						.size(@min);
 						margin: 0 auto;
+						overflow: auto !important; // for jquery animation
 
 						img {
 							display: inline-block;

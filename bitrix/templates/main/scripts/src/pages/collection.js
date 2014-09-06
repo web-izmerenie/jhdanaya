@@ -21,6 +21,7 @@ ready(function (window, document, undefined) {
 	// values
 	var bindSuffix = '.collection_page_bind';
 	var skipDetailInfoBlock = false; // go to detail picture directly
+	var previewHoverAdd = getVal('collectionsPreviewHoverAdd');
 
 	// dom elements
 	var $main = $('main');
@@ -249,6 +250,35 @@ ready(function (window, document, undefined) {
 					return false;
 				});
 			}
+
+			// zoom when mouse over {{{2
+			$infoH.hover(function () {
+				var size = $list.data('previews-size');
+				if (!size) return false;
+				size = parseInt(size, 10);
+				var newSize = size + previewHoverAdd;
+				$preview.stop().animate(
+					{
+						width: newSize + 'px',
+						height: newSize + 'px',
+					},
+					getVal('animationSpeed'),
+					getVal('animationCurve'));
+				return false;
+			}, function () {
+				var size = $list.data('previews-size');
+				if (!size) return false;
+				size = parseInt(size, 10);
+				$preview.stop().animate(
+					{
+						width: size + 'px',
+						height: size + 'px',
+					},
+					getVal('animationSpeed'),
+					getVal('animationCurve'));
+				return false;
+			});
+			// zoom when mouse over }}}2
 		} // if ul.rings or ul.brands
 
 		initList();
@@ -382,6 +412,7 @@ ready(function (window, document, undefined) {
 				'width': size + 'px',
 				'height': size + 'px',
 			});
+			$list.data('previews-size', size);
 			$relMore.css('margin-top', top + 'px');
 		} // setRelSizes() }}}2
 
@@ -397,7 +428,7 @@ ready(function (window, document, undefined) {
 				'height': '',
 				'margin-top': '',
 			});
-			$previews.css({
+			$previews.stop().css({
 				'width': '',
 				'height': '',
 			});

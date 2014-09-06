@@ -8,16 +8,13 @@ global $arrFilter, $currentBrendID;
 ?>
 
 <?if(is_array($arResult["SECTION"]) || $show === "all"){?>
-
 	<ul class="collection_list rings">
 	<?foreach($arResult["ITEMS"] as $Item){?>
 		<li id="bx_id_<?=$Item["ID"]?>">
-			<?if($Item["PREVIEW_PICTURE"]){?>
-				<a href="<?=$Item["DETAIL_PICTURE"]["SRC"]?>" class="preview">
-					<img alt="<?=$Item["PREVIEW_PICTURE"]["DESCRIPTION"]
-						?>" src="<?=$Item["PREVIEW_PICTURE"]["SRC"]?>" />
-				</a>
-			<?}?>
+			<a href="<?=$Item["DETAIL_PICTURE"]["SRC"]?>" class="preview">
+				<img alt="<?=$Item["PREVIEW_PICTURE"]["DESCRIPTION"]
+					?>" src="<?=$Item["PREVIEW_PICTURE"]["SRC"]?>" />
+			</a>
 			<div class="info detail">
 				<div class="text">
 					<p><?=GetMessage("ART.")?>&nbsp;<?=$Item["DISPLAY_PROPERTIES"]["ARTICLE"]["VALUE"]?></p>

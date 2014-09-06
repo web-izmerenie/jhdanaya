@@ -20,7 +20,7 @@ ready(function (window, document, undefined) {
 
 	// values
 	var bindSuffix = '.collection_page_bind';
-	var skipDetailInfoBlock = false; // go to detail picture directly
+	var skipDetailInfoBlock = true; // go to detail picture directly
 
 	// dom elements
 	var $main = $('main');

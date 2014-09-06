@@ -20,6 +20,7 @@ ready(function (window, document, undefined) {
 
 	// values
 	var bindSuffix = '.collection_page_bind';
+	var skipDetailInfoBlock = false; // go to detail picture directly
 
 	// dom elements
 	var $main = $('main');
@@ -181,7 +182,8 @@ ready(function (window, document, undefined) {
 								getVal('animationCurve'));
 
 							// skip back to detail info
-							$infoDCloser.trigger('click');
+							if (skipDetailInfoBlock)
+								$infoDCloser.trigger('click');
 
 							return false;
 						});
@@ -231,20 +233,23 @@ ready(function (window, document, undefined) {
 
 			$infoH.append('<a class="zoom"><span></span></a>');
 
-			/*$infoH.find('.zoom').click(function () {
-				$a.trigger('click');
-				return false;
-			});*/
-
-			// open big photo (without detail info)
-			$infoH.click(function () {
-				$html.addClass('collection_page_over_popup');
-				$ul.addClass('popup');
-				$li.addClass('popup');
-				$infoDZoom.trigger('click');
-				return false;
-			});
-		}
+			if (skipDetailInfoBlock) {
+				// open big photo (without detail info)
+				$infoH.click(function () {
+					$html.addClass('collection_page_over_popup');
+					$ul.addClass('popup');
+					$li.addClass('popup');
+					$infoDZoom.trigger('click');
+					return false;
+				});
+			} else {
+				// open detail info block
+				$infoH.click(function () {
+					$a.trigger('click');
+					return false;
+				});
+			}
+		} // if ul.rings or ul.brands
 
 		initList();
 	} // liInitHandler() }}}1

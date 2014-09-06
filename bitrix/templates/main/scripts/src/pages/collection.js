@@ -299,10 +299,11 @@ ready(function (window, document, undefined) {
 		var topMin = 75;
 		var topMax = 130;
 
-		if ($list.hasClass('rings')) {
+		// "rings" preview photos smaller than "brand" preview photos
+		/*if ($list.hasClass('rings')) {
 			itemSizeMin = 170;
 			itemSizeMax = 272;
-		}
+		}*/
 
 		if ($list.hasClass('rings') || $list.hasClass('brand')) {
 			topMin = 50;
@@ -628,7 +629,9 @@ ready(function (window, document, undefined) {
 	}); // $more.click }}}1
 
 	$w.on('scroll' + bindSuffix, function () {
-		if ($d.scrollTop() + $w.height() >= $more.offset().top)
+		var offset = $more.offset();
+		if (!offset || !('top' in offset)) return;
+		if ($d.scrollTop() + $w.height() >= offset.top)
 			$more.trigger('click' + bindSuffix);
 	});
 

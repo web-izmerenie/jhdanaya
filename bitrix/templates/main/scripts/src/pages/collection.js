@@ -629,7 +629,9 @@ ready(function (window, document, undefined) {
 	}); // $more.click }}}1
 
 	$w.on('scroll' + bindSuffix, function () {
-		if ($d.scrollTop() + $w.height() >= $more.offset().top)
+		var offset = $more.offset();
+		if (!offset || !('top' in offset)) return;
+		if ($d.scrollTop() + $w.height() >= offset.top)
 			$more.trigger('click' + bindSuffix);
 	});
 

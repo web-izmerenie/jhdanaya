@@ -16,10 +16,10 @@ global $arrFilter, $currentBrendID;
 		</a>
 		<div class="info detail">
 			<div class="text">
-				<?if($Item["PREVIEW_TEXT"]){?>
+				<?if($Item["DISPLAY_PROPERTIES"]["ARTICLE"]["VALUE"]){?>
 					<p><?=GetMessage("ART.")?>&nbsp;<?=$Item["DISPLAY_PROPERTIES"]["ARTICLE"]["VALUE"]?></p>
-					<?=$Item["PREVIEW_TEXT"]?>
 				<?}?>
+				<?=$Item["PREVIEW_TEXT"]?>
 				<?if($Item["DISPLAY_PROPERTIES"]["SHOP"]["VALUE"]){?>
 					<?$shop = CIBlockElement::GetById($Item["DISPLAY_PROPERTIES"]["SHOP"]["VALUE"]);
 					$arShop = $shop->GetNextElement();
@@ -35,6 +35,9 @@ global $arrFilter, $currentBrendID;
 		</div>
 		<div class="info hover">
 			<div class="text">
+				<?if($Item["DISPLAY_PROPERTIES"]["ARTICLE"]["VALUE"]){?>
+					<p><?=GetMessage("ART.")?>&nbsp;<?=$Item["DISPLAY_PROPERTIES"]["ARTICLE"]["VALUE"]?></p>
+				<?}?>
 				<?=$Item["PREVIEW_TEXT"]?>
 			</div>
 		</div>

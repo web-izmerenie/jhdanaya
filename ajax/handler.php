@@ -1,6 +1,8 @@
 <?
 require($_SERVER["DOCUMENT_ROOT"]."/bitrix/modules/main/include/prolog_before.php");
 
+IncludeTemplateLangFile($_SERVER["DOCUMENT_ROOT"]."/bitrix/templates/main/header.php");
+
 $json["status"] = "error";
 
 //$json["dedug"] = $_GET;
@@ -87,6 +89,11 @@ if($pagecount){
 			$shopFields = $arShop->GetFields();
 			$shopProps = $arShop->GetProperties();
 		}
+		$art = "";
+		if($arResP["ARTICLE"]["VALUE"]){
+			$art = "<p>".GetMessage("ART.")."&nbsp;".
+				$arResP["ARTICLE"]["VALUE"]."</p>";
+		}
 		$items[$_GET["iblock"]][] = array(
 			"id" => "bx_id_".$arResF["ID"],
 			"preview" => array(
@@ -97,10 +104,8 @@ if($pagecount){
 				"description" => $previewPicture["DESCRIPTION"],
 			),
 			"info_detail" => array(
-				"text" => "
-				<p>Арт. ".$arResP["ARTICLE"]["VALUE"]."</p>
-				".$arResF["PREVIEW_TEXT"]."
-				<p>".$shopFields["NAME"]."<br />".$shopProps["PHONE"]["VALUE"]."</p>",
+				"text" => $art.$arResF["PREVIEW_TEXT"].
+					"<p>".$shopFields["NAME"]."<br />".$shopProps["PHONE"]["VALUE"]."</p>",
 				"picture" => array(
 					"description" => $arResF["NAME"],
 					"src" => $detailPicture["SRC"],
@@ -110,7 +115,7 @@ if($pagecount){
 				)
 			),
 			"info_hover" => array(
-				"text" => $arResF["PREVIEW_TEXT"],
+				"text" => $art.$arResF["PREVIEW_TEXT"],
 			),
 		);
 

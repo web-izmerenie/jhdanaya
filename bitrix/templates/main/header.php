@@ -68,8 +68,9 @@
 	<link href="/favicon.ico?v=<?=$revision?>" rel="shortcut icon" type="image/x-icon" />
 
 	<?/* styles */?>
-	<?if($debug){?>
+	<?if($debug && 1===2){?>
 		<?/* client-side compiling */?>
+		<?/* now this feature disabled (by ` && 1===2`), 'cause compiling on client-side has annoying cache issues */?>
 		<script>var less = { env: 'development' };</script>
 		<link rel="stylesheet/less" type="text/css" href="<?=$tplPath?>/styles/src/main.less?v=<?=$revision?>" />
 		<script src="<?=$tplPath?>/scripts/alone/less.js?v=<?=$revision?>"></script>

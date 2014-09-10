@@ -69,6 +69,25 @@ ready(function (window, document, undefined) {
 	}
 	initList();
 
+	function initSizeAnimationHack() { // {{{1
+		if (!$list.data('preview-percent')) return;
+		$list.find('>li .preview img').each(function () {
+			var $img = $(this);
+
+			if ($img.hasClass('hack_inited'))
+				return;
+			else
+				$img.addClass('hack_inited');
+
+			$img
+				.css('background-image', "url('"+ $img.attr('src') +"')")
+				.attr('src', getVal('blankTransparentPixelURL'))
+				.css(
+					'background-size',
+					parseFloat($list.data('preview-percent')) + '% auto');
+		});
+	} // initSizeAnimationHack() }}}1
+
 	function liInitHandler() { // {{{1
 		var $ul = $list;
 		var $li = $(this);
@@ -107,6 +126,8 @@ ready(function (window, document, undefined) {
 						'class': 'blur',
 					});
 					$preview.append( $newImg );
+
+					initSizeAnimationHack();
 				});
 			}; // loadBlur()
 			setTimeout(loadBlur, 0);
@@ -252,37 +273,25 @@ ready(function (window, document, undefined) {
 			}
 
 			// zoom when mouse over {{{2
-			/** centering by margin-left needs because Google Chrome has render bugs */
 			$infoH.hover(function () {
 				var size = $list.data('previews-size');
-				var liSize = $list.data('li-size');
-				if (!size || !liSize) return false;
-				size = parseInt(size, 10);
-				liSize = parseInt(liSize, 10);
-				var newSize = size + previewHoverAdd;
-				$preview.stop().animate(
-					{
-						width: newSize + 'px',
-						height: newSize + 'px',
-						'margin-left': ((liSize - newSize) / 2) + 'px',
-					},
-					getVal('animationSpeed'),
-					getVal('animationCurve'));
+				var percent = $list.data('preview-percent');
+				if (!size || !percent) return false;
+				size = parseFloat(size);
+				percent = parseFloat(percent);
+
+				$preview.find('img')
+					.css('background-size', '100% auto');
 				return false;
 			}, function () {
 				var size = $list.data('previews-size');
-				var liSize = $list.data('li-size');
-				if (!size || !liSize) return false;
-				size = parseInt(size, 10);
-				liSize = parseInt(liSize, 10);
-				$preview.stop().animate(
-					{
-						width: size + 'px',
-						height: size + 'px',
-						'margin-left': ((liSize - size) / 2) + 'px',
-					},
-					getVal('animationSpeed'),
-					getVal('animationCurve'));
+				var percent = $list.data('preview-percent');
+				if (!size || !percent) return false;
+				size = parseFloat(size);
+				percent = parseFloat(percent);
+
+				$preview.find('img')
+					.css('background-size', percent + '% auto');
 				return false;
 			});
 			// zoom when mouse over }}}2
@@ -415,14 +424,22 @@ ready(function (window, document, undefined) {
 				return;
 			}
 
-			$list.data('previews-size', size).data('li-size', $liArr.width());
-			/** centering by margin-left needs because Google Chrome has render bugs */
-			$previews.css({
-				'width': size + 'px',
-				'height': size + 'px',
-				'margin-left': (($list.data('li-size') - size) / 2) + 'px',
-				'margin-right': 0,
-			});
+			if ($list.hasClass('rings') || $list.hasClass('brand')) {
+				size += previewHoverAdd;
+				$list
+					.data('previews-size', size)
+					.data('preview-percent', (size - previewHoverAdd) * 100 / size);
+				$previews.css({
+					'width': size + 'px',
+					'height': size + 'px',
+				});
+				initSizeAnimationHack();
+			} else {
+				$previews.css({
+					'width': size + 'px',
+					'height': size + 'px',
+				});
+			}
 			$relMore.css('margin-top', top + 'px');
 		} // setRelSizes() }}}2
 
@@ -441,8 +458,6 @@ ready(function (window, document, undefined) {
 			$previews.stop().css({
 				'width': '',
 				'height': '',
-				'margin-left': 0,
-				'margin-right': 0,
 			});
 			$infosH.css({
 				'width': '',

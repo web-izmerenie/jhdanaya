@@ -32,6 +32,8 @@ module.exports.values = {
 		rel: 'photos',
 	},
 
+	blankTransparentPixelURL: 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNgYAAAAAMAASsJTYQAAAAASUVORK5CYII=',
+
 };
 
 /** Required set before "getVal" */

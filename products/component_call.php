@@ -46,7 +46,7 @@
 			0 => "BRAND",
 			1 => "FOR",
 			2 => "SHOP",
-			3 => "",
+			3 => "ARTICLE",
 		),
 		"HIDE_LINK_WHEN_NO_DETAIL" => "N",
 		"DISPLAY_NAME" => "Y",

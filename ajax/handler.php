@@ -33,7 +33,8 @@ if($_GET["datafor"]){
 	$arFilter["PROPERTY_FOR"] = $_GET["datafor"];
 }
 $arOrder = array(
-    "SORT" => "asc"
+	"SORT" => "asc",
+	"ID" => "asc",
 );
 $total = CIBlockElement::GetList(
 	$arOrder,
@@ -57,7 +58,7 @@ function getRes($arOrder, $arFilter, $page, $count) {
 	);
 }
 
-$res = getRes($arOrder, $arFilter, $_GET["page"], $_GET["count"]);
+$res = getRes($arOrder, $arFilter, (int)$_GET["page"], (int)$_GET["count"]);
 $pagecount = $res->SelectedRowsCount();
 $currentcount = ($_GET["page"] - 1) * $_GET["count"];
 $futurecount = ($_GET["page"]) * $_GET["count"];

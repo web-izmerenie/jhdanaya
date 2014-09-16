@@ -35,8 +35,9 @@
 				"algorithm": "binary-tree"
 			}
 		},
-		"less": {
+		"styles": {
 			"main": {
+				"type": "less",
 				"buildDeps": ["sprite-icons"],
 				"path": "./bitrix/templates/main/styles/",
 				"mainSrc": "main.less",
@@ -48,8 +49,9 @@
 				}
 			}
 		},
-		"browserify": {
+		"scripts": {
 			"main": {
+				"type": "browserify",
 				"path": "./bitrix/templates/main/scripts/",
 				"mainSrc": "main.js",
 				"buildFile": "build.js",

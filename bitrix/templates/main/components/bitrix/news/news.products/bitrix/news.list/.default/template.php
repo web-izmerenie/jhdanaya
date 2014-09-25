@@ -113,16 +113,13 @@ global $arrFilter, $currentBrendID;
 					$arSection["SECTION_PAGE_URL"] = str_replace("products", "products/children", $arSection["SECTION_PAGE_URL"]);
 				?>
 				<li id="bx_id_<?=$arSection["ID"]?>">
-					<?
-					$arFile = CFile::GetFileArray($arSection["PICTURE"]);
-					if($arFile["WIDTH"] > 296){
-						$thumb = CFile::ResizeImageGet($arSection["PICTURE"], array("width" => "296", "height" => "159"), BX_RESIZE_IMAGE_PROPORTIONAL);
-					}else{
-						$thumb["src"] = CFile::GetPath($arSection["PICTURE"]);
-					}
-					?>
+					<?$arSectionPic = CFile::GetFileArray($arSection["PICTURE"]);?>
 					<a href="<?=$arSection["SECTION_PAGE_URL"] . $urlsuffix?>" title="<?=$arSection["NAME"]?>">
-						<span><img alt="<?=$arSection["NAME"]?>" src="<?=$thumb["src"]?>" /></span>
+						<span><img alt="<?=$arSectionPic["DESCRIPTION"]
+							?>" src="<?=$arSectionPic["SRC"]
+							?>" width="<?=$arSectionPic["WIDTH"]
+							?>" height="<?=$arSectionPic["HEIGHT"]
+							?>" /></span>
 						<span><?=$arSection["NAME"]?></span>
 					</a>
 				</li>

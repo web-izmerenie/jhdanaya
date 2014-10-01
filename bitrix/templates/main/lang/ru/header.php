@@ -11,7 +11,7 @@ $MESS["ALL"] = "Все";
 $MESS["SHOW_MORE"] = "Загрузить еще";
 $MESS["ART."] = "Арт.";
 $MESS["ABOUT_BRAND"] = "О бренде";
-$MESS["COLLECTION_BRAND"] = "Коллекция";
+$MESS["COLLECTION_BRAND"] = "Коллекции";
 $MESS["FOUNDATION_YEAR"] = "Год основания";
 $MESS["FOUNDATION_PLACE"] = "Место основания";
 ?>

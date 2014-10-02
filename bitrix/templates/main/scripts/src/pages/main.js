@@ -41,6 +41,7 @@ ready(function (window, document, undefined) {
 	var nextCardSizeMax = getVal('circleDownArrowButtonSizeMax');
 
 	// dom elements
+	var $body = $('body');
 	var $header = $('header');
 	var $footer = $('footer');
 	var $main = $('main');
@@ -191,5 +192,27 @@ ready(function (window, document, undefined) {
 			easing: getVal('animationCurve'),
 		}
 	);
+
+	// fill bottom part for hide first screen by scroll down button {{{1
+
+	var fillerBindSuffix = '.main_page_filler';
+
+	var $filler = $('<div/>', { class: 'filler' });
+	$main.append($filler);
+
+	$w
+		.on('resize' + fillerBindSuffix, $.proxy(setTimeout, null, function () {
+			$filler.css('height', '');
+
+			var wh = $w.height();
+			var bh = $body.height();
+			var tch = $topCard.innerHeight();
+
+			if (bh - tch < wh)
+				$filler.css('height', (wh - (bh - tch)) + 'px');
+		}, 100))
+		.trigger('resize' + fillerBindSuffix);
+
+	// fill bottom part for hide first screen by scroll down button }}}1
 
 }); // ready()

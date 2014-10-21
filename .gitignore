@@ -34,8 +34,7 @@ bitrix/tmp
 #SYMBOLIC_LINKS_START#
 
 # configs (security)
-bitrix/.settings.php
-bitrix/php_interface/dbconn.php
+dbconfig.php
 bitrix/license_key.php
 
 # backups

@@ -9,9 +9,6 @@
 		<!-- Yandex.Metrika counter -->
 		<script type="text/javascript">
 		(function (d, w, c) {
-			document.write('<div><img src="//mc.yandex.ru/watch/26647785" '+
-				'style="position:absolute; left:-9999px;" alt="" /></div>');
-
 			(w[c] = w[c] || []).push(function() {
 				try {
 					w.yaCounter26647785 = new Ya.Metrika({id:26647785,
@@ -34,6 +31,7 @@
 			} else { f(); }
 		})(document, window, "yandex_metrika_callbacks");
 		</script>
+		<noscript><div><img src="//mc.yandex.ru/watch/26647785" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
 		<!-- /Yandex.Metrika counter -->
 	<?endif?>
 </body>

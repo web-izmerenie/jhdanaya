@@ -2,6 +2,8 @@
  * Main page behavior
  *
  * @author Viacheslav Lotsmanov
+ * @license GNU/AGPLv3
+ * @see {@link https://github.com/web-izmerenie/jhdanaya/blob/master/LICENSE-AGPLv3|License}
  */
 
 var $ = require('jquery');

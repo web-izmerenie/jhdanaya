@@ -8,7 +8,6 @@ User-agent: *
 Allow: /bitrix/templates/
 Disallow: /bitrix/
 Disallow: /search/
-Disallow: /upload/
 Disallow: /web-front-end-deploy/
 Disallow: /web-front-end-gulp-template/
 Disallow: /_deploy/

@@ -45,9 +45,11 @@
 				"path": "./bitrix/templates/main/styles/",
 				"mainSrc": "main.less",
 				"buildFile": "build.css",
+				"addToWatchersList": false,
 				"subTasks": {
 					"fast": {
-						"buildDeps": []
+						"buildDeps": [],
+						"addToWatchersList": true
 					}
 				}
 			}

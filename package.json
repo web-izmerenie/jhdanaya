@@ -1,100 +1,100 @@
 {
-	"dependencies": {
-		"yargs": "^1.3.2",
-		"merge-stream": "~0.1.6",
-		"gulp": "^3.8.8",
-		"del": "~0.1.3",
-		"gulp.spritesmith": "^1.4",
-		"gulp-task-listing": "~0.3",
-		"gulp-less": "^1.3.6",
-		"gulp-sourcemaps": "^1.2.8",
-		"gulp-stylus": "^1.3.4",
-		"nib": "^1.0.4",
-		"gulp-if": "^1.2.5",
-		"gulp-rename": "^1.2",
-		"gulp-browserify": "~0.5",
-		"gulp-uglify": "^1.0.1",
-		"gulp-jshint": "^1.8.5",
-		"jshint-stylish": "^1",
-		"liveify": "1.3.1",
-		"LiveScript": "1.3.1",
-		"prelude-ls": "1.1.1"
-	},
-	"scripts": {
-		"postinstall": "bash ./deploy.sh"
-	},
+  "dependencies": {
+    "yargs": "^1.3.2",
+    "merge-stream": "~0.1.6",
+    "gulp": "^3.8.8",
+    "del": "~0.1.3",
+    "gulp.spritesmith": "^1.4",
+    "gulp-task-listing": "~0.3",
+    "gulp-less": "^1.3.6",
+    "gulp-sourcemaps": "^1.2.8",
+    "gulp-stylus": "^1.3.4",
+    "nib": "^1.0.4",
+    "gulp-if": "^1.2.5",
+    "gulp-rename": "^1.2",
+    "gulp-browserify": "~0.5",
+    "gulp-uglify": "^1.0.1",
+    "gulp-jshint": "^1.8.5",
+    "jshint-stylish": "^1",
+    "liveify": "1.3.1",
+    "LiveScript": "1.3.1",
+    "prelude-ls": "1.1.1"
+  },
+  "scripts": {
+    "postinstall": "bash ./deploy.sh"
+  },
 
-	"gulp": {
-		"distclean": [
-			"./gulp",
-			"./node_modules"
-		],
-		"sprites": {
-			"icons": {
-				"cssName": "icons.less",
-				"cssDir": "./bitrix/templates/main/styles/src/sprites/",
-				"imgDir": "./bitrix/templates/main/images/sprites/icons/",
-				"imgPathPrefix": "/bitrix/templates/main/images/sprites/icons/",
-				"algorithm": "binary-tree"
-			}
-		},
-		"styles": {
-			"main": {
-				"type": "less",
-				"buildDeps": ["sprite-icons"],
-				"path": "./bitrix/templates/main/styles/",
-				"mainSrc": "main.less",
-				"buildFile": "build.css",
-				"addToWatchersList": false,
-				"subTasks": {
-					"fast": {
-						"buildDeps": [],
-						"addToWatchersList": true
-					}
-				}
-			}
-		},
-		"scripts": {
-			"main": {
-				"type": "browserify",
-				"path": "./bitrix/templates/main/scripts/",
-				"mainSrc": "main.js",
-				"buildFile": "build.js",
-				"jshintRelativeExclude": [
-					"./lib/**/*.js"
-				],
-				"jshintParams": {
-					"browser": true,
-					"node": true,
-					"undef": true,
-					"indent": 1,
-					"sub": false,
-					"unused": true,
-					"predef": [ "define" ]
-				},
-				"shim": {
-					"jquery": {
-						"relativePath": "./lib/jquery-2.1.1",
-						"exports": ""
-					},
-					"jquery.easing": {
-						"relativePath": "./lib/jquery.easing-1.3",
-						"exports": ""
-					},
-					"jquery.colorbox": {
-						"relativePath": "./lib/jquery.colorbox-1.5.13",
-						"exports": ""
-					},
-					"modernizr": {
-						"relativePath": "./lib/modernizr.custom.39986",
-						"exports": "Modernizr"
-					},
-					"load_img": {
-						"relativePath": "./wrappers/load_img",
-						"exports": ""
-					}
-				}
-			}
-		}
-	}
+  "gulp": {
+    "distclean": [
+      "./gulp",
+      "./node_modules"
+    ],
+    "sprites": {
+      "icons": {
+        "cssName": "icons.less",
+        "cssDir": "./bitrix/templates/main/styles/src/sprites/",
+        "imgDir": "./bitrix/templates/main/images/sprites/icons/",
+        "imgPathPrefix": "/bitrix/templates/main/images/sprites/icons/",
+        "algorithm": "binary-tree"
+      }
+    },
+    "styles": {
+      "main": {
+        "type": "less",
+        "buildDeps": ["sprite-icons"],
+        "path": "./bitrix/templates/main/styles/",
+        "mainSrc": "main.less",
+        "buildFile": "build.css",
+        "addToWatchersList": false,
+        "subTasks": {
+          "fast": {
+            "buildDeps": [],
+            "addToWatchersList": true
+          }
+        }
+      }
+    },
+    "scripts": {
+      "main": {
+        "type": "browserify",
+        "path": "./bitrix/templates/main/scripts/",
+        "mainSrc": "main.js",
+        "buildFile": "build.js",
+        "jshintRelativeExclude": [
+          "./lib/**/*.js"
+        ],
+        "jshintParams": {
+          "browser": true,
+          "node": true,
+          "undef": true,
+          "indent": 1,
+          "sub": false,
+          "unused": true,
+          "predef": [ "define" ]
+        },
+        "shim": {
+          "jquery": {
+            "relativePath": "./lib/jquery-2.1.1",
+            "exports": ""
+          },
+          "jquery.easing": {
+            "relativePath": "./lib/jquery.easing-1.3",
+            "exports": ""
+          },
+          "jquery.colorbox": {
+            "relativePath": "./lib/jquery.colorbox-1.5.13",
+            "exports": ""
+          },
+          "modernizr": {
+            "relativePath": "./lib/modernizr.custom.39986",
+            "exports": "Modernizr"
+          },
+          "load_img": {
+            "relativePath": "./wrappers/load_img",
+            "exports": ""
+          }
+        }
+      }
+    }
+  }
 }

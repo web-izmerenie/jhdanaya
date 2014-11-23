@@ -303,6 +303,21 @@ html.collection_page body {
 					} // &>a
 				} // &>li
 			} // &.produce }}}3
+
+			&.rings.products {
+				&>li {
+					.preview { z-index: 0; }
+
+					a {
+						display: block;
+						.size(100%);
+						.absolute(0, auto, auto, 0);
+						background: white;
+						.opacity(0);
+						z-index: 1;
+					}
+				}
+			}
 		} // ul.collection_list }}}2
 
 		a.load_more {

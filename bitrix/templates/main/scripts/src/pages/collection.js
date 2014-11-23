@@ -397,6 +397,8 @@ ready(function (window, document, undefined) {
 		var $font = $a.find('>span:first + span');
 	}
 
+	var $pagiBottom = $main.find('.pagination.bottom');
+
 	var $relMore = $main.find('ul.collection_list + .load_more');
 
 	function setRelSizes() { // {{{2
@@ -463,6 +465,10 @@ ready(function (window, document, undefined) {
 			});
 		}
 		$relMore.css('margin-top', top + 'px');
+
+		if ($list.hasClass('rings') && $list.hasClass('products')) {
+			$pagiBottom.css('margin-top', top + 'px');
+		}
 	} // setRelSizes() }}}2
 
 	$w.on('resize' + relativeSizeBindSuffix, $.proxy(setTimeout, null, function () {
@@ -477,6 +483,7 @@ ready(function (window, document, undefined) {
 			'height': '',
 			'margin-top': '',
 		});
+		$pagiBottom.css('margin-top', '');
 		$previews.stop().css({
 			'width': '',
 			'height': '',

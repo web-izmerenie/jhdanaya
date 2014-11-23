@@ -320,6 +320,57 @@ html.collection_page body {
 			}
 		} // ul.collection_list }}}2
 
+		.pagination {
+			display: block;
+			.fontMetrics(0, 0);
+			text-align: center;
+			min-width: @minWidth;
+			max-width: @maxWidth - ((@mainMargin2 - @mainMargin) * 2);
+			padding: 0 @mainMargin;
+			.box-sizing(border-box);
+			margin: 0 auto;
+
+			&.top { padding-top: 33px; }
+
+			ul {
+				.resetList();
+				display: block;
+				text-align: center;
+
+				@s: 32px;
+
+				&>li {
+					.resetList();
+					display: inline-block;
+					.size(@s);
+					overflow: hidden;
+					margin-left: 3px;
+
+					&:first-child { margin-left: 0; }
+
+					&>* {
+						display: block;
+						.box-sizing(border-box);
+						.size(@s);
+						background: white;
+						border: 1px solid #d9d9d9;
+						color: @contentColor;
+						.border-radius(@s / 2);
+						.transit(~'background-color, border-color');
+						text-align: center;
+						.fontMetrics(12px, 14px);
+						padding-top: 9px;
+						font-weight: normal;
+					}
+
+					&>a:hover, &>b {
+						background: @bgColor;
+						border-color: @bgColor;
+					}
+				}
+			}
+		}
+
 		a.load_more {
 			.circleDownArrowButtonLight();
 			display: block;

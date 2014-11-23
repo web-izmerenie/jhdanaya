@@ -1,39 +1,38 @@
 <?if(!defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED!==true)die();?>
 
-<?if(is_array($arResult["SECTION"])){?>
+<?if(is_array($arResult["SECTION"])):?>
+
+	<?if($arParams["DISPLAY_TOP_PAGER"]):?>
+		<div class="pagination top">
+			<?=$arResult["NAV_STRING"]?>
+		</div>
+	<?endif?>
 
 	<ul class="collection_list rings products">
-	<?foreach($arResult["ITEMS"] as $Item){?>
-		<li id="bx_id_<?=$Item["ID"]?>">
-			<?
-			$sectionCode = explode('/', $GLOBALS['APPLICATION']->GetCurDir(0));
-			$sectionCode = $sectionCode[2];
-			$sectionRes = CIBlockSection::GetList(
-				array(),
-				array(
-					"IBLOCK_ID" => $arResult["ID"],
-					"CODE" => $sectionCode,
-				)
-			);
-			$arSection = $sectionRes->GetNext();
-			?>
-			<?
-			$linkTitle =
-				GetMessage("ART.").'&nbsp;'
-				.$Item["DISPLAY_PROPERTIES"]["ARTICLE"]["VALUE"];
-			?>
-			<a href="/products/<?=$sectionCode?>/<?=$Item["ID"]
-				?>.html" title="<?=$linkTitle
-				?>"><?=$arSection["NAME"].'. '.$linkTitle?></a>
-			<div class="preview">
-				<img alt="<?=$Item["PREVIEW_PICTURE"]["DESCRIPTION"]
-					?>" src="<?=$Item["PREVIEW_PICTURE"]["SRC"]?>" />
-			</div>
-		</li>
-	<?}?>
+		<?foreach($arResult["ITEMS"] as $Item):?>
+			<li id="bx_id_<?=$Item["ID"]?>">
+				<?
+				$linkTitle =
+					GetMessage("ART.").'&nbsp;'
+					.$Item["DISPLAY_PROPERTIES"]["ARTICLE"]["VALUE"];
+				?>
+				<a href="<?=$Item["DETAIL_PAGE_URL"]?>" title="<?=$linkTitle
+					?>"><?=$arSection["NAME"].'. '.$linkTitle?></a>
+				<div class="preview">
+					<img alt="<?=$Item["PREVIEW_PICTURE"]["DESCRIPTION"]
+						?>" src="<?=$Item["PREVIEW_PICTURE"]["SRC"]?>" />
+				</div>
+			</li>
+		<?endforeach?>
 	</ul>
 
-<?}else{?>
+	<?if($arParams["DISPLAY_BOTTOM_PAGER"]):?>
+		<div class="pagination bottom">
+			<?=$arResult["NAV_STRING"]?>
+		</div>
+	<?endif?>
+
+<?else:?>
 
 	<?
 	global $arrFilter;
@@ -94,4 +93,4 @@
 		</ul>
 	<?}?>
 
-<?}?>
+<?endif?>

@@ -1,8 +1,8 @@
 <?if(!defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED!==true)die();?>
 
 <?$APPLICATION->IncludeComponent(
-	"bitrix:news", 
-	"news.products", 
+	"bitrix:news",
+	"news.products",
 	array(
 		"IBLOCK_TYPE" => "lists",
 		"IBLOCK_ID" => "4",
@@ -66,13 +66,13 @@
 		),
 		"DETAIL_DISPLAY_TOP_PAGER" => "N",
 		"DETAIL_DISPLAY_BOTTOM_PAGER" => "N",
-		"DETAIL_PAGER_TITLE" => "Страница",
+		"DETAIL_PAGER_TITLE" => "",
 		"DETAIL_PAGER_TEMPLATE" => "",
 		"DETAIL_PAGER_SHOW_ALL" => "N",
-		"PAGER_TEMPLATE" => "",
-		"DISPLAY_TOP_PAGER" => "N",
-		"DISPLAY_BOTTOM_PAGER" => "N",
-		"PAGER_TITLE" => "Новости",
+		"PAGER_TEMPLATE" => "products",
+		"DISPLAY_TOP_PAGER" => "Y",
+		"DISPLAY_BOTTOM_PAGER" => "Y",
+		"PAGER_TITLE" => "",
 		"PAGER_SHOW_ALWAYS" => "N",
 		"PAGER_DESC_NUMBERING" => "N",
 		"PAGER_DESC_NUMBERING_CACHE_TIME" => "36000",
@@ -91,7 +91,7 @@
 		"SEF_URL_TEMPLATES" => array(
 			"news" => "",
 			"section" => "#SECTION_CODE#/",
-			"detail" => "#SECTION_CODE#/#ELEMENT_CODE#/",
+			"detail" => "#SECTION_CODE#/#ELEMENT_CODE#.html",
 		)
 	),
 	false

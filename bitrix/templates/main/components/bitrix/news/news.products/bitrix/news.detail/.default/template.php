@@ -1,5 +1,6 @@
 <?if(!defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED!==true)die();?>
 
+<pre><?print_r()?></pre>
 <div class="collection_detail">
 	<a href="<?=$arResult['SECTION']['PATH'][0]['SECTION_PAGE_URL']
 		?>" class="back_to_list"><?=GetMessage('BACK_TO_LIST')?></a>
@@ -8,6 +9,16 @@
 		<div class="col_description">
 			<p><?=$arResult['ART']?></p>
 			<?=$arResult["PREVIEW_TEXT"]?>
+			<?if($arResult['SHOP']):?>
+				<p class="shop_info">
+					<?=$arResult['SHOP']['NAME']?>
+					<?if($arResult['SHOP']['PHONE']):?>
+						<br/>
+						<?=GetMessage('PHONE')?>
+						<?=$arResult['SHOP']['PHONE']?>
+					<?endif?>
+				</p>
+			<?endif?>
 		</div>
 
 		<div class="picture">

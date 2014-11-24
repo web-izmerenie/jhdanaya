@@ -32,72 +32,16 @@
 		</div>
 	<?endif?>
 
-	<!-- show only on first page -->
-	<?if($arResult["NAV_RESULT"]->NavPageNomer == 1):?>
-		<?
-		// get seo-element id by section user field
-		$sectionId = $arResult["SECTION"]["PATH"][0]["ID"];
-		$sectionRes = CIBlockSection::GetList(
-			array(),
-			array(
-				"IBLOCK_ID" => $arResult["ID"],
-				"ID" => $sectionId,
-			),
-			false,
-			array("UF_SEO"));
-		$arSection = $sectionRes->GetNext();
-		$seoElId = $arSection["UF_SEO"];
-
-		$descLVal = null;
-		$descRVal = null;
-
-		if ($seoElId) {
-			// get seo description
-			$res = CIBlockElement::GetList(
-				array(),
-				array(
-					"IBLOCK_ID" => 6,
-					"ID" => $seoElId,
-				));
-			if ($arRes = $res->GetNextElement()) {
-				$arResF = $arRes->GetFields();
-				if ($arResF["ID"] == $seoElId) {
-					$arProp = $arRes->GetProperties();
-					foreach ($arProp as $key=>$val) {
-						if (strtolower($val["VALUE"]["TYPE"]) == "text") {
-							$newVal = trim($val["VALUE"]["TEXT"]);
-							$newVal = htmlspecialcharsex($newVal);
-							$newVal = preg_replace("/\r\n/", "\n", $newVal);
-							$newVal = preg_replace("/\r/", "\n", $newVal);
-							$newVal = preg_replace("/\n[\n]+/", "\n\n", $newVal);
-							$newVal = str_replace("\n\n", "</p><p>", $newVal);
-							$newVal = str_replace("\n", "<br/>", $newVal);
-							if (!empty($newVal)) $newVal = '<p>'.$newVal.'</p>';
-							$arProp[$key]["DISPLAY_VALUE"] = $newVal;
-						} elseif (strtolower($val["VALUE"]["TYPE"]) == "html") {
-							$arProp[$key]["DISPLAY_VALUE"] = trim($val["VALUE"]["TEXT"]);
-						}
-					}
-					$descLVal = $arProp["DESC_L"]["DISPLAY_VALUE"];
-					$descRVal = $arProp["DESC_R"]["DISPLAY_VALUE"];
-				}
-			}
-		}
-
-		$subClass = '';
-		if ($descLVal && $descRVal) $subClass = ' double';
-		?>
-
-		<?if($descLVal||$descRVal):?>
-			<div class="description<?=$subClass?>">
-				<div class="column left">
-					<?=$descLVal?>
-				</div>
-				<div class="column right">
-					<?=$descRVal?>
-				</div>
+	<?if($arResult["DESCRIPTION_LEFT"] || $arResult["DESCRIPTION_RIGHT"]):?>
+		<?$subClass = ($arResult["DESCRIPTION_LEFT"] && $arResult["DESCRIPTION_RIGHT"]) ? ' double' : ''?>
+		<div class="description<?=$subClass?>">
+			<div class="column left">
+				<?=$arResult["DESCRIPTION_LEFT"]?>
 			</div>
-		<?endif?>
+			<div class="column right">
+				<?=$arResult["DESCRIPTION_RIGHT"]?>
+			</div>
+		</div>
 	<?endif?>
 
 <?else:?>

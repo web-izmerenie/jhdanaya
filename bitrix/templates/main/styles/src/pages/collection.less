@@ -6,6 +6,8 @@
  * @see {@link https://github.com/web-izmerenie/jhdanaya/blob/master/LICENSE-AGPLv3|License}
  */
 
+@import "../additional_bottom_description_mixin";
+
 html.collection_page body {
 	.imgBrandLink() { // {{{1
 		@s: 57px;
@@ -604,39 +606,8 @@ html.collection_page body {
 		} // .about_brand }}}2
 
 		.description { // {{{2
-			display: block;
-			.fontMetrics(0, 0);
-			min-width: @minWidth;
-			max-width: @relMaxWidth;
-			padding: 0 @mainMargin;
-			.box-sizing(border-box);
-			margin: 0 auto;
-
-			&:after { .pseudoBlock; clear: both; }
-
-			.column {
-				display: block;
-				font: @contentFont;
-				padding-top: 79px - 18px;
-			}
-
-			.column.right { display: none; }
-			&.double .column {
-				display: block;
-				vertical-align: top;
-				width: 50%;
-				.box-sizing(border-box);
-
-				&.left {
-					float: left;
-					padding-right: @mainMargin;
-				}
-
-				&.right {
-					float: right;
-					padding-left: @mainMargin;
-				}
-			}
+			.additionalBottomDescriptionMixin();
+			.additionalBottomDescriptionIndependentMixin();
 		} // .description }}}2
 	} // main }}}1
 

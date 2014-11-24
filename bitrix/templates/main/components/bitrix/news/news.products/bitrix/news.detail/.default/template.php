@@ -1,6 +1,5 @@
 <?if(!defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED!==true)die();?>
 
-<pre><?print_r()?></pre>
 <div class="collection_detail">
 	<a href="<?=$arResult['SECTION']['PATH'][0]['SECTION_PAGE_URL']
 		?>" class="back_to_list"><?=GetMessage('BACK_TO_LIST')?></a>
@@ -31,6 +30,15 @@
 		</div>
 	</div>
 
-	<div class="el_description">
-	</div>
+	<?if($arResult["DESCRIPTION_LEFT"] || $arResult["DESCRIPTION_RIGHT"]):?>
+		<?$subClass = ($arResult["DESCRIPTION_LEFT"] && $arResult["DESCRIPTION_RIGHT"]) ? ' double' : ''?>
+		<div class="el_description<?=$subClass?>">
+			<div class="column left">
+				<?=$arResult["DESCRIPTION_LEFT"]?>
+			</div>
+			<div class="column right">
+				<?=$arResult["DESCRIPTION_RIGHT"]?>
+			</div>
+		</div>
+	<?endif?>
 </div>

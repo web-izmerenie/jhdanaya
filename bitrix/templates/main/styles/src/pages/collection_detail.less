@@ -6,6 +6,8 @@
  * @see {@link https://github.com/web-izmerenie/jhdanaya/blob/master/LICENSE-AGPLv3|License}
  */
 
+@import "../additional_bottom_description_mixin";
+
 html.collection_page body main .collection_detail {
 	display: block;
 	.fontMetrics(0, 0);
@@ -97,4 +99,11 @@ html.collection_page body main .collection_detail {
 			}
 		} // .picture }}}2
 	} // .detail_content }}}1
+
+	.el_description {
+		.additionalBottomDescriptionMixin();
+
+		&:before { .pseudoBlock; clear: both; }
+		.column { padding-top: 79px - 18px - 33px; }
+	}
 }

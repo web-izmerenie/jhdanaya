@@ -35,19 +35,7 @@ if (
 			if ($arResF["ID"] == $seoElId) {
 				$arProp = $arRes->GetProperties();
 				foreach ($arProp as $key=>$val) {
-					if (strtolower($val["VALUE"]["TYPE"]) == "text") {
-						$newVal = trim($val["VALUE"]["TEXT"]);
-						$newVal = htmlspecialcharsex($newVal);
-						$newVal = preg_replace("/\r\n/", "\n", $newVal);
-						$newVal = preg_replace("/\r/", "\n", $newVal);
-						$newVal = preg_replace("/\n[\n]+/", "\n\n", $newVal);
-						$newVal = str_replace("\n\n", "</p><p>", $newVal);
-						$newVal = str_replace("\n", "<br/>", $newVal);
-						if (!empty($newVal)) $newVal = '<p>'.$newVal.'</p>';
-						$arProp[$key]["DISPLAY_VALUE"] = $newVal;
-					} elseif (strtolower($val["VALUE"]["TYPE"]) == "html") {
-						$arProp[$key]["DISPLAY_VALUE"] = trim($val["VALUE"]["TEXT"]);
-					}
+					$arProp[$key]["DISPLAY_VALUE"] = textOrHtmlValue($val["VALUE"]);
 				}
 				$arResult["DESCRIPTION_LEFT"] = $arProp["DESC_L"]["DISPLAY_VALUE"];
 				$arResult["DESCRIPTION_RIGHT"] = $arProp["DESC_R"]["DISPLAY_VALUE"];

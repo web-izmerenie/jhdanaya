@@ -50,3 +50,9 @@ if ($shopId) {
 		}
 	}
 }
+
+// additional description fields
+$arResult["DESCRIPTION_LEFT"] =
+	textOrHtmlValue($arResult['DISPLAY_PROPERTIES']['DESC_L']['VALUE']);
+$arResult["DESCRIPTION_RIGHT"] =
+	textOrHtmlValue($arResult['DISPLAY_PROPERTIES']['DESC_R']['VALUE']);

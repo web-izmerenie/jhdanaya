@@ -320,7 +320,7 @@ html.collection_page body {
 			}
 		} // ul.collection_list }}}2
 
-		.pagination {
+		.pagination { // {{{2
 			display: block;
 			.fontMetrics(0, 0);
 			text-align: center;
@@ -369,7 +369,7 @@ html.collection_page body {
 					}
 				}
 			}
-		}
+		} // .pagination }}}2
 
 		a.load_more {
 			.circleDownArrowButtonLight();
@@ -602,6 +602,42 @@ html.collection_page body {
 				.background-clip(content-box);
 			} // limited blocks }}}3
 		} // .about_brand }}}2
+
+		.description {
+			display: block;
+			.fontMetrics(0, 0);
+			min-width: @minWidth;
+			max-width: @maxWidth - ((@mainMargin2 - @mainMargin) * 2);
+			padding: 0 @mainMargin;
+			.box-sizing(border-box);
+			margin: 0 auto;
+
+			&:after { .pseudoBlock; clear: both; }
+
+			.column {
+				display: block;
+				font: @contentFont;
+				padding-top: 79px - 18px;
+			}
+
+			.column.right { display: none; }
+			&.double .column {
+				display: block;
+				vertical-align: top;
+				width: 50%;
+				.box-sizing(border-box);
+
+				&.left {
+					float: left;
+					padding-right: @mainMargin;
+				}
+
+				&.right {
+					float: right;
+					padding-left: @mainMargin;
+				}
+			}
+		}
 	} // main }}}1
 
 	nav.nav_block + main ul.collection_list.produce { margin-top: 0; }

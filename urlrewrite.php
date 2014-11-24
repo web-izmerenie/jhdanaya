@@ -1,12 +1,6 @@
 <?
 $arUrlRewrite = array(
 	array(
-		"CONDITION" => "#^/products/([^\\/]+)/(.+?).html(\\\\?|\\\$)#",
-		"RULE" => "SECTION_CODE=\$1&ELEMENT_ID=\$2",
-		"ID" => "",
-		"PATH" => "/products/detail.php",
-	),
-	array(
 		"CONDITION" => "#^/brand/((?!about).+|about.+)/(.*)/#",
 		"RULE" => "BRAND=\$1&SECTION=\$2",
 		"ID" => "bitrix:news",

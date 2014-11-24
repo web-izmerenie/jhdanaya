@@ -88,7 +88,7 @@ html body {
 		padding-top: 36px - 9px;
 		padding-bottom: 43px - 18px;
 
-		&>a, &>span {
+		& > a, & > span {
 			.linkNoLine;
 			display: inline-block;
 			padding-left: @pX;
@@ -114,14 +114,21 @@ html body {
 			border-bottom-color: @activeLinkColorUnderline;
 		}
 
-		&>span {
-			cursor: default;
-			@bgC: #dcd1cd;
-			background: @bgC;
-			border-bottom-color: @bgC;
+		@activeBgColor: #dcd1cd;
+
+		& > span, & > a.active {
+			background: @activeBgColor;
+			border-bottom-color: @activeBgColor;
 
 			&, &:hover { color: @contentColor; }
 		}
+
+		& > a.active > span,
+		& > a.active:hover > span {
+			border-bottom-color: @activeBgColor;
+		}
+
+		& > span { cursor: default; }
 	} // nav.nav_block }}}1
 
 	h1 + main { padding-top: 55px - 27px; }

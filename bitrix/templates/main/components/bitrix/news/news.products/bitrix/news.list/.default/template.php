@@ -29,13 +29,16 @@
 							<p><?=$ART?></p>
 						<?}?>
 						<?=$Item["PREVIEW_TEXT"]?>
-						<?if($Item["DISPLAY_PROPERTIES"]["SHOP"]["VALUE"]){?>
-							<?$shop = CIBlockElement::GetById($Item["DISPLAY_PROPERTIES"]["SHOP"]["VALUE"]);
-							$arShop = $shop->GetNextElement();
-							$shopFields = $arShop->GetFields();
-							$shopProps = $arShop->GetProperties();?>
-							<p><?=$shopFields["NAME"]?><br /><?=$shopProps["PHONE"]["VALUE"]?></p>
-						<?}?>
+						<?if($Item['SHOP']):?>
+							<p class="shop_info">
+								<?=$Item['SHOP']['NAME']?>
+								<?if($Item['SHOP']['PHONE']):?>
+									<br/>
+									<?=GetMessage('PHONE')?>
+									<?=$Item['SHOP']['PHONE']?>
+								<?endif?>
+							</p>
+						<?endif?>
 					</div>
 					<?if($Item["DETAIL_PICTURE"]){?>
 						<img class="picture" alt="<?=$Item["DETAIL_PICTURE"]["DESCRIPTION"]

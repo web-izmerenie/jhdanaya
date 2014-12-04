@@ -40,6 +40,8 @@ ready(function (window, document, undefined) {
 
 	var alert = window.alert;
 
+	$more.attr('href', "javascript:void('more');");
+
 	function brandDetailPageInit() {
 		var $block = $('.about_brand');
 		if ($block.size() <= 0) return;
@@ -95,9 +97,9 @@ ready(function (window, document, undefined) {
 		var $li = $(this);
 		var $infoH = $li.find('.info.hover');
 		var $infoD = $li.find('.info.detail');
-		var $a = $li.find('a.preview');
-		var $aJustLink = $li.find('a');
-		var $preview = $li.find('.preview');
+		var $a = $li.find('>a.preview');
+		var $aJustLink = $li.find('>a');
+		var $preview = $li.find('>.preview');
 		var $img = $preview.find('img');
 
 		var imgSrc = $img.attr('src');
@@ -166,13 +168,12 @@ ready(function (window, document, undefined) {
 		// loadBlur }}}2
 
 		if ( // {{{2
-			$ul.hasClass('brand') ||
-			($ul.hasClass('rings') && !$ul.hasClass('products'))
+			$ul.hasClass('brand') || $ul.hasClass('rings')
 		) {
 			$infoD
 				.css('opacity', 0)
-				.prepend('<a class="closer"></a>')
-				.prepend('<a class="zoom"></a>');
+				.prepend('<a class="closer" href="javascript:void(\'close\');"></a>')
+				.prepend('<a class="zoom" href="javascript:void(\'zoom\');"></a>');
 
 			closeHandler = function () { // {{{3
 				$infoD.animate({
@@ -206,7 +207,13 @@ ready(function (window, document, undefined) {
 				var $block = $('<div/>').addClass('collection_page_big_photo_block');
 				var $closer = $('<a/>').addClass('closer');
 				var $wrap = $('<div/>').addClass('wrap');
-				var $img = $('<img/>').attr('src', $a.attr('href'));
+				var $img = $('<img/>');
+
+				if ($ul.hasClass('products')) {
+					$img.attr('src', $infoD.find('img.picture').attr('src'));
+				} else {
+					$img.attr('src', $a.attr('href'));
+				}
 
 				$wrap.append($img);
 				$block.append($closer).append($wrap);
@@ -259,7 +266,7 @@ ready(function (window, document, undefined) {
 			$infoD.addClass('collection_info_detail');
 			$infoD.appendTo('body');
 
-			$a.click(function () { // {{{3
+			$aJustLink.click(function () { // {{{3
 				if ($ul.hasClass('popup')) {
 					if ($html.hasClass('collection_page_big_photo')) return false;
 
@@ -301,7 +308,7 @@ ready(function (window, document, undefined) {
 			} else {
 				// open detail info block
 				$infoH.click(function () {
-					$a.trigger('click');
+					$aJustLink.trigger('click');
 					return false;
 				});
 			}
@@ -321,8 +328,7 @@ ready(function (window, document, undefined) {
 	$liArr.each(liInitHandler);
 
 	if ( // {{{1
-		$list.hasClass('brand') ||
-		($list.hasClass('rings') && !$list.hasClass('products'))
+		$list.hasClass('brand') || $list.hasClass('rings')
 	) {
 		$d.on('click' + bindSuffix, function (event) {
 			if ($html.hasClass('collection_page_big_photo')) return true;

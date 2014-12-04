@@ -12,15 +12,35 @@
 		<?foreach($arResult["ITEMS"] as $Item):?>
 			<li id="bx_id_<?=$Item["ID"]?>">
 				<?
-				$linkTitle =
+				$ART =
 					GetMessage("ART.").'&nbsp;'
 					.$Item["DISPLAY_PROPERTIES"]["ARTICLE"]["VALUE"];
+				$linkTitle = $arResult['SECTION_NAME'].'. '.$ART;
 				?>
-				<a href="<?=$Item["DETAIL_PAGE_URL"]?>" title="<?=$linkTitle
-					?>"><?=$arSection["NAME"].'. '.$linkTitle?></a>
+				<a href="<?=$Item["DETAIL_PAGE_URL"]?>" title="<?=$ART
+					?>" class="detail_page"><?=$linkTitle?></a>
 				<div class="preview">
 					<img alt="<?=$Item["PREVIEW_PICTURE"]["DESCRIPTION"]
 						?>" src="<?=$Item["PREVIEW_PICTURE"]["SRC"]?>" />
+				</div>
+				<div class="info detail">
+					<div class="text">
+						<?if($Item["DISPLAY_PROPERTIES"]["ARTICLE"]["VALUE"]){?>
+							<p><?=$ART?></p>
+						<?}?>
+						<?=$Item["PREVIEW_TEXT"]?>
+						<?if($Item["DISPLAY_PROPERTIES"]["SHOP"]["VALUE"]){?>
+							<?$shop = CIBlockElement::GetById($Item["DISPLAY_PROPERTIES"]["SHOP"]["VALUE"]);
+							$arShop = $shop->GetNextElement();
+							$shopFields = $arShop->GetFields();
+							$shopProps = $arShop->GetProperties();?>
+							<p><?=$shopFields["NAME"]?><br /><?=$shopProps["PHONE"]["VALUE"]?></p>
+						<?}?>
+					</div>
+					<?if($Item["DETAIL_PICTURE"]){?>
+						<img class="picture" alt="<?=$Item["DETAIL_PICTURE"]["DESCRIPTION"]
+							?>" src="<?=$Item["DETAIL_PICTURE"]["SRC"]?>" />
+					<?}?>
 				</div>
 			</li>
 		<?endforeach?>

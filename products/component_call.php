@@ -64,6 +64,7 @@
 			2 => "SHOP",
 			3 => "DESC_L",
 			4 => "DESC_R",
+			5 => "ARTICLE",
 		),
 		"DETAIL_DISPLAY_TOP_PAGER" => "N",
 		"DETAIL_DISPLAY_BOTTOM_PAGER" => "N",

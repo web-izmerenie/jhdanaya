@@ -32,6 +32,7 @@ if (
 			));
 		if ($arRes = $res->GetNextElement()) {
 			$arResF = $arRes->GetFields();
+			$arResult['SECTION_NAME'] = $arResF['NAME'];
 			if ($arResF["ID"] == $seoElId) {
 				$arProp = $arRes->GetProperties();
 				foreach ($arProp as $key=>$val) {

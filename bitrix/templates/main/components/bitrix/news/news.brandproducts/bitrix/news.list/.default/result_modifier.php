@@ -2,6 +2,7 @@
 
 for ($i=0; $i<count($arResult["ITEMS"]); $i++) {
 	$arItem = &$arResult["ITEMS"][$i];
+
 	// shop
 	$shopId = $arItem['DISPLAY_PROPERTIES']['SHOP']['VALUE'];
 	$arItem['SHOP'] = null;
@@ -24,5 +25,10 @@ for ($i=0; $i<count($arResult["ITEMS"]); $i++) {
 				);
 			}
 		}
+	}
+
+	// fix preview text
+	if (!preg_match('/<p>/', $arItem['PREVIEW_TEXT'])) {
+		$arItem['PREVIEW_TEXT'] = '<p>'.$arItem['PREVIEW_TEXT'].'</p>';
 	}
 }

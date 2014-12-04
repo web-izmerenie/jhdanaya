@@ -147,14 +147,14 @@ ready(function (window, document, undefined) {
 		// loadBlur {{{2
 		if ($ul.hasClass('brand') || $ul.hasClass('rings')) {
 			loadBlur = function () {
-				var loadImg = require('load_img');
+				var LoadImg = require('../basics/load_img');
 				var blurImg = require('../basics/blur_img');
 				blurImg({
 					src: imgSrc,
 					radius: 10,
 				}, function (err, dataURL) {
 					if (err) {
-						if (err instanceof loadImg.exceptions.Timeout)
+						if (err instanceof LoadImg.exceptions.Timeout)
 							setTimeout(loadBlur, 0); // try again
 						else
 							window.console.error(err);

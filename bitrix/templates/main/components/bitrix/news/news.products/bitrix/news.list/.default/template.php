@@ -49,6 +49,7 @@
 	<?
 	global $arrFilter;
 	$sFilter = array(
+		"ACTIVE" => "Y",
 		"IBLOCK_ID" => $arResult["ID"]
 	);
 	if($arrFilter["PROPERTY_FOR"]){

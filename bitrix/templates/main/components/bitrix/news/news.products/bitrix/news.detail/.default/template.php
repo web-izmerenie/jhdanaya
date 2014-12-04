@@ -1,7 +1,7 @@
 <?if(!defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED!==true)die();?>
 
 <div class="collection_detail">
-	<a href="<?=$arResult['SECTION']['PATH'][0]['SECTION_PAGE_URL']
+	<a href="<?=$arResult['BACK_TO_LIST_LINK']
 		?>" class="back_to_list"><?=GetMessage('BACK_TO_LIST')?></a>
 
 	<div class="detail_content">

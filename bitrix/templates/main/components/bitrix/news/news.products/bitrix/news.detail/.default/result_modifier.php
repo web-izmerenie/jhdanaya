@@ -56,3 +56,9 @@ $arResult["DESCRIPTION_LEFT"] =
 	textOrHtmlValue($arResult['DISPLAY_PROPERTIES']['DESC_L']['VALUE']);
 $arResult["DESCRIPTION_RIGHT"] =
 	textOrHtmlValue($arResult['DISPLAY_PROPERTIES']['DESC_R']['VALUE']);
+
+// back to list link
+$arResult['BACK_TO_LIST_LINK'] = $arResult['SECTION']['PATH'][0]['SECTION_PAGE_URL'];
+if (strrpos($_SERVER['HTTP_REFERER'], $_SERVER['SERVER_NAME']) !== false) {
+	$arResult['BACK_TO_LIST_LINK'] = $_SERVER['HTTP_REFERER'];
+}

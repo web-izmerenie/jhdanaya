@@ -97,10 +97,19 @@ ready(function (window, document, undefined) {
 		var $li = $(this);
 		var $infoH = $li.find('.info.hover');
 		var $infoD = $li.find('.info.detail');
+		var $dText = $infoD.find('.text');
 		var $a = $li.find('>a.preview');
 		var $aJustLink = $li.find('>a');
 		var $preview = $li.find('>.preview');
 		var $img = $preview.find('img');
+
+		if ($ul.hasClass('products') && $aJustLink.attr('href')) {
+			var $p = $('<p/>', { class: 'go-detail' });
+			var $goDetailA = $('<a/>', { href: $aJustLink.attr('href') });
+			$goDetailA.html( basics.getLocalText('DETAIL') );
+			$p.append($goDetailA);
+			$dText.append($p);
+		}
 
 		var imgSrc = $img.attr('src');
 

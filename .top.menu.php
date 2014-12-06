@@ -1,7 +1,7 @@
 <?
 $aMenuLinks = Array(
 	Array(
-		"Бренды", 
+		"Коллекции брендов", 
 		"/", 
 		Array(), 
 		Array(), 

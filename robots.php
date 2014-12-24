@@ -1,6 +1,5 @@
 <?header('Content-Type: text/plain; charset=utf-8')?>
-<?require $_SERVER['DOCUMENT_ROOT'].'/allowed_domains.php';?>
-<?if(!in_array($_SERVER['HTTP_HOST'], $ALLOWED_DOMAINS)):?>
+<?if(preg_match('/dev-(.+)\.(.+)\.(.+)/i', $_SERVER['HTTP_HOST'])):?>
 User-Agent: *
 Disallow: /
 <?else:?>

@@ -7,6 +7,10 @@
 	if($USER->IsAdmin()) $debug = true;
 	if($debug) $revision = 'dev' . mktime();
 
+	$APPLICATION->AddBufferContent(function () {
+		if (defined('ERROR_404')) CHTTP::SetStatus("404 Not Found");
+	});
+
 	$html_classes = array();
 	$main_classes = array();
 

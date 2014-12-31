@@ -59,9 +59,19 @@
 	?>" data-debug="<?=($debug) ? 'true' : 'false'
 	?>" class="<?=$html_classes?>">
 <head>
-	<meta charset="utf-8" />
+	<meta charset="<?=LANG_CHARSET?>" />
 	<meta name="viewport" content="width=980" />
-	<title><?$APPLICATION->ShowTitle()?></title>
+	<title><?
+		$APPLICATION->AddBufferContent(function ($APPLICATION) {
+			$title = $APPLICATION->GetPageProperty('title');
+			if (empty($title))
+				return $APPLICATION->GetTitle();
+			else
+				return $title;
+		}, &$APPLICATION);
+	?></title>
+	<?$APPLICATION->ShowMeta("description")?>
+	<?$APPLICATION->ShowMeta("keywords")?>
 
 	<!--[if lt IE 10]>
 		<meta http-equiv="refresh" content="0; url=/ie_old/<?=LANGUAGE_ID?>.html" />
@@ -221,7 +231,7 @@
 				</a>
 			</div>
 		<?}else{?>
-			<h1><?$APPLICATION->ShowTitle()?></h1>
+			<h1><?$APPLICATION->AddBufferContent(array(&$APPLICATION, 'GetTitle'))?></h1>
 		<?}?>
 		<?$APPLICATION->IncludeComponent("bitrix:menu", "menu.sub", Array(
 			"ROOT_MENU_TYPE" => "left",	// Тип меню для первого уровня

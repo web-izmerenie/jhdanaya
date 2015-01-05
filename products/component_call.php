@@ -82,6 +82,7 @@
 		"SEF_FOLDER" => $SEF_FOLDER,
 		"AJAX_OPTION_ADDITIONAL" => "",
 		"FILTER_NAME" => "arrFilter",
+		"ADDITIONAL_FILTER" => $arrFilter,
 		"FILTER_FIELD_CODE" => array(
 			0 => "",
 			1 => "",

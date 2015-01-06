@@ -1,5 +1,7 @@
 <?if(!defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED!==true)die();
 
+if (!CModule::IncludeModule('highloadblock')) return;
+
 use Bitrix\Highloadblock as HL;
 use Bitrix\Main\Entity;
 

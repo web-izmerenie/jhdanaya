@@ -14,7 +14,7 @@ foreach ($requiredModules as $requiredModule) {
 
 // init requirements }}}1
 
-require dirname(__FILE__).'/get_for_list.php';
+require $_SERVER['DOCUMENT_ROOT'].'/inc/get_for_list.php';
 
 if ($this->StartResultCache(false)) {
 

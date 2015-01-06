@@ -50,22 +50,11 @@ if ($this->StartResultCache(false)) {
 		return;
 	}
 
-	$arResult['FOR_LIST'] = $forList;
+	$arResult['FOR_LIST'] = $addLinksToForList(
+		$forList, $arResult['IBLOCK']['LIST_PAGE_URL']);
 
-	// add links to items
-	$newForList = array();
-	foreach ($arResult['FOR_LIST'] as $arItem) {
-		$arItem['LINK'] = $arResult['IBLOCK']['LIST_PAGE_URL'].$arItem['CODE'].'/';
-		$newForList[] = $arItem;
-	}
-	$arResult['FOR_LIST'] = $newForList;
-
-	// only items that contains active elements in active sections
-	$arResult['FOR_LIST_ACTIVE'] = array();
-	foreach ($arResult['FOR_LIST'] as $arItem) {
-		if ($arItem['COUNT'] <= 0) continue;
-		$arResult['FOR_LIST_ACTIVE'][] = $arItem;
-	}
+	$arResult['FOR_LIST_ACTIVE'] =
+		$filterNonEmptyForListSections($arResult['FOR_LIST']);
 
 	// if we on page that filtered by "FOR" property
 	$arResult['FOR_PAGE'] = false;

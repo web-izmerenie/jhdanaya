@@ -71,3 +71,22 @@ $getForList = function ($iblock_type, $iblock_id) {
 
 	return $rows;
 };
+
+$addLinksToForList = function ($forList, $linkPrefix) {
+	$newForList = array();
+	foreach ($forList as $arItem) {
+		$arItem['LINK'] = $linkPrefix.$arItem['CODE'].'/';
+		$newForList[] = $arItem;
+	}
+	return $newForList;
+};
+
+// only items that contains active elements in active sections
+$filterNonEmptyForListSections = function ($forList) {
+	$forListActive = array();
+	foreach ($forList as $arItem) {
+		if ($arItem['COUNT'] <= 0) continue;
+		$forListActive[] = $arItem;
+	}
+	return $forListActive;
+};

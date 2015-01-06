@@ -30,20 +30,8 @@ $arIBlock = GetIBlock($iblock_id, $iblock_type);
 $forList = $getForList($iblock_type, $iblock_id);
 if (!is_array($forList)) return;
 
-// add links to items
-$newForList = array();
-foreach ($forList as $arItem) {
-	$arItem['LINK'] = $arIBlock['LIST_PAGE_URL'].$arItem['CODE'].'/';
-	$newForList[] = $arItem;
-}
-$forList = $newForList;
-
-// only items that contains active elements in active sections
-$forListActive = array();
-foreach ($forList as $arItem) {
-	if ($arItem['COUNT'] <= 0) continue;
-	$forListActive[] = $arItem;
-}
+$forList = $addLinksToForList($forList, $arIBlock['LIST_PAGE_URL']);
+$forListActive = $filterNonEmptyForListSections($forList);
 
 $curFor = false;
 $curPage = $APPLICATION->GetCurPage();

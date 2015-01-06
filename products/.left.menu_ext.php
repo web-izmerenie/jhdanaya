@@ -38,8 +38,8 @@ if ($fixedPagePrefix === null) {
 
 if (strlen($fixedPagePrefix) < strlen($curPage)) {
 	$sectionsList = $getProductsSections(
-		$iblock_type, $iblock_id,
-		array('SORT'=>'ASC'), $curFor, $arIBlock['LIST_PAGE_URL']);
+		$iblock_type, $iblock_id, array('SORT'=>'ASC'), $curFor,
+		$arIBlock['LIST_PAGE_URL'], array('PROPERTY_BRAND' => false));
 
 	foreach ($sectionsList as $arSection) {
 		$aMenuLinks[] = array(

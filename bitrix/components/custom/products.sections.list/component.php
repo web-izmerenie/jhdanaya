@@ -46,6 +46,8 @@ if ($this->StartResultCache(false)) {
 	if ($forList === false) return;
 
 	$arResult['FOR_LIST'] = $forList;
+
+	// add links to items
 	$newForList = array();
 	foreach ($arResult['FOR_LIST'] as $arItem) {
 		$arItem['LINK'] = $arResult['IBLOCK']['LIST_PAGE_URL'].$arItem['CODE'].'/';
@@ -53,12 +55,14 @@ if ($this->StartResultCache(false)) {
 	}
 	$arResult['FOR_LIST'] = $newForList;
 
+	// only items that contains active elements in active sections
 	$arResult['FOR_LIST_ACTIVE'] = array();
 	foreach ($arResult['FOR_LIST'] as $arItem) {
 		if ($arItem['COUNT'] <= 0) continue;
 		$arResult['FOR_LIST_ACTIVE'][] = $arItem;
 	}
 
+	// if we on page that filtered by "FOR" property
 	$arResult['FOR_PAGE'] = false;
 	if (
 		is_array($arParams['ADDITIONAL_FILTER']) &&
@@ -67,6 +71,7 @@ if ($this->StartResultCache(false)) {
 		$arResult['FOR_PAGE'] = $arParams['ADDITIONAL_FILTER']['PROPERTY_FOR'];
 		$arResult['FOR_PAGE_LIST_ITEM'] = null;
 
+		// find current page "FOR" element
 		foreach ($arResult['FOR_LIST'] as $arItem) {
 			if ($arItem['CODE'] != $arResult['FOR_PAGE']) continue;
 			$arResult['FOR_PAGE_LIST_ITEM'] = $arItem;
@@ -75,15 +80,18 @@ if ($this->StartResultCache(false)) {
 
 	// get list values by "FOR" property }}}1
 
+	// get active sections list
+	// will be filtered more latear by active elements
 	$res = CIBlockSection::GetList(
 		$arSort,
 		$arFilter,
 		false,
-		array("UF_*")
+		array('UF_*')
 	);
 
-	$arResult["ITEMS"] = array();
+	$arResult['ITEMS'] = array();
 
+	// prepare elements filter template
 	$elFilterTmpl = $arFilter;
 	if (is_array($arParams['ADDITIONAL_FILTER'])) {
 		$elFilterTmpl = array_merge($elFilterTmpl, $arParams['ADDITIONAL_FILTER']);
@@ -93,11 +101,13 @@ if ($this->StartResultCache(false)) {
 
 		$arSection['PICTURE'] = CFile::GetFileArray($arSection['PICTURE']);
 
+		// remove section from list if it hasn't any active elements
 		$elFilter = array_merge(
 			array('SECTION_ID' => $arSection['ID']), $elFilterTmpl);
 		$elRes = CIBlockElement::GetList(array(), $elFilter);
 		if ($elRes->SelectedRowsCount() <= 0) continue;
 
+		// if we on page filtered by "FOR" then fix links for this page
 		if ($arResult['FOR_PAGE_LIST_ITEM']) {
 			$arSection['SECTION_PAGE_URL'] = str_replace(
 				$arResult['IBLOCK']['LIST_PAGE_URL'],
@@ -105,7 +115,7 @@ if ($this->StartResultCache(false)) {
 				$arSection['SECTION_PAGE_URL']);
 		}
 
-		$arResult["ITEMS"][] = $arSection;
+		$arResult['ITEMS'][] = $arSection;
 	}
 
 	$this->SetResultCacheKeys();

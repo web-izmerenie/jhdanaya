@@ -4,6 +4,7 @@ use Bitrix\Highloadblock as HL;
 use Bitrix\Main\Entity;
 
 $getForList = function ($this, $arParams) {
+	// find "FOR" property
 	$res = CIBlockProperty::GetByID('FOR', $arParams["IBLOCK_ID"]);
 	$arProp = $res->GetNext();
 	if (!$arProp) {
@@ -12,6 +13,8 @@ $getForList = function ($this, $arParams) {
 		$this->AbortResultCache();
 		return false;
 	}
+
+	// get table name
 	$arPropSettings = CIBlockPropertyDirectory::PrepareSettings($arProp);
 
 	$hlblock = HL\HighloadBlockTable::getList(
@@ -41,6 +44,7 @@ $getForList = function ($this, $arParams) {
 			'COUNT' => 0,
 		);
 
+		// for counting active elements
 		$elRes = CIBlockElement::GetList(
 			array(),
 			array(
@@ -54,7 +58,10 @@ $getForList = function ($this, $arParams) {
 			);
 
 		while ($arEl = $elRes->GetNext()) {
+			// elements must be in a section
 			if (!$arEl['IBLOCK_SECTION_ID']) continue;
+
+			// only active elements that in active sections
 			$sRes = CIBlockSection::GetByID($arEl['IBLOCK_SECTION_ID']);
 			$arSection = $sRes->GetNext();
 			if ($arSection['ACTIVE'] != 'Y') continue;

@@ -3,16 +3,11 @@
 use Bitrix\Highloadblock as HL;
 use Bitrix\Main\Entity;
 
-$getForList = function ($this, $arParams) {
+$getForList = function ($iblock_type, $iblock_id) {
 	// find "FOR" property
-	$res = CIBlockProperty::GetByID('FOR', $arParams["IBLOCK_ID"]);
+	$res = CIBlockProperty::GetByID('FOR', $iblock_id);
 	$arProp = $res->GetNext();
-	if (!$arProp) {
-		ShowError(GetMessage('PROP_FOR_NOT_FOUND'));
-		CHTTP::SetStatus('500 Internal Server Error');
-		$this->AbortResultCache();
-		return false;
-	}
+	if (!$arProp) return 'PROP_FOR_NOT_FOUND';
 
 	// get table name
 	$arPropSettings = CIBlockPropertyDirectory::PrepareSettings($arProp);
@@ -49,8 +44,8 @@ $getForList = function ($this, $arParams) {
 			array(),
 			array(
 				"ACTIVE" => "Y",
-				"IBLOCK_TYPE" => $arParams["IBLOCK_TYPE"],
-				"IBLOCK_ID" => $arParams["IBLOCK_ID"],
+				"IBLOCK_TYPE" => $iblock_type,
+				"IBLOCK_ID" => $iblock_id,
 				"PROPERTY_FOR" => $newRow['CODE'],
 			),
 			false,

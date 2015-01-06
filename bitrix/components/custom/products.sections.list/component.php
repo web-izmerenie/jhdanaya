@@ -42,8 +42,13 @@ if ($this->StartResultCache(false)) {
 
 	// get list values by "FOR" property {{{1
 
-	$forList = $getForList(&$this, &$arParams);
-	if ($forList === false) return;
+	$forList = $getForList($arParams['IBLOCK_TYPE'], $arParams['IBLOCK_ID']);
+	if (!is_array($forList)) {
+		ShowError(GetMessage($forList));
+		CHTTP::SetStatus('500 Internal Server Error');
+		$this->AbortResultCache();
+		return;
+	}
 
 	$arResult['FOR_LIST'] = $forList;
 

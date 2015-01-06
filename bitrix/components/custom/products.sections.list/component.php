@@ -18,7 +18,7 @@ use Bitrix\Main\Entity;
 // init requirements }}}1
 
 // $getForList function {{{1
-$getForList = function ($this, $arParams) use ($getForPropValList) {
+$getForList = function ($this, $arParams) {
 	$res = CIBlockProperty::GetByID('FOR', $arParams["IBLOCK_ID"]);
 	$arProp = $res->GetNext();
 	if (!$arProp) {

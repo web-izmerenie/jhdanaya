@@ -13,7 +13,7 @@
 *.sql
 
 node_modules
-gulp
+front-end-gulp
 
 bitrix/templates/main/styles/build
 bitrix/templates/main/scripts/build

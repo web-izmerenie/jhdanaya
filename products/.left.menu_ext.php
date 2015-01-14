@@ -1,7 +1,7 @@
 <?if(!defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED!==true)die();
 
-$iblock_type = 'lists';
-$iblock_id = '4';
+$iblockType = 'lists';
+$iblockID = 4;
 
 if (!CModule::IncludeModule('iblock')) return;
 
@@ -12,17 +12,16 @@ $aMenuLinks = array();
 require $_SERVER['DOCUMENT_ROOT'].'/inc/get_for_list.php';
 require $_SERVER['DOCUMENT_ROOT'].'/inc/get_products_sections.php';
 
-// get iblock
-$arIBlock = GetIBlock($iblock_id, $iblock_type);
+$arIBlock = GetIBlock($iblockID, $iblockType);
 
-$forList = $getForList($iblock_type, $iblock_id);
+$forList = $getForList($iblockType, $iblockID);
 if (!is_array($forList)) return;
 
 $forList = $addLinksToForList($forList, $arIBlock['LIST_PAGE_URL']);
 $forListActive = $filterNonEmptyForListSections($forList);
 
 $curFor = false;
-$curPage = $APPLICATION->GetCurPage();
+$curPage = $_SERVER['REQUEST_URI'];
 $fixedPagePrefix = null;
 
 foreach ($forList as $arItem) {
@@ -38,7 +37,7 @@ if ($fixedPagePrefix === null) {
 
 if (strlen($fixedPagePrefix) < strlen($curPage)) {
 	$sectionsList = $getProductsSections(
-		$iblock_type, $iblock_id, array('SORT'=>'ASC'), $curFor,
+		$iblockType, $iblockID, array('SORT'=>'ASC'), $curFor,
 		$arIBlock['LIST_PAGE_URL'], array('PROPERTY_BRAND' => false));
 
 	foreach ($sectionsList as $arSection) {
@@ -53,7 +52,7 @@ if (strlen($fixedPagePrefix) < strlen($curPage)) {
 
 	$aMenuLinks[] = array(
 		GetMessage('ALL'),
-		$fixedPagePrefix . '?show=all',
+		$fixedPagePrefix . 'all/',
 		array(),
 		array(),
 		''

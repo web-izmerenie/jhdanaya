@@ -38,19 +38,24 @@ if ($this->StartResultCache(false)) {
 	$arResult['FOR_LIST_ACTIVE'] =
 		$filterNonEmptyForListSections($arResult['FOR_LIST']);
 
+	$additionalFilter = array();
+
 	// if we on page that filtered by "FOR" property
 	$arResult['FOR_PAGE'] = false;
-	if (
-		is_array($arParams['ADDITIONAL_FILTER']) &&
-		!empty($arParams['ADDITIONAL_FILTER']['PROPERTY_FOR'])
-	) {
-		$arResult['FOR_PAGE'] = $arParams['ADDITIONAL_FILTER']['PROPERTY_FOR'];
+	if (!empty($arParams['FOR'])) {
+		$arResult['FOR_PAGE'] = $arParams['FOR'];
 		$arResult['FOR_PAGE_LIST_ITEM'] = null;
 
 		// find current page "FOR" element
 		foreach ($arResult['FOR_LIST'] as $arItem) {
 			if ($arItem['CODE'] != $arResult['FOR_PAGE']) continue;
 			$arResult['FOR_PAGE_LIST_ITEM'] = $arItem;
+			$additionalFilter['FOR'] = $arParams['FOR'];
+		}
+
+		// if "FOR" not found
+		if ($arResult['FOR_PAGE_LIST_ITEM'] === null) {
+			$arResult['FOR_PAGE'] = false;
 		}
 	}
 
@@ -66,7 +71,7 @@ if ($this->StartResultCache(false)) {
 	$sectionsList = $getProductsSections(
 		$arParams["IBLOCK_TYPE"], $arParams["IBLOCK_ID"], $arSort,
 		$arResult['FOR_PAGE_LIST_ITEM'], $arResult['IBLOCK']['LIST_PAGE_URL'],
-		$arParams['ADDITIONAL_FILTER']);
+		$additionalFilter);
 
 	foreach ($sectionsList as $arSection) {
 		$arSection['PICTURE'] = CFile::GetFileArray($arSection['PICTURE']);

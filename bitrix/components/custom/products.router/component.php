@@ -49,6 +49,7 @@ if (count($split) > 1) {
 		if ($forItem['CODE'] == $split[0]) {
 			$arResult['FOR'] = $forItem['CODE'];
 			array_shift($split);
+			$APPLICATION->SetTitle($forItem['NAME']);
 			break;
 		}
 	}

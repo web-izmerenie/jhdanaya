@@ -15,26 +15,95 @@ $noCacheCallback = function ($APPLICATION, $arResult) {
 		$APPLICATION->SetTitle($meta['ELEMENT_PAGE_TITLE']);
 };
 
+require $_SERVER['DOCUMENT_ROOT'].'/inc/get_for_list.php';
+
 if ($this->StartResultCache(false)) {
+
+	$additionalFilter = array();
+	if (!empty($arParams['BRAND'])) {
+		$additionalFilter['PROPERTY_BRAND'] = (
+			$arParams['BRAND'] !== '-' ? $arParams['BRAND'] : false);
+	}
+
+	// get list values by "FOR" property {{{1
+
+	$forList = $getForList(
+		$arParams['IBLOCK_TYPE'],
+		$arParams['IBLOCK_ID'],
+		$additionalFilter);
+	if (!is_array($forList)) {
+		ShowError(GetMessage($forList));
+		CHTTP::SetStatus('500 Internal Server Error');
+		$this->AbortResultCache();
+		return;
+	}
+
+	$arResult['FOR_LIST'] = $addLinksToForList(
+		$forList, $arResult['IBLOCK']['LIST_PAGE_URL']);
+
+	$arResult['FOR_LIST_ACTIVE'] =
+		$filterNonEmptyForListSections($arResult['FOR_LIST']);
+
+	// if we on page that filtered by "FOR" property
+	$arResult['FOR_PAGE'] = false;
+	if (!empty($arParams['FOR'])) {
+		// find current page "FOR" element
+		foreach ($arResult['FOR_LIST'] as $arItem) {
+			if ($arItem['CODE'] != $arParams['FOR']) continue;
+			$arResult['FOR_PAGE'] = $arItem;
+		}
+	}
+
+	if (is_array($arResult['FOR_PAGE'])) {
+		$additionalFilter['PROPERTY_FOR'] = $arResult['FOR_PAGE']['CODE'];
+	}
+
+	// get list values by "FOR" property }}}1
+
+	$resSection = CIBlockSection::GetList(
+		array(),
+		array_merge(
+			array(
+				"ACTIVE" => "Y",
+				"IBLOCK_TYPE" => $arParams['IBLOCK_TYPE'],
+				"IBLOCK_ID" => $arParams['IBLOCK_ID'],
+				"CODE" => $arParams['SECTION_CODE'],
+			),
+			$additionalFilter
+		));
+	if ($resSection->SelectedRowsCount() !== 1) {
+		define('ERROR_404', 'Y');
+		CHTTP::SetStatus("404 Not Found");
+		ShowError(GetMessage('PAGE_NOT_FOUND'));
+		return;
+	}
+	$arSection = $resSection->GetNext();
 
 	$res = CIBlockElement::GetList(
 		array(),
-		array(
-			"ACTIVE" => "Y",
-			"IBLOCK_TYPE" => $arParams["IBLOCK_TYPE"],
-			"IBLOCK_ID" => $arParams["IBLOCK_ID"],
-			"CODE" => $arParams["ELEMENT_CODE"],
+		array_merge(
+			array(
+				"ACTIVE" => "Y",
+				"IBLOCK_TYPE" => $arParams["IBLOCK_TYPE"],
+				"IBLOCK_ID" => $arParams["IBLOCK_ID"],
+				"CODE" => $arParams["ELEMENT_CODE"],
+			),
+			$additionalFilter
 		),
 		false,
 		array("nPageSize" => 1),
 		array(
 			"IBLOCK_TYPE", "IBLOCK_ID", "ID", "CODE", "NAME",
-			"PREVIEW_TEXT", "DETAIL_PICTURE",
+			"PREVIEW_TEXT", "DETAIL_PICTURE", "IBLOCK_SECTION_ID"
 		)
 	);
 	$arElement = $res->GetNextElement();
 	$arResult = $arElement->GetFields();
-	if (!$arElement || $arResult['CODE'] != $arParams['ELEMENT_CODE']) {
+	if (
+		!$arElement ||
+		$arResult['CODE'] !== $arParams['ELEMENT_CODE'] ||
+		$arResult['IBLOCK_SECTION_ID'] !== $arSection['ID']
+	) {
 		ShowError(GetMessage("ELEMENT_NOT_FOUND"));
 		@define("ERROR_404", "Y");
 		CHTTP::SetStatus("404 Not Found");

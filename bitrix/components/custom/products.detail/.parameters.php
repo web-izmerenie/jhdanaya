@@ -46,6 +46,21 @@ $arComponentParameters = array(
 			"NAME" => GetMessage("F_ELEMENT_CODE"),
 			"TYPE" => "TEXT",
 		),
+		"SECTION_CODE" => array(
+			"PARENT" => "IBLOCK",
+			"NAME" => GetMessage("F_SECTION_CODE"),
+			"TYPE" => "TEXT",
+		),
+		"FOR" => array(
+			"PARENT" => "IBLOCK",
+			"NAME" => GetMessage("F_FOR"),
+			"TYPE" => "TEXT",
+		),
+		"BRAND" => array(
+			"PARENT" => "IBLOCK",
+			"NAME" => GetMessage("F_BRAND"),
+			"TYPE" => "TEXT",
+		),
 
 		/** cache */
 

@@ -5,7 +5,7 @@ if (!CModule::IncludeModule('highloadblock')) return;
 use Bitrix\Highloadblock as HL;
 use Bitrix\Main\Entity;
 
-$getForList = function ($iblock_type, $iblock_id) {
+$getForList = function ($iblock_type, $iblock_id, $additionalFilter=array()) {
 	// find "FOR" property
 	$res = CIBlockProperty::GetByID('FOR', $iblock_id);
 	$arProp = $res->GetNext();
@@ -44,11 +44,14 @@ $getForList = function ($iblock_type, $iblock_id) {
 		// for counting active elements
 		$elRes = CIBlockElement::GetList(
 			array(),
-			array(
-				"ACTIVE" => "Y",
-				"IBLOCK_TYPE" => $iblock_type,
-				"IBLOCK_ID" => $iblock_id,
-				"PROPERTY_FOR" => $newRow['CODE'],
+			array_merge(
+				array(
+					"ACTIVE" => "Y",
+					"IBLOCK_TYPE" => $iblock_type,
+					"IBLOCK_ID" => $iblock_id,
+					"PROPERTY_FOR" => $newRow['CODE'],
+				),
+				$additionalFilter
 			),
 			false,
 			array('nPageSize' => 5000)

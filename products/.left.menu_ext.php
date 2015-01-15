@@ -14,7 +14,9 @@ require $_SERVER['DOCUMENT_ROOT'].'/inc/get_products_sections.php';
 
 $arIBlock = GetIBlock($iblockID, $iblockType);
 
-$forList = $getForList($iblockType, $iblockID);
+$additionalFilter = array('PROPERTY_BRAND' => false);
+
+$forList = $getForList($iblockType, $iblockID, $additionalFilter);
 if (!is_array($forList)) return;
 
 $forList = $addLinksToForList($forList, $arIBlock['LIST_PAGE_URL']);
@@ -22,6 +24,8 @@ $forListActive = $filterNonEmptyForListSections($forList);
 
 $curFor = false;
 $curPage = $_SERVER['REQUEST_URI'];
+$curPage = explode('?', $curPage);
+$curPage = $curPage[0];
 $fixedPagePrefix = null;
 
 foreach ($forList as $arItem) {
@@ -37,8 +41,9 @@ if ($fixedPagePrefix === null) {
 
 if (strlen($fixedPagePrefix) < strlen($curPage)) {
 	$sectionsList = $getProductsSections(
-		$iblockType, $iblockID, array('SORT'=>'ASC'), $curFor,
-		$arIBlock['LIST_PAGE_URL'], array('PROPERTY_BRAND' => false));
+		$iblockType, $iblockID,
+		array('SORT'=>'ASC'), $curFor,
+		$arIBlock['LIST_PAGE_URL'], $additionalFilter);
 
 	foreach ($sectionsList as $arSection) {
 		$aMenuLinks[] = array(

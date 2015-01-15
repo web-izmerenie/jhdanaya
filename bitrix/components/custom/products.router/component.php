@@ -39,7 +39,12 @@ $arResult['ROUTE_PATHNAME'] = $routePathname;
 
 $arResult['FOR'] = null;
 
-$forList = $getForList($arParams['IBLOCK_TYPE'], $arParams['IBLOCK_ID']);
+$additionalFilter = array('PROPERTY_BRAND' => false);
+
+$forList = $getForList(
+	$arParams['IBLOCK_TYPE'],
+	$arParams['IBLOCK_ID'],
+	$additionalFilter);
 $arResult['FOR_LIST'] = $forList;
 
 $split = explode('/', $routePathname);

@@ -56,6 +56,11 @@ $arComponentParameters = array(
 			"REFRESH" => "Y",
 		),
 
+		"BRAND" => array(
+			"PARENT" => "IBLOCK",
+			"NAME" => GetMessage("F_BRAND"),
+			"TYPE" => "TEXT",
+		),
 		"FOR" => array(
 			"PARENT" => "IBLOCK",
 			"NAME" => GetMessage("F_FOR"),

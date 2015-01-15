@@ -8,6 +8,7 @@ $APPLICATION->SetTitle("Изделия");
 	Array(
 		"IBLOCK_TYPE" => "lists",
 		"IBLOCK_ID" => "4",
+		"BRAND" => "-",
 		"SORT_SECTIONS_BY1" => "SORT",
 		"SORT_SECTIONS_ORDER1" => "ASC",
 		"SORT_SECTIONS_BY2" => "",

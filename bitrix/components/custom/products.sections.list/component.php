@@ -22,7 +22,11 @@ if ($this->StartResultCache(false)) {
 	$arIBlock = GetIBlock($arParams["IBLOCK_ID"], $arParams["IBLOCK_TYPE"]);
 	$arResult['IBLOCK'] = $arIBlock;
 
-	$additionalFilter = array('PROPERTY_BRAND' => false);
+	$additionalFilter = array();
+	if (!empty($arParams['BRAND'])) {
+		$additionalFilter['PROPERTY_BRAND'] = (
+			$arParams['BRAND'] !== '-' ? $arParams['BRAND'] : false);
+	}
 
 	// get list values by "FOR" property {{{1
 

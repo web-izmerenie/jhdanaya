@@ -39,7 +39,11 @@ $arResult['ROUTE_PATHNAME'] = $routePathname;
 
 $arResult['FOR'] = null;
 
-$additionalFilter = array('PROPERTY_BRAND' => false);
+$additionalFilter = array();
+if (!empty($arParams['BRAND'])) {
+	$additionalFilter['PROPERTY_BRAND'] = (
+		$arParams['BRAND'] !== '-' ? $arParams['BRAND'] : false);
+}
 
 $forList = $getForList(
 	$arParams['IBLOCK_TYPE'],

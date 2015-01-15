@@ -6,6 +6,7 @@
 	Array(
 		"IBLOCK_TYPE" => $arResult['IBLOCK_TYPE'],
 		"IBLOCK_ID" => $arResult['IBLOCK_ID'],
+		"BRAND" => $arParams['BRAND'],
 		"FOR" => $arResult['FOR'],
 		"SORT_BY1" => $arParams['SORT_SECTIONS_BY1'],
 		"SORT_ORDER1" => $arParams['SORT_SECTIONS_ORDER1'],

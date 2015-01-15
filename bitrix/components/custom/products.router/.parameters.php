@@ -64,6 +64,12 @@ $arComponentParameters = array(
 			"REFRESH" => "Y",
 		),
 
+		"BRAND" => array(
+			"PARENT" => "IBLOCK",
+			"NAME" => GetMessage("F_BRAND"),
+			"TYPE" => "TEXT",
+		),
+
 		/** sort */
 
 		"SORT_SECTIONS_BY1" => array(

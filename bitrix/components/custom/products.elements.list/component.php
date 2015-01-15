@@ -17,7 +17,21 @@ foreach ($requiredModules as $requiredModule) {
 CPageOption::SetOptionString("main", "nav_page_in_session", "N");
 
 require $_SERVER['DOCUMENT_ROOT'].'/inc/get_for_list.php';
-require $_SERVER['DOCUMENT_ROOT'].'/inc/get_products_sections.php';
+
+$noCacheCallback = function ($APPLICATION, $arResult) {
+	$meta = $arResult['IPROPERTY_VALUES'];
+
+	if (!is_array($meta)) return;
+
+	if (!empty($meta['SECTION_META_TITLE']))
+		$APPLICATION->SetPageProperty("title", $meta['SECTION_META_TITLE']);
+	if (!empty($meta['SECTION_META_DESCRIPTION']))
+		$APPLICATION->SetPageProperty("description", $meta['SECTION_META_DESCRIPTION']);
+	if (!empty($meta['SECTION_META_KEYWORDS']))
+		$APPLICATION->SetPageProperty("keywords", $meta['SECTION_META_KEYWORDS']);
+	if (!empty($meta['SECTION_PAGE_TITLE']))
+		$APPLICATION->SetTitle($meta['SECTION_PAGE_TITLE']);
+};
 
 // init pagination params {{{1
 
@@ -120,6 +134,11 @@ if ($this->StartResultCache(false)) {
 			ShowError(GetMessage('PAGE_NOT_FOUND'));
 			return;
 		}
+		$arSection = $resSection->GetNext();
+
+		$ipropValues = new \Bitrix\Iblock\InheritedProperty\SectionValues(
+			$arParams["IBLOCK_ID"], $arSection["ID"]);
+		$arResult["IPROPERTY_VALUES"] = $ipropValues->getValues();
 	}
 
 	$arResult['ITEMS'] = array();
@@ -253,12 +272,16 @@ if ($this->StartResultCache(false)) {
 		}
 	}
 
+	$noCacheCallback(&$APPLICATION, &$arResult);
 	$this->SetResultCacheKeys(array(
 		"ID",
 		"NAV_CACHED_DATA",
+		"IPROPERTY_VALUES",
 	));
 	$this->IncludeComponentTemplate();
 
+} else {
+	$noCacheCallback(&$APPLICATION, &$arResult);
 }
 
 $this->SetTemplateCachedData($arResult["NAV_CACHED_DATA"]);

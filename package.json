@@ -1,8 +1,8 @@
 {
   "dependencies": {
-    "front-end-gulp-pattern": "~0.0.1",
+    "front-end-gulp-pattern": "^1",
     "gulp.spritesmith": "^2",
-    "gulp-less": "^1",
+    "gulp-less": "^2",
     "gulp-browserify": "~0.5",
     "gulp-uglify": "^1",
     "gulp-jshint": "^1",

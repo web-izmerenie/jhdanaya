@@ -74,9 +74,7 @@
 	<?$APPLICATION->ShowMeta("keywords")?>
 
 	<!--[if lt IE 10]>
-		<meta http-equiv="refresh" content="0; url=/ie_old/<?=LANGUAGE_ID?>.html" />
-		<style>* { display: none !important; }</style>
-		<script>throw new Error('IE less than 10');</script>
+		<script>alert('<?=GetMessage('OLD_IE')?>');</script>
 	<![endif]-->
 
 	<link href="/favicon.ico?v=<?=$revision?>" rel="shortcut icon" type="image/x-icon" />

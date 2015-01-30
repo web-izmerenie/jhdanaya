@@ -9,7 +9,7 @@
 		"SECTION_CODE" => $arResult['SECTION_CODE'],
 		"FOR" => $arResult['FOR'],
 		"BRAND" => $arParams['BRAND'],
-		"ELEMENTS_ON_PAGE" => "6",
+		"ELEMENTS_ON_PAGE" => "12",
 		"SORT_BY1" => $arParams['SORT_ELEMENTS_BY1'],
 		"SORT_ORDER1" => $arParams['SORT_ELEMENTS_ORDER1'],
 		"SORT_BY2" => $arParams['SORT_ELEMENTS_BY2'],

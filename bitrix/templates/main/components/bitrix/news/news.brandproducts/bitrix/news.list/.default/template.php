@@ -21,6 +21,7 @@ global $arrFilter, $currentBrendID;
 				<?}?>
 				<?=$Item["PREVIEW_TEXT"]?>
 				<?if($Item['SHOP']):?>
+					<!--noindex-->
 					<p class="shop_info">
 						<?=$Item['SHOP']['NAME']?>
 						<?if($Item['SHOP']['PHONE']):?>
@@ -29,6 +30,7 @@ global $arrFilter, $currentBrendID;
 							<?=$Item['SHOP']['PHONE']?>
 						<?endif?>
 					</p>
+					<!--/noindex-->
 				<?endif?>
 			</div>
 			<?if($Item["DETAIL_PICTURE"]){?>

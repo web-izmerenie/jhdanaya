@@ -23,6 +23,7 @@
 					<?}?>
 					<?=$arItem["PREVIEW_TEXT"]?>
 					<?if($arItem['SHOP']):?>
+						<!--noindex-->
 						<p class="shop_info">
 							<?=$arItem['SHOP']['NAME']?>
 							<?if($arItem['SHOP']['PHONE']):?>
@@ -31,6 +32,7 @@
 								<?=$arItem['SHOP']['PHONE']?>
 							<?endif?>
 						</p>
+						<!--/noindex-->
 					<?endif?>
 				</div>
 				<?if($arItem["DETAIL_PICTURE"]){?>

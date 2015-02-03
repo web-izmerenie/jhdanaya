@@ -19,6 +19,12 @@ CPageOption::SetOptionString("main", "nav_page_in_session", "N");
 require $_SERVER['DOCUMENT_ROOT'].'/inc/get_for_list.php';
 
 $noCacheCallback = function ($APPLICATION, $arResult) {
+	// seo hack (see header.php in "main" template)
+	global $ALLOWED_PAGER_KEYS;
+	if (is_array($ALLOWED_PAGER_KEYS)) {
+		$ALLOWED_PAGER_KEYS[] = 'PAGEN_'.$arResult['NAV_NUM'];
+	}
+
 	$meta = $arResult['IPROPERTY_VALUES'];
 
 	if (!is_array($meta)) return;
@@ -223,6 +229,7 @@ if ($this->StartResultCache(false)) {
 		$arParams["PAGER_TEMPLATE"], $arParams["PAGER_SHOW_ALWAYS"]);
 	$arResult["NAV_CACHED_DATA"] = $navComponentObject->GetTemplateCachedData();
 	$arResult["NAV_RESULT"] = $res;
+	$arResult["NAV_NUM"] = $res->NavNum;
 
 	if ($arResult["NAV_RESULT"]->NavPageCount <= 1 && !$arParams["PAGER_SHOW_ALWAYS"]) {
 		$arParams["DISPLAY_TOP_PAGER"] = false;
@@ -277,6 +284,7 @@ if ($this->StartResultCache(false)) {
 		"ID",
 		"NAV_CACHED_DATA",
 		"IPROPERTY_VALUES",
+		"NAV_NUM"
 	));
 	$this->IncludeComponentTemplate();
 

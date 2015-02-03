@@ -51,6 +51,47 @@
 		}
 	}
 
+	$ALLOWED_PAGER_KEYS = array();
+
+	# hack for seo
+	$APPLICATION->AddBufferContent(function () {
+		if (strpos($_SERVER['REQUEST_URI'], '?') === false) return;
+		$qs = substr($_SERVER['REQUEST_URI'], strpos($_SERVER['REQUEST_URI'], '?')+1);
+
+		global $ALLOWED_PAGER_KEYS;
+
+		if (strpos($qs, 'PAGEN_') !== false) {
+			parse_str($qs, $qsarr);
+			foreach ($qsarr as $key=>$val) {
+				if (strpos($key, 'PAGEN_') === 0) {
+					if (!in_array($key, $ALLOWED_PAGER_KEYS)) {
+						header('Content-Type: text/plain; charset=utf-8');
+						CHTTP::SetStatus('400 Bad Request');
+						die('400 Bad Request');
+					}
+				}
+			}
+		}
+
+		if (
+			strpos($_SERVER['REQUEST_URI'], '/products/') === 0
+			or strpos($_SERVER['REQUEST_URI'], '/brand/') === 0
+		) {
+			if (
+				(
+					strpos($_SERVER['REQUEST_URI'], '/products/') === 0
+					and strpos($qs, 'show=') === 0
+				)
+				or strpos($qs, 'BRAND=') === 0
+				or strpos($qs, 'show_all_elements=') === 0
+			) {
+				header('Content-Type: text/plain; charset=utf-8');
+				CHTTP::SetStatus('400 Bad Request');
+				die('400 Bad Request');
+			}
+		}
+	});
+
 ?><!doctype html>
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="<?=LANGUAGE_ID
 	?>" lang="<?=LANGUAGE_ID

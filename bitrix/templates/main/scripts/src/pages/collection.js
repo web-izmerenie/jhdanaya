@@ -40,8 +40,6 @@ ready(function (window, document, undefined) {
 
 	var alert = window.alert;
 
-	$more.attr('href', "javascript:void('more');");
-
 	function brandDetailPageInit() {
 		var $block = $('.about_brand');
 		if ($block.size() <= 0) return;

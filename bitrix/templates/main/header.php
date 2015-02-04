@@ -1,7 +1,7 @@
 <?
 	IncludeTemplateLangFile(__FILE__);
 
-	$revision = 13;
+	$revision = 14;
 	$debug = false;
 
 	if($USER->IsAdmin()) $debug = true;
@@ -75,20 +75,11 @@
 
 		if (
 			strpos($_SERVER['REQUEST_URI'], '/products/') === 0
-			or strpos($_SERVER['REQUEST_URI'], '/brand/') === 0
+			and strpos($qs, 'show=') === 0
 		) {
-			if (
-				(
-					strpos($_SERVER['REQUEST_URI'], '/products/') === 0
-					and strpos($qs, 'show=') === 0
-				)
-				or strpos($qs, 'BRAND=') === 0
-				or strpos($qs, 'show_all_elements=') === 0
-			) {
-				header('Content-Type: text/plain; charset=utf-8');
-				CHTTP::SetStatus('400 Bad Request');
-				die('400 Bad Request');
-			}
+			header('Content-Type: text/plain; charset=utf-8');
+			CHTTP::SetStatus('400 Bad Request');
+			die('400 Bad Request');
 		}
 	});
 

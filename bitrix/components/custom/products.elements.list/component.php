@@ -22,7 +22,7 @@ $noCacheCallback = function ($APPLICATION, $arResult) {
 	// seo hack (see header.php in "main" template)
 	global $ALLOWED_PAGER_KEYS;
 	if (is_array($ALLOWED_PAGER_KEYS)) {
-		$ALLOWED_PAGER_KEYS[] = 'PAGEN_'.$arResult['NAV_NUM'];
+		$ALLOWED_PAGER_KEYS[] = $arResult['PAGINATION_VAR_NAME'];
 	}
 
 	$meta = $arResult['IPROPERTY_VALUES'];
@@ -39,37 +39,21 @@ $noCacheCallback = function ($APPLICATION, $arResult) {
 		$APPLICATION->SetTitle($meta['SECTION_PAGE_TITLE']);
 };
 
-// init pagination params {{{1
-
-$arParams["DISPLAY_TOP_PAGER"] = $arParams["DISPLAY_TOP_PAGER"]=="Y";
-$arParams["DISPLAY_BOTTOM_PAGER"] = $arParams["DISPLAY_BOTTOM_PAGER"]!="N";
-$arParams["PAGER_TITLE"] = trim($arParams["PAGER_TITLE"]);
-$arParams["PAGER_SHOW_ALWAYS"] = $arParams["PAGER_SHOW_ALWAYS"]=="Y";
-$arParams["PAGER_TEMPLATE"] = trim($arParams["PAGER_TEMPLATE"]);
-$arParams["PAGER_DESC_NUMBERING"] = $arParams["PAGER_DESC_NUMBERING"]=="Y";
-$arParams["PAGER_DESC_NUMBERING_CACHE_TIME"] = intval($arParams["PAGER_DESC_NUMBERING_CACHE_TIME"]);
-$arParams["PAGER_SHOW_ALL"] = $arParams["PAGER_SHOW_ALL"]=="Y";
-
-if($arParams["DISPLAY_TOP_PAGER"] || $arParams["DISPLAY_BOTTOM_PAGER"]) {
-	$arNavParams = array(
-		"nPageSize" => $arParams["ELEMENTS_ON_PAGE"],
-		"bDescPageNumbering" => $arParams["PAGER_DESC_NUMBERING"],
-		"bShowAll" => $arParams["PAGER_SHOW_ALL"],
-	);
-	$arNavigation = CDBResult::GetNavParams($arNavParams);
-	if($arNavigation["PAGEN"]==0 && $arParams["PAGER_DESC_NUMBERING_CACHE_TIME"]>0)
-		$arParams["CACHE_TIME"] = $arParams["PAGER_DESC_NUMBERING_CACHE_TIME"];
-} else {
-	$arNavParams = array(
-		"nTopCount" => $arParams["ELEMENTS_ON_PAGE"],
-		"bDescPageNumbering" => $arParams["PAGER_DESC_NUMBERING"],
-	);
-	$arNavigation = false;
-}
-
-// init pagination params }}}1
-
 if ($this->StartResultCache(false)) {
+
+	// pagination stuff
+	$arResult['PAGINATION_VAR_NAME'] = $arParams['PAGINATION_VAR_NAME'];
+	if (ctype_digit((string)$_GET[$arResult['PAGINATION_VAR_NAME']])) {
+		$arResult['PAGE_NUM'] = (int)$_GET[$arResult['PAGINATION_VAR_NAME']];
+	} else if (array_key_exists($arResult['PAGINATION_VAR_NAME'], $_GET)) {
+		ShowError(GetMessage('INCORRECT_PAGE_NUM'));
+		CHTTP::SetStatus('400 Bad Request');
+		$noCacheCallback(&$APPLICATION, &$arResult);
+		$this->AbortResultCache();
+		return;
+	} else {
+		$arResult['PAGE_NUM'] = 1;
+	}
 
 	$arIBlock = GetIBlock($arParams["IBLOCK_ID"], $arParams["IBLOCK_TYPE"]);
 	$arResult['IBLOCK'] = $arIBlock;
@@ -89,6 +73,7 @@ if ($this->StartResultCache(false)) {
 	if (!is_array($forList)) {
 		ShowError(GetMessage($forList));
 		CHTTP::SetStatus('500 Internal Server Error');
+		$noCacheCallback(&$APPLICATION, &$arResult);
 		$this->AbortResultCache();
 		return;
 	}
@@ -138,6 +123,8 @@ if ($this->StartResultCache(false)) {
 			define('ERROR_404', 'Y');
 			CHTTP::SetStatus("404 Not Found");
 			ShowError(GetMessage('PAGE_NOT_FOUND'));
+			$noCacheCallback(&$APPLICATION, &$arResult);
+			$this->AbortResultCache();
 			return;
 		}
 		$arSection = $resSection->GetNext();
@@ -157,8 +144,52 @@ if ($this->StartResultCache(false)) {
 			"IBLOCK_ID" => $arParams['IBLOCK_ID'],
 		), $elFilter),
 		false,
-		$arNavParams,
-		null);
+		array(
+			"nPageSize" => (int)$arParams['PAGINATION_COUNT'],
+			"iNumPage" => $arResult['PAGE_NUM'],
+		),
+		null
+	);
+
+	// other pagination stuff
+	$arResult['TOTAL_COUNT'] = $res->nSelectedCount;
+	$arResult['TOTAL_PAGES'] = ceil(
+		$arResult['TOTAL_COUNT'] / (int)$arParams['PAGINATION_COUNT']
+	);
+	if (
+		$arResult['PAGE_NUM'] <= 0 ||
+		$arResult['PAGE_NUM'] > $arResult['TOTAL_PAGES']
+	) {
+		define('ERROR_404', 'Y');
+		CHTTP::SetStatus("404 Not Found");
+		ShowError(GetMessage('PAGE_NOT_FOUND'));
+		$noCacheCallback(&$APPLICATION, &$arResult);
+		$this->AbortResultCache();
+		return;
+	}
+
+	$url = parse_url($_SERVER['REQUEST_URI']);
+	$arResult['PAGINATION_NAV'] = array();
+	for ($i=1; $i<=$arResult['TOTAL_PAGES']; $i++) {
+		$link = $url['path'];
+		if ($i === 1) {
+			unset($_GET[$arResult['PAGINATION_VAR_NAME']]);
+		} else {
+			$_GET[$arResult['PAGINATION_VAR_NAME']] = $i;
+		}
+		if (!empty($_GET)) {
+			$qs = array();
+			foreach ($_GET as $key=>$val) {
+				$qs[] = "{$key}={$val}";
+			}
+			$link .= '?'.implode('&', $qs);
+		}
+		$arResult['PAGINATION_NAV'][] = array(
+			'NUM' => $i,
+			'CURRENT' => ($arResult['PAGE_NUM'] === $i),
+			'LINK' => $link,
+		);
+	}
 
 	while ($elem = $res->GetNextElement()) {
 		$item = array();
@@ -180,6 +211,7 @@ if ($this->StartResultCache(false)) {
 			ShowError(GetMessage('SECTION_NOT_FOUND',
 				array("#ELEMENT_ID#" => $fields['ID'])));
 			CHTTP::SetStatus('500 Internal Server Error');
+			$noCacheCallback(&$APPLICATION, &$arResult);
 			$this->AbortResultCache();
 			return;
 		}
@@ -224,23 +256,11 @@ if ($this->StartResultCache(false)) {
 		$arResult['ITEMS'][] = $item;
 	}
 
-	$arResult["NAV_STRING"] = $res->GetPageNavStringEx(
-		$navComponentObject, $arParams["PAGER_TITLE"],
-		$arParams["PAGER_TEMPLATE"], $arParams["PAGER_SHOW_ALWAYS"]);
-	$arResult["NAV_CACHED_DATA"] = $navComponentObject->GetTemplateCachedData();
-	$arResult["NAV_RESULT"] = $res;
-	$arResult["NAV_NUM"] = $res->NavNum;
-
-	if ($arResult["NAV_RESULT"]->NavPageCount <= 1 && !$arParams["PAGER_SHOW_ALWAYS"]) {
-		$arParams["DISPLAY_TOP_PAGER"] = false;
-		$arParams["DISPLAY_BOTTOM_PAGER"] = false;
-	}
-
 	// seo data for first page
 	$arResult["DESCRIPTION_LEFT"] = null;
 	$arResult["DESCRIPTION_RIGHT"] = null;
 	if (
-		$arResult["NAV_RESULT"]->NavPageNomer == 1 &&
+		$arResult['PAGE_NUM'] === 1 &&
 		!empty($arParams['SECTION_CODE'])
 	) {
 		$sectionRes = CIBlockSection::GetList(
@@ -282,14 +302,12 @@ if ($this->StartResultCache(false)) {
 	$noCacheCallback(&$APPLICATION, &$arResult);
 	$this->SetResultCacheKeys(array(
 		"ID",
-		"NAV_CACHED_DATA",
 		"IPROPERTY_VALUES",
-		"NAV_NUM"
+		"PAGE",
+		"PAGINATION_VAR_NAME",
 	));
 	$this->IncludeComponentTemplate();
 
 } else {
 	$noCacheCallback(&$APPLICATION, &$arResult);
 }
-
-$this->SetTemplateCachedData($arResult["NAV_CACHED_DATA"]);

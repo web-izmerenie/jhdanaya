@@ -2,7 +2,17 @@
 
 <?if($arParams["DISPLAY_TOP_PAGER"]):?>
 	<div class="pagination top">
-		<?=$arResult["NAV_STRING"]?>
+		<ul class="pages_list">
+			<?foreach($arResult['PAGINATION_NAV'] as $arItem):?>
+				<li>
+					<?if($arItem['CURRENT']):?>
+						<b><?=$arItem['NUM']?></b>
+					<?else:?>
+						<a href="<?=$arItem['LINK']?>"><?=$arItem['NUM']?></a>
+					<?endif?>
+				</li>
+			<?endforeach?>
+		</ul>
 	</div>
 <?endif?>
 
@@ -46,7 +56,17 @@
 
 <?if($arParams["DISPLAY_BOTTOM_PAGER"]):?>
 	<div class="pagination bottom">
-		<?=$arResult["NAV_STRING"]?>
+		<ul class="pages_list">
+			<?foreach($arResult['PAGINATION_NAV'] as $arItem):?>
+				<li>
+					<?if($arItem['CURRENT']):?>
+						<b><?=$arItem['NUM']?></b>
+					<?else:?>
+						<a href="<?=$arItem['LINK']?>"><?=$arItem['NUM']?></a>
+					<?endif?>
+				</li>
+			<?endforeach?>
+		</ul>
 	</div>
 <?endif?>
 

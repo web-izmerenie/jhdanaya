@@ -4,3 +4,4 @@ $MESS['PROP_FOR_NOT_FOUND'] = 'Свойство "кому" не найдено.'
 $MESS["ART."] = "Арт.";
 $MESS['PAGE_NOT_FOUND'] = 'Страница не найдена.';
 $MESS['SECTION_NOT_FOUND'] = 'Не найден раздел для элемента ##ELEMENT_ID#.';
+$MESS['INCORRECT_PAGE_NUM'] = 'Некорректное значение номера страницы.';

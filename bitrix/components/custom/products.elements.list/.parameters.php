@@ -17,14 +17,14 @@ while ($arRes = $res->Fetch()) {
 }
 
 $arSorts = array(
-		"ASC" => GetMessage("SORT_ASC"),
-		"DESC" => GetMessage("SORT_DESC")
-	);
+	"ASC" => GetMessage("SORT_ASC"),
+	"DESC" => GetMessage("SORT_DESC")
+);
 $arSortFields = array(
-		"ID" => GetMessage("SORT_F_ID"),
-		"NAME" => GetMessage("SORT_F_NAME"),
-		"SORT" => GetMessage("SORT_F_SORT"),
-	);
+	"ID" => GetMessage("SORT_F_ID"),
+	"NAME" => GetMessage("SORT_F_NAME"),
+	"SORT" => GetMessage("SORT_F_SORT"),
+);
 
 $arComponentParameters = array(
 	"GROUPS" => array(
@@ -35,6 +35,10 @@ $arComponentParameters = array(
 		"SORT" => array(
 			"SORT" => 200,
 			"NAME" => GetMessage("G_SORT"),
+		),
+		"PAGINATION" => array(
+			"SORT" => 300,
+			"NAME" => GetMessage("G_PAGINATION"),
 		),
 	),
 	"PARAMETERS" => array(
@@ -70,12 +74,6 @@ $arComponentParameters = array(
 			"PARENT" => "IBLOCK",
 			"NAME" => GetMessage("F_BRAND"),
 			"TYPE" => "TEXT",
-		),
-
-		"ELEMENTS_ON_PAGE" => array(
-			"PARENT" => "IBLOCK",
-			"NAME" => GetMessage("F_ELEMENTS_ON_PAGE"),
-			"TYPE" => "NUMBER",
 		),
 
 		/** sort */
@@ -123,7 +121,20 @@ $arComponentParameters = array(
 			"DEFAULT" => "N",
 		),
 
+		/** pagination */
+
+		"PAGINATION_VAR_NAME" => array(
+			"PARENT" => "PAGINATION",
+			"TYPE" => "TEXT",
+			"NAME" => GetMessage("F_PAGINATION_VAR_NAME"),
+			"DEFAULT" => "PAGEN_1",
+		),
+		"PAGINATION_COUNT" => array(
+			"PARENT" => "PAGINATION",
+			"TYPE" => "NUMBER",
+			"NAME" => GetMessage("F_PAGINATION_COUNT"),
+			"DEFAULT" => 12,
+		),
+
 	),
 );
-
-CIBlockParameters::AddPagerSettings($arComponentParameters, null, true, true);

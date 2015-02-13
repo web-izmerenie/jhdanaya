@@ -45,5 +45,6 @@
 		<noscript><div><img src="//mc.yandex.ru/watch/26647785" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
 		<!-- /Yandex.Metrika counter -->
 	<?endif?>
+	<?require($_SERVER["DOCUMENT_ROOT"]."/seo.php");?>
 </body>
 </html>
